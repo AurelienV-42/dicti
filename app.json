@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "dicti",
+    "slug": "dicti",
+    "scheme": "dicti",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F4E9D7"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "buildNumber": "1",
+      "bundleIdentifier": "com.dicti",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo/adaptiveIcon/foreground.png",
+        "backgroundColor": "#F4E9D7"
+      },
+      "package": "com.dicti",
+      "versionCode": 1
+    },
+    "plugins": ["expo-font"],
+    "extra": {
+      "eas": {
+        "projectId": "4d267a78-bac2-4dce-b589-5ab2f3046d09"
+      }
+    },
+    "owner": "aurelienv"
+  }
+}

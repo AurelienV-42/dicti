@@ -1,1 +1,1 @@
-# dicti
+# Emotional app
