@@ -1,27 +1,51 @@
+import DisplayCorrection from "@src/components/DisplayCorrection";
+import MyTextInput from "@src/components/inputs/MyTextInput";
 import MyButton from "@src/components/natives/MyButton";
-import MyText from "@src/components/natives/MyText";
+import SoundPlayer from "@src/components/soundPlayer/SoundPlayer";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
+import { useDictation } from "@src/context/DictationContext";
 import React from "react";
+import { View } from "react-native";
 
-const FirstTest = ({ navigation }: { navigation: any }) => {
+const FirstTest = () => {
+  const { state, dictationText, setDictationText, verify, restartDictation } =
+    useDictation();
+
   return (
     <ScreenTemplate>
       <HeaderTemplate canGoBack />
-      <MyText style={"w-4/5 text-center text-h2 text-semiBold"}>
-        Afficher un player de son
-      </MyText>
-      <MyText style={"w-4/5 text-center text-h2 text-semiBold"}>
-        Text Input pour écrirer
-      </MyText>
-      <MyButton
-        txt={"Valider"}
-        onPress={() =>
-          navigation.navigate("Result", {
-            nbError: 18,
-          })
-        }
-      />
+      <View className="flex-1 justify-center">
+        <SoundPlayer />
+      </View>
+      <View className="flex-[2] justify-center w-full">
+        {state === "working" ? (
+          <MyTextInput
+            value={dictationText}
+            onChangeText={setDictationText}
+            placeholder={"Entrez votre réponse"}
+            onSubmitEditing={verify}
+          />
+        ) : (
+          <DisplayCorrection />
+        )}
+      </View>
+
+      <View className="w-full">
+        {__DEV__ && state !== "working" && (
+          <MyButton
+            className="mb-2"
+            type="secondary"
+            txt={"Recommencer la dictée"}
+            onPress={restartDictation}
+          />
+        )}
+        <MyButton
+          disabled={dictationText === "" || dictationText.length < 20}
+          txt={state === "working" ? "Valider" : "Suivant"}
+          onPress={verify}
+        />
+      </View>
     </ScreenTemplate>
   );
 };
