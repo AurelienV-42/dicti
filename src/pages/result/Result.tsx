@@ -11,16 +11,15 @@ interface ResultProps {
 }
 
 const Result = ({ navigation, route }: ResultProps) => {
-  const { nbError } = route.params;
+  const { note } = route.params;
 
   return (
     <ScreenTemplate>
       <HeaderTemplate canGoBack />
       <View className="w-full">
-        <MyText style={"text-h2 w-full"}>Tu as fait</MyText>
         <MyText style={"text-h2 w-full mb-4"}>
-          <MyText style={"text-h1 text-orange"}>{nbError} fautes </MyText>
-          {`dans ta dictée`}
+          Tu as <MyText style={"text-h1 text-orange"}>{note} </MyText>
+          {`/ 20 à ta dictée`}
         </MyText>
         <MyText style={"text-h2 w-full"}>On améliore ça ?</MyText>
       </View>

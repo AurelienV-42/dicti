@@ -31,7 +31,8 @@ const DisplayCorrection = () => {
                 onPress={() => {
                   setIndexModalVisible(index);
                 }}
-                disabled={!isError}
+                disabled
+                // disabled={!isError}
               >
                 <MyText style={`text-dark`}>{correctedWord.text}</MyText>
               </MyPressable>

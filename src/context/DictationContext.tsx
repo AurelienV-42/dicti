@@ -26,17 +26,21 @@ const DictationProvider = ({ children }: { children: ReactNode }) => {
   const [dictationText, setDictationText] = useState("");
   const [correctedText, setCorrectedText] = useState<CorrectedText[]>([]);
   const [state, setState] = useState<"working" | "finished">("working");
-  const [nbError, setNbError] = useState(0);
 
   const verify = () => {
     if (state === "working") {
       const result = checkErrors(dictationText, correction);
-      setNbError(result.filter((r) => r.errors).length);
       setCorrectedText(result);
       setState("finished");
     } else {
+      const nbError = correctedText.filter((r) => r.errors).length;
+      const resultOn20 = (
+        (20 * (correctedText.length - nbError)) /
+        correctedText.length
+      ).toFixed();
+      console.log(nbError, correctedText.length, resultOn20);
       navigation.navigate("Result", {
-        nbError,
+        note: resultOn20,
       });
     }
   };

@@ -23,7 +23,7 @@ const FirstTest = () => {
           <MyTextInput
             value={dictationText}
             onChangeText={setDictationText}
-            placeholder={"Entrez votre réponse"}
+            placeholder={"Entre ta réponse"}
             onSubmitEditing={verify}
           />
         ) : (

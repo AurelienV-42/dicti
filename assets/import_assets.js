@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const directories = ["fonts", "logo"];
+const directories = ["fonts", "logo", "dictations"];
 
 const imageFileNames = (dir) => {
   const array = [];
@@ -9,14 +9,14 @@ const imageFileNames = (dir) => {
       file.endsWith(".ttf") ||
       file.endsWith(".pdf") ||
       file.endsWith(".svg") ||
-      file.endsWith(".mp4") ||
+      file.endsWith(".mp3") ||
       file.endsWith(".png")
     ) {
       file = file
         .replace(".ttf", "")
         .replace(".pdf", "")
         .replace(".svg", "")
-        .replace(".mp4", "")
+        .replace(".mp3", "")
         .replace(".png", "");
       array.push(file);
     }
@@ -34,8 +34,8 @@ const generate = () => {
           ? ".svg"
           : fs.existsSync(`./${directory}/${name}.png`)
             ? ".png"
-            : fs.existsSync(`./${directory}/${name}.mp4`)
-              ? ".mp4"
+            : fs.existsSync(`./${directory}/${name}.mp3`)
+              ? ".mp3"
               : ".ttf";
         return `${name}: require('./${directory}/${name}${extension}')`;
       })
