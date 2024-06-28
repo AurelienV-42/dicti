@@ -1,32 +1,32 @@
 import MyText from "@src/components/natives/MyText";
 import React from "react";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
+import MyPressable from "./MyPressable";
 
 interface MyButtonProps {
-  style?: string;
   onPress?: () => void;
   txt?: string;
   txtStyle?: string;
   secondary?: boolean;
   disabled?: boolean;
-  fullWidth?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isLoading?: boolean;
   type?: "default" | "secondary";
+  style?: object;
+  className?: string;
 }
 
 const MyButton = ({
-  style,
   onPress,
   txt = "",
   txtStyle,
   type = "default",
   disabled = false,
-  fullWidth = false,
   leftIcon,
   rightIcon,
   isLoading = false,
+  style,
 }: MyButtonProps): React.ReactElement => {
   const template: Record<
     string,
@@ -47,11 +47,12 @@ const MyButton = ({
   };
 
   return (
-    <TouchableOpacity
-      className={`flex-row py-3 items-center justify-center px-5 rounded-full self-start 
-      ${template[type].container} ${fullWidth && "w-full"}  ${
+    <MyPressable
+      className={`flex-row py-4 items-center justify-center px-5 rounded-2xl self-start w-full
+      ${template[type].container}  ${
         rightIcon && !isLoading && "justify-between"
-      } ${disabled && "opacity-50"} ${style}`}
+      } ${disabled && "opacity-50"}`}
+      style={style}
       onPress={onPress}
       disabled={disabled || isLoading}
     >
@@ -68,7 +69,7 @@ const MyButton = ({
         </View>
       )}
       {rightIcon && !isLoading && rightIcon}
-    </TouchableOpacity>
+    </MyPressable>
   );
 };
 

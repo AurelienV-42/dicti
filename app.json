@@ -24,7 +24,7 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo/adaptiveIcon/foreground.png",
+        "foregroundImage": "./assets/logo/adaptiveIcon.png",
         "backgroundColor": "#F4E9D7"
       },
       "package": "com.dicti",

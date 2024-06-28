@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { View } from "react-native";
-import BackButton from "../BackButton";
-import MyText from "../texts/MyText";
+import BackButton from "../buttons/BackButton";
+import MyText from "../natives/MyText";
 
 interface HeaderTemplateProps {
   tight?: boolean;
@@ -28,12 +28,12 @@ const HeaderTemplate = ({
     <>
       {titleComponent && titleComponent}
       {!titleComponent && title && (
-        <MyText className={"text-2xl flex-1"} weight="semiBold">
+        <MyText style={"text-2xl flex-1"} weight="semiBold">
           {title}
         </MyText>
       )}
       {!titleComponent && logo && (
-        <MyText className={"text-[38px] flex-1"} weight="semiBold">
+        <MyText style={"text-1xl flex-1"} weight="semiBold">
           Dicti
         </MyText>
       )}
