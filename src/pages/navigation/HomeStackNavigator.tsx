@@ -5,6 +5,7 @@ import Introduction from "@src/pages/introduction/Introduction";
 import FirstTest from "@src/pages/introduction/firstTest/FirstTest";
 import Result from "@src/pages/result/Result";
 import React from "react";
+import Dictation from "../dictation/Dictation";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen name="Introduction" component={Introduction} />
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="FirstTest" component={FirstTest} />
+      <HomeStack.Screen name="Dictation" component={Dictation} />
       <HomeStack.Screen name="Result" component={Result} />
     </HomeStack.Navigator>
   );

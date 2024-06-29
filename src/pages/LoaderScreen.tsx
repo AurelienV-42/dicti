@@ -1,6 +1,7 @@
 import assets from "@assets/index";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ID_FIRST_TEST } from "@config/dictations";
 import MyImage from "@src/components/natives/MyImage";
+import { getAsyncStorage } from "@src/utils/asyncStorage";
 import resetTo from "@src/utils/resetTo";
 import React, { useEffect } from "react";
 import { View } from "react-native";
@@ -11,9 +12,9 @@ interface LoaderScreenProps {
 
 const LoaderScreen = ({ navigation }: LoaderScreenProps) => {
   useEffect(() => {
-    AsyncStorage.getItem("hasDoneFirstTest").then((value) =>
-      resetTo(navigation, value === "true" ? "Home" : "Introduction"),
-    );
+    getAsyncStorage(ID_FIRST_TEST).then((value) => {
+      resetTo(navigation, value ? "Home" : "Introduction");
+    });
   }, [navigation]);
 
   return (

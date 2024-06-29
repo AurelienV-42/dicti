@@ -14,8 +14,6 @@ const fontSizes = {
 interface MyTextProps {
   children: ReactNode;
   style?: string;
-  weight?: weightType;
-  size?: fontSizeType;
 }
 
 const fontFamilies = {

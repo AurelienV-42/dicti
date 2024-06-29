@@ -1,11 +1,10 @@
-import assets from "@assets/index";
 import useAudio from "@src/hooks/useAudio";
 import { View } from "react-native";
 import MyText from "../natives/MyText";
 import PlayPause from "./PlayPauseButton";
 
-const SoundPlayer = () => {
-  const { isPlaying, play, pause, time } = useAudio(assets.lievre);
+const SoundPlayer = ({ mp3File }: { mp3File: any }) => {
+  const { isPlaying, play, pause, time } = useAudio(mp3File);
 
   return (
     <View className="items-center">

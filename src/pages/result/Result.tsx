@@ -1,8 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import MyButton from "@src/components/natives/MyButton";
 import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
+import { hapticImpact } from "@src/utils/haptics";
 import resetTo from "@src/utils/resetTo";
 import React from "react";
 import { View } from "react-native";
@@ -15,6 +15,11 @@ interface ResultProps {
 const Result = ({ navigation, route }: ResultProps) => {
   const { note } = route.params;
 
+  const onPress = async () => {
+    hapticImpact("heavy");
+    resetTo(navigation, "Home");
+  };
+
   return (
     <ScreenTemplate>
       <HeaderTemplate canGoBack />
@@ -25,14 +30,7 @@ const Result = ({ navigation, route }: ResultProps) => {
         </MyText>
         <MyText style={"text-h2 w-full"}>On améliore ça ?</MyText>
       </View>
-      <MyButton
-        txt={"S'améliorer"}
-        className="w-full"
-        onPress={() => {
-          AsyncStorage.setItem("hasDoneFirstTest", "true");
-          resetTo(navigation, "Home");
-        }}
-      />
+      <MyButton txt={"S'améliorer"} className="w-full" onPress={onPress} />
     </ScreenTemplate>
   );
 };

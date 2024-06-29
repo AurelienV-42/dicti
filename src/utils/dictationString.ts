@@ -9,7 +9,7 @@ const getErrors = (
   ];
 };
 
-export type CorrectedText = {
+export type CorrectionItem = {
   text: string;
   errors?: string[];
 };
@@ -27,23 +27,23 @@ const splitButKeepPunctuation = (text: string) => {
     .filter((word) => word !== "" && word !== " ");
 };
 
-const checkErrors = (userTxt: string, correctTxt: string): CorrectedText[] => {
+const checkErrors = (userTxt: string, correctTxt: string): CorrectionItem[] => {
   const userWords = splitButKeepPunctuation(userTxt);
   const correctWords = splitButKeepPunctuation(correctTxt);
 
-  const correctedTexts: CorrectedText[] = [];
+  const corrections: CorrectionItem[] = [];
   correctWords.forEach((correctWord, index) => {
-    const result: CorrectedText = {
+    const result: CorrectionItem = {
       text: correctWord,
     };
 
     if (index > userWords.length - 1) result.errors = ["Ce mot est manquant"];
     else if (!checkIfSameWord(correctWord, userWords[index]))
       result.errors = getErrors(userWords[index], correctWord, correctTxt);
-    correctedTexts.push(result);
+    corrections.push(result);
   });
 
-  return correctedTexts;
+  return corrections;
 };
 
 export default checkErrors;

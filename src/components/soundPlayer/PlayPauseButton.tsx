@@ -1,4 +1,5 @@
 import { dark } from "@config/colors";
+import { hapticImpact } from "@src/utils/haptics";
 import { Pause, Play } from "phosphor-react-native";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
@@ -66,6 +67,7 @@ const PlayPause = ({ isPlaying, play, pause }: PlayPauseProps) => {
   const [disable, setDisable] = useState(false);
 
   const onPress = () => {
+    hapticImpact("light");
     if (isPlaying) pause();
     else play();
   };

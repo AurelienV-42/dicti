@@ -1,3 +1,4 @@
+import { ID_FIRST_TEST } from "@config/dictations";
 import MyButton from "@src/components/natives/MyButton";
 import MyText from "@src/components/natives/MyText";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
@@ -18,7 +19,9 @@ const Introduction = ({ navigation }: { navigation: any }) => {
       <MyButton
         className={"self-end"}
         txt={"C'est parti !"}
-        onPress={() => navigation.navigate("FirstTest")}
+        onPress={() =>
+          navigation.navigate("FirstTest", { dictationId: ID_FIRST_TEST })
+        }
       />
     </ScreenTemplate>
   );

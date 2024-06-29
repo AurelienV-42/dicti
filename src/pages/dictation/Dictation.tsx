@@ -1,10 +1,9 @@
-import { ID_FIRST_TEST } from "@config/dictations";
 import MyText from "@src/components/natives/MyText";
 import DictationTemplate from "@src/components/templates/DictationTemplate";
 import useDatabaseDictation from "@src/hooks/dictation/useDatabaseDictation";
 import React from "react";
 
-const FirstTest = ({ route }: { route: any }) => {
+const Dictation = ({ route }: { route: any }) => {
   const { dictationId } = route.params;
   const { dictation, mp3File } = useDatabaseDictation(dictationId);
 
@@ -13,7 +12,7 @@ const FirstTest = ({ route }: { route: any }) => {
 
   return (
     <DictationTemplate
-      dictationId={ID_FIRST_TEST}
+      dictationId={dictationId}
       title={dictation.title}
       content={dictation.content}
       mp3File={mp3File}
@@ -21,4 +20,4 @@ const FirstTest = ({ route }: { route: any }) => {
   );
 };
 
-export default FirstTest;
+export default Dictation;

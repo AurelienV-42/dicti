@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#F4E9D7"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "buildNumber": "1",
@@ -30,12 +32,20 @@
       "package": "com.dicti",
       "versionCode": 1
     },
-    "plugins": ["expo-font"],
+    "plugins": [
+      "expo-font"
+    ],
     "extra": {
       "eas": {
         "projectId": "4d267a78-bac2-4dce-b589-5ab2f3046d09"
       }
     },
-    "owner": "aurelienv"
+    "owner": "aurelienv",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/4d267a78-bac2-4dce-b589-5ab2f3046d09"
+    }
   }
 }

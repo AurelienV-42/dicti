@@ -1,6 +1,5 @@
 import fonts from "@config/fonts";
 import { NavigationContainer } from "@react-navigation/native";
-import DictationProvider from "@src/context/DictationContext";
 import HomeStackNavigator from "@src/pages/navigation/HomeStackNavigator";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -29,9 +28,7 @@ const App = () => {
         }}
       >
         <NavigationContainer onReady={onLayoutRootView}>
-          <DictationProvider>
-            <HomeStackNavigator />
-          </DictationProvider>
+          <HomeStackNavigator />
         </NavigationContainer>
       </IconContext.Provider>
     </>

@@ -17,7 +17,6 @@ interface HeaderTemplateProps {
 const HeaderTemplate = ({
   className,
   tight = false,
-  logo = false,
   title,
   titleComponent,
   canGoBack = false,
@@ -27,16 +26,7 @@ const HeaderTemplate = ({
   const Title = () => (
     <>
       {titleComponent && titleComponent}
-      {!titleComponent && title && (
-        <MyText style={"text-2xl flex-1"} weight="semiBold">
-          {title}
-        </MyText>
-      )}
-      {!titleComponent && logo && (
-        <MyText style={"text-1xl flex-1"} weight="semiBold">
-          Dicti
-        </MyText>
-      )}
+      {!titleComponent && title && <MyText style={""}>{title}</MyText>}
     </>
   );
 
@@ -48,10 +38,10 @@ const HeaderTemplate = ({
         className={`${canGoBack && "-ml-2"} flex-row items-center justify-between`}
       >
         {canGoBack && <BackButton />}
-        <Title />
       </View>
+      <Title />
       {children}
-      {rightComponent && rightComponent}
+      {rightComponent ? rightComponent : <View className="w-7" />}
     </View>
   );
 };

@@ -1,23 +1,30 @@
-import { useDictation } from "@src/context/DictationContext";
+import { CorrectionItem } from "@src/utils/dictationString";
 import { useState } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import ModalToDisplayErrors from "./modals/ModalToDisplayErrors";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
 
-const DisplayCorrection = () => {
-  const { correctedText } = useDictation();
+const DisplayCorrection = ({
+  correction,
+}: {
+  correction: CorrectionItem[];
+}) => {
   const [indexModalVisible, setIndexModalVisible] = useState(-1);
 
   return (
-    <View className="bg-light-100 px-4 pt-4 pb-2 w-full rounded-lg shadow-md">
-      <MyText style="text-base text-blue">
-        {correctedText.map((correctedWord, index: number) => {
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 20 }}
+      className="pt-4 px-4 rounded-lg shadow-lg bg-light-100 mb-4"
+    >
+      <MyText>
+        {correction.map((correctedWord, index: number) => {
           const isError =
             !!correctedWord.errors && correctedWord.errors.length > 0;
 
           return (
-            <View key={index}>
+            <View className="self-start" key={index}>
               {indexModalVisible === index &&
                 !!correctedWord.errors &&
                 correctedWord.errors.length > 0 && (
@@ -27,7 +34,7 @@ const DisplayCorrection = () => {
                   />
                 )}
               <MyPressable
-                className={`z-0 px-2 py-1 bg-green rounded-full mr-2 mb-2 ${isError && "bg-red"}`}
+                className={`z-0 rounded-full mr-1 mb-2 ${isError && "px-2 py-0.5 bg-red"}`}
                 onPress={() => {
                   setIndexModalVisible(index);
                 }}
@@ -40,7 +47,7 @@ const DisplayCorrection = () => {
           );
         })}
       </MyText>
-    </View>
+    </ScrollView>
   );
 };
 
