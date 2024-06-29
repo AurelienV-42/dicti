@@ -3,8 +3,14 @@ import { View } from "react-native";
 import MyText from "../natives/MyText";
 import PlayPause from "./PlayPauseButton";
 
-const SoundPlayer = ({ mp3File }: { mp3File: any }) => {
-  const { isPlaying, play, pause, time } = useAudio(mp3File);
+const SoundPlayer = ({
+  mp3File,
+  shouldStop,
+}: {
+  mp3File: any;
+  shouldStop: boolean;
+}) => {
+  const { isPlaying, play, pause, time } = useAudio(mp3File, shouldStop);
 
   return (
     <View className="items-center">

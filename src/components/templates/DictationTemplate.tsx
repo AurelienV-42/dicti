@@ -6,9 +6,9 @@ import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import useTextDictation from "@src/hooks/dictation/useTextDictation";
 import { hapticImpact } from "@src/utils/haptics";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import MyText from "../natives/MyText";
+import TextToSpeech from "../soundPlayer/TextToSpeech";
 
 interface DictationTemplateProps {
   dictationId: string;
@@ -25,23 +25,26 @@ const DictationTemplate = ({
 }: DictationTemplateProps) => {
   const { state, userText, correction, setUserText, verify, restartDictation } =
     useTextDictation(dictationId, content);
+  const [shouldStop, setShouldStop] = useState(false);
 
   const onPress = () => {
     hapticImpact("heavy");
     verify();
+    setShouldStop(true);
   };
+
+  useEffect(() => {
+    if (state === "working") setShouldStop(false);
+  }, [state]);
 
   return (
     <ScreenTemplate>
       <HeaderTemplate canGoBack title={title} />
       <View className="flex-1 justify-center">
         {mp3File ? (
-          <SoundPlayer mp3File={mp3File} />
+          <SoundPlayer mp3File={mp3File} shouldStop={shouldStop} />
         ) : (
-          <MyText style=" text-blue">
-            Une erreur s'est produite, on ne retrouve pas l'audio de cette
-            dictée 🔎
-          </MyText>
+          <TextToSpeech content={content} shouldStop={shouldStop} />
         )}
       </View>
 

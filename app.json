@@ -3,7 +3,7 @@
     "name": "dicti",
     "slug": "dicti",
     "scheme": "dicti",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/logo/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,6 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1",
       "bundleIdentifier": "com.dicti",
       "config": {
         "usesNonExemptEncryption": false
@@ -30,7 +29,7 @@
         "backgroundColor": "#F4E9D7"
       },
       "package": "com.dicti",
-      "versionCode": 1
+      "versionCode": 4
     },
     "plugins": [
       "expo-font"

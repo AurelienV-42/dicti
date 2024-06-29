@@ -37,7 +37,7 @@ const generate = () => {
             : fs.existsSync(`./${directory}/${name}.mp3`)
               ? ".mp3"
               : ".ttf";
-        return `${name}: require('./${directory}/${name}${extension}')`;
+        return `"${name}": require("./${directory}/${name}${extension}")`;
       })
       .join(",\n  ");
     properties += ",\n\n  ";
