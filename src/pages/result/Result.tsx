@@ -17,18 +17,18 @@ const Result = ({ navigation, route }: ResultProps) => {
 
   const onPress = async () => {
     hapticImpact("heavy");
-    resetTo(navigation, "Home");
+    resetTo(navigation, "Loader");
   };
 
   return (
     <ScreenTemplate>
       <HeaderTemplate canGoBack />
       <View className="w-full">
-        <MyText style={"text-h2 w-full mb-4"}>
-          Tu as <MyText style={"text-h1 text-orange"}>{note} </MyText>
+        <MyText style={"text-2xl w-full mb-4"}>
+          Tu as <MyText style={"text-2xl text-orange"}>{note} </MyText>
           {`/ 20 à ta dictée.`}
         </MyText>
-        <MyText style={"text-h2 w-full"}>On améliore ça ?</MyText>
+        <MyText style={"text-2xl w-full"}>On améliore ça ?</MyText>
       </View>
       <MyButton txt={"S'améliorer"} className="w-full" onPress={onPress} />
     </ScreenTemplate>

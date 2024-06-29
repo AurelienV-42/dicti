@@ -25,9 +25,9 @@ module.exports = function (api) {
           allowUndefined: true,
         },
       ],
-      "react-native-reanimated/plugin",
       "@babel/plugin-proposal-export-namespace-from",
       "nativewind/babel",
+      "react-native-reanimated/plugin", // Should be placed last
     ],
   };
 };

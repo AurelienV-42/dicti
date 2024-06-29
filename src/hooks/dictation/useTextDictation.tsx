@@ -3,7 +3,7 @@ import { setAsyncStorage } from "@src/utils/asyncStorage";
 import checkErrors, { CorrectionItem } from "@src/utils/dictationString";
 import { useState } from "react";
 
-const useTextDictation = (dictationId: string, dictationText: string) => {
+const useTextDictation = (dictationID: string, dictationText: string) => {
   const navigation = useNavigation();
   const [userText, setUserText] = useState("");
   const [correction, setCorrectionItem] = useState<CorrectionItem[]>([]);
@@ -20,7 +20,7 @@ const useTextDictation = (dictationId: string, dictationText: string) => {
         (20 * (correction.length - nbError)) /
         correction.length
       ).toFixed();
-      setAsyncStorage(dictationId, resultOn20);
+      setAsyncStorage(dictationID, resultOn20);
 
       navigation.navigate("Result", {
         note: resultOn20,

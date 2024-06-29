@@ -5,8 +5,10 @@ import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import { getAsyncStorage } from "@src/utils/asyncStorage";
+import useAnalytics from "@src/hooks/useAnalytics";
+import { getAsyncStorage, setAsyncStorage } from "@src/utils/asyncStorage";
 import { hapticImpact } from "@src/utils/haptics";
+import resetTo from "@src/utils/resetTo";
 import React, { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 
@@ -81,7 +83,7 @@ const DisplayDictation = ({
       }
       onPress={() => {
         hapticImpact("medium");
-        navigation.navigate("Dictation", { dictationId: item.id });
+        navigation.navigate("Dictation", { dictationID: item.id });
       }}
     >
       {note !== -1 && <Note note={note} />}
@@ -99,10 +101,24 @@ const DisplayDictation = ({
 
 const DisplayDictations = () => {
   const navigation = useNavigation();
+  const { capture } = useAnalytics();
 
   return (
     <View>
-      <MyText style={"text-h1 mb-4"}>Dictées</MyText>
+      <View className="flex-row items-center justify-between">
+        <MyText style={"text-3xl mb-4"}>Dictées</MyText>
+        {__DEV__ && (
+          <MyPressable
+            onPress={() => {
+              setAsyncStorage("unsubscribedDate", new Date().toISOString());
+              resetTo(navigation, "Loader");
+              capture("Test PostHog", { property: "Reset" });
+            }}
+          >
+            <MyText style={""}>Reset subscription</MyText>
+          </MyPressable>
+        )}
+      </View>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={dictations.sort((a, b) => a.level - b.level)}

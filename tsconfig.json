@@ -10,6 +10,6 @@
       "@assets/*": ["assets/*"],
     }
   },
-  "include": ["config/**/*", "src/**/*", "assets/**/*", "./*", "src/App.tsx"],
+  "include": ["config/**/*", "src/**/*", "assets/**/*", "./*", "App.tsx"],
   "exclude": ["node_modules", "**/node_modules/*",]
 }

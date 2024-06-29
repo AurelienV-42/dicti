@@ -10,9 +10,9 @@ const Introduction = ({ navigation }: { navigation: any }) => {
     <ScreenTemplate padding={true}>
       <View />
       <View className="items-center">
-        <MyText style={"text-h1 text-bold mb-2"}>Bienvenue !</MyText>
+        <MyText style={"text-3xl text-bold mb-2"}>Bienvenue !</MyText>
 
-        <MyText style={"text-h2"}>
+        <MyText style={"text-2xl"}>
           Premièrement, on va tester ton niveau, on y va ?
         </MyText>
       </View>
@@ -20,7 +20,7 @@ const Introduction = ({ navigation }: { navigation: any }) => {
         className={"self-end"}
         txt={"C'est parti !"}
         onPress={() =>
-          navigation.navigate("FirstTest", { dictationId: ID_FIRST_TEST })
+          navigation.navigate("FirstTest", { dictationID: ID_FIRST_TEST })
         }
       />
     </ScreenTemplate>

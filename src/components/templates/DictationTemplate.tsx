@@ -11,20 +11,20 @@ import { View } from "react-native";
 import TextToSpeech from "../soundPlayer/TextToSpeech";
 
 interface DictationTemplateProps {
-  dictationId: string;
+  dictationID: string;
   title: string;
   content: string;
   mp3File: any;
 }
 
 const DictationTemplate = ({
-  dictationId,
+  dictationID,
   title,
   content,
   mp3File,
 }: DictationTemplateProps) => {
   const { state, userText, correction, setUserText, verify, restartDictation } =
-    useTextDictation(dictationId, content);
+    useTextDictation(dictationID, content);
   const [shouldStop, setShouldStop] = useState(false);
 
   const onPress = () => {

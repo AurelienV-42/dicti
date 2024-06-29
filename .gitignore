@@ -36,5 +36,3 @@ yarn-error.*
 
 /.idea
 .env
-
-google-services.json

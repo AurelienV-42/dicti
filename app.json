@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#F4E9D7"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dicti",
@@ -29,10 +27,19 @@
         "backgroundColor": "#F4E9D7"
       },
       "package": "com.dicti",
-      "versionCode": 4
+      "versionCode": 7
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-localization",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "dicti",
+          "organization": "aurelien-vandaele"
+        }
+      ]
     ],
     "extra": {
       "eas": {

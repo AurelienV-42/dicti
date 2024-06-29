@@ -1,6 +1,9 @@
 import fonts from "@config/fonts";
 import { NavigationContainer } from "@react-navigation/native";
+import * as Sentry from "@sentry/react-native";
+import MyPostHogProvider from "@src/context/MyPostHogProvider";
 import HomeStackNavigator from "@src/pages/navigation/HomeStackNavigator";
+import "@src/utils/sentry";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { IconContext } from "phosphor-react-native";
@@ -24,15 +27,17 @@ const App = () => {
         value={{
           color: "black",
           size: 24,
-          weight: "bold",
+          weight: "regular",
         }}
       >
         <NavigationContainer onReady={onLayoutRootView}>
-          <HomeStackNavigator />
+          <MyPostHogProvider>
+            <HomeStackNavigator />
+          </MyPostHogProvider>
         </NavigationContainer>
       </IconContext.Provider>
     </>
   );
 };
 
-export default App;
+export default Sentry.wrap(App);

@@ -2,13 +2,15 @@ import React, { ReactNode, memo } from "react";
 import { PixelRatio, Text } from "react-native";
 
 export type weightType = "medium" | "semiBold" | "bold";
-export type fontSizeType = "h1" | "h2" | "body" | "sm";
+export type fontSizeType = "3xl" | "2xl" | "xl" | "l" | "body" | "sm";
 
 const fontSizes = {
-  h1: 48,
-  h2: 32,
-  body: 16,
-  sm: 14,
+  "3xl": [48, 56],
+  "2xl": [32, 40],
+  xl: [24, 32],
+  l: [20, 24],
+  body: [16, 20],
+  sm: [12, 16],
 };
 
 interface MyTextProps {
@@ -23,12 +25,12 @@ const fontFamilies = {
 };
 
 const fontScale = PixelRatio.getFontScale();
-const getFontSize = (size: fontSizeType) => fontSizes[size] / fontScale;
+const getFontSize = (size: fontSizeType) => fontSizes[size][0] / fontScale;
 
 const catchFontSize = (style?: string): fontSizeType => {
   if (!style) return "body";
 
-  const regex = /text-(h1|h2|body|sm)/;
+  const regex = /text-(3xl|2xl|xl|l|body|sm)/;
   const match = style.match(regex);
 
   return match ? (match[1] as fontSizeType) : "body";
@@ -49,6 +51,7 @@ function MyText({ children, style }: MyTextProps): React.ReactElement {
       className={`${style}`}
       style={{
         fontSize: getFontSize(catchFontSize(style)),
+        lineHeight: fontSizes[catchFontSize(style)][1],
         fontFamily: fontFamilies[catchFontWeight(style)],
       }}
     >
