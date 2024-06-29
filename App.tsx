@@ -1,7 +1,9 @@
 import fonts from "@config/fonts";
 import { NavigationContainer } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
-import MyPostHogProvider from "@src/context/MyPostHogProvider";
+import LoaderModal from "@src/components/modals/LoaderModal";
+import IsLoadingProvider from "@src/context/IsLoading";
+import MyPostHogProvider from "@src/context/MyPostHog";
 import HomeStackNavigator from "@src/pages/navigation/HomeStackNavigator";
 import "@src/utils/sentry";
 import { useFonts } from "expo-font";
@@ -23,19 +25,22 @@ const App = () => {
 
   return (
     <>
-      <IconContext.Provider
-        value={{
-          color: "black",
-          size: 24,
-          weight: "regular",
-        }}
-      >
-        <NavigationContainer onReady={onLayoutRootView}>
-          <MyPostHogProvider>
-            <HomeStackNavigator />
-          </MyPostHogProvider>
-        </NavigationContainer>
-      </IconContext.Provider>
+      <IsLoadingProvider>
+        <IconContext.Provider
+          value={{
+            color: "black",
+            size: 24,
+            weight: "regular",
+          }}
+        >
+          <NavigationContainer onReady={onLayoutRootView}>
+            <MyPostHogProvider>
+              <HomeStackNavigator />
+            </MyPostHogProvider>
+          </NavigationContainer>
+          <LoaderModal />
+        </IconContext.Provider>
+      </IsLoadingProvider>
     </>
   );
 };

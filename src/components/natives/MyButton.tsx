@@ -37,12 +37,12 @@ const MyButton = ({
     }
   > = {
     default: {
-      container: "bg-orange",
+      container: "border-2 border-orange bg-orange",
       text: "text-light-200 text-semiBold",
     },
     secondary: {
       container: "border-2 border-orange",
-      text: "text-semiBold text-orange",
+      text: "text-semiBold text-semiBold text-orange",
     },
   };
 
@@ -58,7 +58,9 @@ const MyButton = ({
     >
       {leftIcon && !isLoading && leftIcon}
       {txt && !isLoading && (
-        <MyText style={`${template[type].text} ${txtStyle}`}>{txt}</MyText>
+        <MyText style={`${template[type].text} ${txtStyle} text-l`}>
+          {txt}
+        </MyText>
       )}
       {isLoading && (
         <View>

@@ -1,14 +1,15 @@
+import assets from "@assets/index";
 import { green, orange, red } from "@config/colors";
 import dictations, { Dictation } from "@config/dictations";
 import { useNavigation } from "@react-navigation/native";
+import MyImage from "@src/components/natives/MyImage";
 import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import useAnalytics from "@src/hooks/useAnalytics";
-import { getAsyncStorage, setAsyncStorage } from "@src/utils/asyncStorage";
+import { getAsyncStorage } from "@src/utils/asyncStorage";
 import { hapticImpact } from "@src/utils/haptics";
-import resetTo from "@src/utils/resetTo";
+import { User } from "phosphor-react-native";
 import React, { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 
@@ -101,23 +102,21 @@ const DisplayDictation = ({
 
 const DisplayDictations = () => {
   const navigation = useNavigation();
-  const { capture } = useAnalytics();
 
   return (
     <View>
-      <View className="flex-row items-center justify-between">
-        <MyText style={"text-3xl mb-4"}>Dictées</MyText>
-        {__DEV__ && (
-          <MyPressable
-            onPress={() => {
-              setAsyncStorage("unsubscribedDate", new Date().toISOString());
-              resetTo(navigation, "Loader");
-              capture("Test PostHog", { property: "Reset" });
-            }}
-          >
-            <MyText style={""}>Reset subscription</MyText>
-          </MyPressable>
-        )}
+      <View className="flex-row items-center justify-between mb-4 pr-2">
+        <View className="flex-row items-center">
+          <MyImage
+            style="w-12 h-12"
+            containerStyle="w-12 h-12 mr-2"
+            img={assets.icon}
+          />
+          <MyText style={"text-2xl"}>Dictées</MyText>
+        </View>
+        <MyPressable onPress={() => navigation.navigate("Profile")}>
+          <User size={32} />
+        </MyPressable>
       </View>
       <FlatList
         showsVerticalScrollIndicator={false}

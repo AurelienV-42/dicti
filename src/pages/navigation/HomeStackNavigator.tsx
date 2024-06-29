@@ -5,7 +5,9 @@ import Introduction from "@src/pages/introduction/Introduction";
 import FirstTest from "@src/pages/introduction/firstTest/FirstTest";
 import Result from "@src/pages/result/Result";
 import React from "react";
+import SignInUp from "../auth/SignInUp";
 import Dictation from "../dictation/Dictation";
+import Profile from "../profile/Profile";
 import Subscription from "../subscription/Subscription";
 
 const HomeStack = createNativeStackNavigator();
@@ -20,6 +22,17 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen name="FirstTest" component={FirstTest} />
       <HomeStack.Screen name="Dictation" component={Dictation} />
       <HomeStack.Screen name="Result" component={Result} />
+      <HomeStack.Screen name="Profile" component={Profile} />
+      <HomeStack.Screen
+        name="SignIn"
+        component={SignInUp}
+        initialParams={{ isSignIn: true }}
+      />
+      <HomeStack.Screen
+        name="SignUp"
+        component={SignInUp}
+        initialParams={{ isSignIn: false }}
+      />
     </HomeStack.Navigator>
   );
 };

@@ -26,7 +26,7 @@ const HeaderTemplate = ({
   const Title = () => (
     <>
       {titleComponent && titleComponent}
-      {!titleComponent && title && <MyText style={""}>{title}</MyText>}
+      {!titleComponent && title && <MyText style={"text-2xl"}>{title}</MyText>}
     </>
   );
 
