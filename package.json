@@ -8,6 +8,7 @@
     "import:assets": "cd assets && node import_assets.js"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
     "date-fns": "^3.3.1",

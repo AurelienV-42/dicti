@@ -2,12 +2,13 @@ import React, { ReactNode, memo } from "react";
 import { PixelRatio, Text } from "react-native";
 
 export type weightType = "medium" | "semiBold" | "bold";
-export type fontSizeType = "h1" | "h2" | "body";
+export type fontSizeType = "h1" | "h2" | "body" | "sm";
 
 const fontSizes = {
   h1: 48,
   h2: 32,
   body: 16,
+  sm: 14,
 };
 
 interface MyTextProps {
@@ -29,7 +30,7 @@ const getFontSize = (size: fontSizeType) => fontSizes[size] / fontScale;
 const catchFontSize = (style?: string): fontSizeType => {
   if (!style) return "body";
 
-  const regex = /text-(h1|h2|body)/;
+  const regex = /text-(h1|h2|body|sm)/;
   const match = style.match(regex);
 
   return match ? (match[1] as fontSizeType) : "body";
