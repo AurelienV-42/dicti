@@ -3,7 +3,7 @@
     "name": "dicti",
     "slug": "dicti",
     "scheme": "dicti",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "orientation": "portrait",
     "icon": "./assets/logo/icon.png",
     "userInterfaceStyle": "light",
@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#F4E9D7"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dicti",
@@ -27,7 +29,7 @@
         "backgroundColor": "#F4E9D7"
       },
       "package": "com.dicti",
-      "versionCode": 7
+      "versionCode": 9
     },
     "plugins": [
       "expo-font",
