@@ -29,12 +29,12 @@ const ModalTemplate = ({
 
   return (
     <Modal
-      transparent
       visible={visible}
       onRequestClose={() => {
         setVisibleWithTimer(false);
         close?.();
       }}
+      transparent
       animationType="fade"
     >
       <View className={`items-center justify-center flex-1 px-4 bg-overlay`}>

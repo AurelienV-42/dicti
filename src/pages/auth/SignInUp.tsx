@@ -1,13 +1,16 @@
-import { MAX_LENGTH_EMAIL, MAX_LENGTH_PASSWORD } from "@config/inputs";
+import { ID_FIRST_TEST } from "@config/dictations";
+import { MAX_LENGTH_PASSWORD } from "@config/inputs";
 import MyKeyboardAvoidingView from "@src/components/MyKeyboardAvoidingView";
+import EmailInput from "@src/components/inputs/EmailInput";
 import PasswordInput from "@src/components/inputs/PasswordInput";
 import MyButton from "@src/components/natives/MyButton";
+import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import TextInputTemplate from "@src/components/templates/TextInputTemplate";
 import { useIsLoading } from "@src/context/IsLoading";
 import { emailChecker, passwordChecker } from "@src/utils/validation";
+import { ArrowRight } from "phosphor-react-native";
 import React, { useState } from "react";
 import { Keyboard, View } from "react-native";
 
@@ -40,28 +43,41 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
   };
 
   return (
-    <ScreenTemplate>
+    <ScreenTemplate edges={["top", "bottom"]} padding>
       <HeaderTemplate
-        title={isSignIn ? "Connection" : "Inscription"}
-        canGoBack
+        rightComponent={
+          <MyPressable
+            className="flex-row items-center"
+            onPress={() => {
+              isSignIn
+                ? navigation.navigate("FirstTest", {
+                    dictationID: ID_FIRST_TEST,
+                  })
+                : navigation.navigate("SignIn");
+            }}
+          >
+            <MyText className="text-base text-dark mr-2">
+              {isSignIn ? "Pas de compte ?" : "J'ai un compte"}
+            </MyText>
+            <ArrowRight />
+          </MyPressable>
+        }
       />
       <MyKeyboardAvoidingView className="justify-between flex-1">
         <>
           <View />
           <View>
-            <MyText style="text-xl mb-2">{"Email"}</MyText>
-            <TextInputTemplate
+            <MyText className="text-l mb-2">{"Email"}</MyText>
+            <EmailInput
               value={email}
-              placeholder={"john@doe.com"}
               onChangeText={(email: string) => {
                 setEmail(email);
                 setError("");
               }}
-              maxLength={MAX_LENGTH_EMAIL}
               autoFocus
             />
 
-            <MyText style="text-xl mb-2">Mot de passe</MyText>
+            <MyText className="text-l mb-2">Mot de passe</MyText>
             <PasswordInput
               value={password}
               onChangeText={(email: string) => {
@@ -71,25 +87,19 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
               maxLength={MAX_LENGTH_PASSWORD}
               onSubmitEditing={complete}
             />
-            {error && <MyText style="text-red text-sm mb-2">{error}</MyText>}
+            {error && (
+              <MyText className="text-red text-sm mb-2">{error}</MyText>
+            )}
             {/* <MyPressable
               className="self-center px-3 py-[6] bg-light-100 shadow-md rounded-full"
               onPress={() => navigation.navigate("ForgotPassword")}
             >
-              <MyText style="text-purple text-sm mt-1">
+              <MyText className="text-purple text-sm mt-1">
                 Mot de passe oublié
               </MyText>
             </MyPressable> */}
           </View>
           <View>
-            <MyButton
-              type="secondary"
-              className="w-full mb-3"
-              txt={isSignIn ? "Pas de compte ?" : "J'ai un compte"}
-              onPress={() =>
-                navigation.navigate(isSignIn ? "SignUp" : "SignIn")
-              }
-            />
             <MyButton
               className="w-full"
               txt={isSignIn ? "S'inscrire" : "Se connecter"}

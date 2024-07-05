@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import AppVersion from "@src/components/AppVersion";
+import ElevatedContainer from "@src/components/ElevatedContainer";
 import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
@@ -59,35 +60,40 @@ const Profile = () => {
   };
 
   return (
-    <ScreenTemplate className="px-0">
+    <ScreenTemplate edges={["top"]} className="px-0">
       <View className="px-4">
         <HeaderTemplate title={"Profil"} canGoBack />
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 16 }}
-      >
-        {Object.keys(list).map((category) => (
-          <View className="mb-4" key={category}>
-            {category !== "general" && (
-              <MyText style="text-xl mb-5">{category}</MyText>
-            )}
-            {list[category].map((item, index) => (
-              <MyPressable
-                key={index}
-                onPress={item.onPress}
-                className="bg-light-100 shadow-md items-center justify-between flex-row px-5 py-3 w-full rounded-2xl mb-3"
-              >
-                <MyText style="">{item.name}</MyText>
-                {item.icon ? <item.icon /> : <ArrowRight />}
-              </MyPressable>
-            ))}
-          </View>
-        ))}
-      </ScrollView>
-      <View className="px-4 self-start">
-        <AppVersion />
-      </View>
+      <ElevatedContainer padding={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingTop: 20,
+            paddingHorizontal: 16,
+          }}
+        >
+          {Object.keys(list).map((category) => (
+            <View className="mb-4" key={category}>
+              {category !== "general" && (
+                <MyText className="text-xl mb-5">{category}</MyText>
+              )}
+              {list[category].map((item, index) => (
+                <MyPressable
+                  key={index}
+                  onPress={item.onPress}
+                  className="bg-blue-100 shadow-md items-center justify-between flex-row px-5 py-3 w-full rounded-2xl mb-3"
+                >
+                  <MyText className="">{item.name}</MyText>
+                  {item.icon ? <item.icon /> : <ArrowRight />}
+                </MyPressable>
+              ))}
+            </View>
+          ))}
+        </ScrollView>
+        <View className="px-4">
+          <AppVersion />
+        </View>
+      </ElevatedContainer>
     </ScreenTemplate>
   );
 };

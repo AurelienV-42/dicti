@@ -21,16 +21,16 @@ const DisplayProducts = ({
         <MyPressable
           key={index}
           onPress={() => setSelectedNbMonth(product.nbMonth)}
-          className={`flex-1 bg-light-100 shadow-md items-center justify-center rounded-xl py-6 border-2 border-light-100 ${
-            selectedNbMonth === product.nbMonth && "border-orange"
+          className={`flex-1 bg-white shadow-md items-center justify-center rounded-xl py-6 border-2 border-white ${
+            selectedNbMonth === product.nbMonth && "border-blue-300"
           }`}
         >
-          <MyText style="mb-4">
+          <MyText className="mb-4">
             {product.nbMonth === 1 ? "Mensuel" : "Annuel"}
           </MyText>
-          <MyText style="text-2xl">{product.priceByMonth}</MyText>
-          <MyText style="mb-4">par mois</MyText>
-          <MyText style="">{product.priceTotal}</MyText>
+          <MyText className="text-2xl">{product.priceByMonth}</MyText>
+          <MyText className="mb-4">par mois</MyText>
+          <MyText className="">{product.priceTotal}</MyText>
         </MyPressable>
       ))}
     </View>

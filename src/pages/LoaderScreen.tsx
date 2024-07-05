@@ -44,7 +44,7 @@ const LoaderScreen = () => {
   useInitialization();
 
   return (
-    <View className="justify-center items-center bg-light-200">
+    <View className="justify-center items-center bg-blue-200">
       <MyImage style="w-full" img={assets.splash} />
     </View>
   );

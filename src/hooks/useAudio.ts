@@ -58,7 +58,13 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
     if (shouldStop) sound?.pauseAsync();
   }, [shouldStop, sound]);
 
-  return { isPlaying, play, pause, time: getTime() };
+  return {
+    isPlaying,
+    play,
+    pause,
+    time: getTime(),
+    progression: timeInMs / maxTimeInMs,
+  };
 };
 
 export default useAudio;

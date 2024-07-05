@@ -33,7 +33,7 @@ const AnimatedButton = ({
 
   return (
     <Pressable
-      className="items-center justify-center h-20"
+      className=""
       onPress={onPress}
       onPressIn={() => (pressed.value = true)}
       onPressOut={() => {
@@ -43,7 +43,7 @@ const AnimatedButton = ({
         return () => clearTimeout(pressOut);
       }}
     >
-      <View className="w-20 h-20 border-4 border-dark rounded-full absolute" />
+      <View className="" />
       {animate ? (
         <Pause size={32} weight="fill" color={dark} />
       ) : (

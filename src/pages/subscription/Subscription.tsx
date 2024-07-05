@@ -1,8 +1,6 @@
-import assets from "@assets/index";
 import { orange } from "@config/colors";
 import { useNavigation } from "@react-navigation/native";
 import MyButton from "@src/components/natives/MyButton";
-import MyImage from "@src/components/natives/MyImage";
 import MyText from "@src/components/natives/MyText";
 import DisplayProducts from "@src/components/purchase/DisplayProducts";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
@@ -32,7 +30,7 @@ const Advantages = () => {
           <View className="mr-2">
             <advantage.Icon size={32} color={orange} />
           </View>
-          <MyText style="text-xl ">{advantage.title}</MyText>
+          <MyText className="text-xl ">{advantage.title}</MyText>
         </View>
       ))}
     </View>
@@ -55,12 +53,12 @@ const Subscription = () => {
   };
 
   return (
-    <ScreenTemplate>
-      <MyImage style="w-60 h-60" containerStyle="w-60 h-60" img={assets.icon} />
+    <ScreenTemplate edges={["top", "bottom"]} padding>
+      <View className="w-60 h-60 bg-blue-200" />
 
-      <MyText style="text-xl text-center w-[95%]">
+      <MyText className="text-xl text-center w-[95%]">
         Les abonnés Dicti ont
-        <MyText style="text-xl text-orange text-bold"> 2.8 fois </MyText>
+        <MyText className="text-xl text-orange font-bold"> 2.8 fois </MyText>
         plus de chances d'améliorer leur niveau en orthographe
       </MyText>
 
@@ -83,7 +81,7 @@ const Subscription = () => {
           selectedNbMonth={selectedNbMonth}
           setSelectedNbMonth={setSelectedNbMonth}
         />
-        <MyButton txt="S'abonner" onPress={subscribe} />
+        <MyButton className={"w-full"} txt="S'abonner" onPress={subscribe} />
       </View>
     </ScreenTemplate>
   );

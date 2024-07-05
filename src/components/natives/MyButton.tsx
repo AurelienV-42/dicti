@@ -37,18 +37,18 @@ const MyButton = ({
     }
   > = {
     default: {
-      container: "border-2 border-orange bg-orange",
-      text: "text-light-200 text-semiBold",
+      container: "border-2 border-blue-300 bg-blue-300",
+      text: "text-white",
     },
     secondary: {
-      container: "border-2 border-orange",
-      text: "text-semiBold text-semiBold text-orange",
+      container: "border-2 border-blue-300",
+      text: "text-blue-300",
     },
   };
 
   return (
     <MyPressable
-      className={`flex-row py-4 items-center justify-center px-5 rounded-2xl self-start w-full
+      className={`flex-row py-3.5 items-center justify-center px-5 rounded-2xl self-start
       ${template[type].container}  ${
         rightIcon && !isLoading && "justify-between"
       } ${disabled && "opacity-50"}`}
@@ -58,7 +58,9 @@ const MyButton = ({
     >
       {leftIcon && !isLoading && leftIcon}
       {txt && !isLoading && (
-        <MyText style={`${template[type].text} ${txtStyle} text-l`}>
+        <MyText
+          className={`text-lg font-semibold ${template[type].text} ${txtStyle}`}
+        >
           {txt}
         </MyText>
       )}

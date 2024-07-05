@@ -7,17 +7,17 @@ const AppVersion = () => {
   return (
     <View>
       {Application.nativeApplicationVersion && (
-        <MyText style="text-dark mb-1">
+        <MyText className="text-dark mb-1">
           Version : {Application.nativeApplicationVersion}
         </MyText>
       )}
       {Application.nativeBuildVersion && (
-        <MyText style="text-dark mb-1">
+        <MyText className="text-dark mb-1">
           Build : {Application.nativeBuildVersion}
         </MyText>
       )}
       {Updates.updateId && (
-        <MyText style="text-dark">
+        <MyText className="text-dark">
           Update Id : {Updates.updateId.slice(-4)}
         </MyText> // Only show last 4 characters
       )}

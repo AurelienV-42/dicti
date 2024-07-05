@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import DisplayCorrection from "@src/components/DisplayCorrection";
 import MyTextInput from "@src/components/inputs/MyTextInput";
 import MyButton from "@src/components/natives/MyButton";
@@ -6,8 +7,10 @@ import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import useTextDictation from "@src/hooks/dictation/useTextDictation";
 import { hapticImpact } from "@src/utils/haptics";
+import resetTo from "@src/utils/resetTo";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import BasicModal from "../modals/BasicModal";
 import TextToSpeech from "../soundPlayer/TextToSpeech";
 
 interface DictationTemplateProps {
@@ -23,8 +26,16 @@ const DictationTemplate = ({
   content,
   mp3File,
 }: DictationTemplateProps) => {
-  const { state, userText, correction, setUserText, verify, restartDictation } =
-    useTextDictation(dictationID, content);
+  const navigation = useNavigation();
+  const {
+    state,
+    userText,
+    correction,
+    note,
+    setUserText,
+    verify,
+    restartDictation,
+  } = useTextDictation(dictationID, content);
   const [shouldStop, setShouldStop] = useState(false);
 
   const onPress = () => {
@@ -38,9 +49,13 @@ const DictationTemplate = ({
   }, [state]);
 
   return (
-    <ScreenTemplate>
-      <HeaderTemplate canGoBack title={title} />
-      <View className="flex-1 justify-center">
+    <ScreenTemplate
+      backgroundColor="bg-blue-300"
+      edges={["top", "bottom"]}
+      padding
+    >
+      <HeaderTemplate canGoBack title={title} theme={"white"} />
+      <View className="mb-10 justify-center">
         {mp3File ? (
           <SoundPlayer mp3File={mp3File} shouldStop={shouldStop} />
         ) : (
@@ -48,7 +63,7 @@ const DictationTemplate = ({
         )}
       </View>
 
-      <View className="flex-[2] justify-center w-full">
+      <View className="flex-1 bg-white w-full rounded-3xl rounded-tl-none p-4 shadow-md">
         {state === "working" ? (
           <MyTextInput
             value={userText}
@@ -59,23 +74,33 @@ const DictationTemplate = ({
         ) : (
           <DisplayCorrection correction={correction} />
         )}
-      </View>
-
-      <View className="w-full">
-        {__DEV__ && state !== "working" && (
+        <View className="w-full">
+          {__DEV__ && state !== "working" && (
+            <MyButton
+              className="mb-2 w-full"
+              type="secondary"
+              txt={"Recommencer la dictée"}
+              onPress={restartDictation}
+            />
+          )}
           <MyButton
-            className="mb-2"
-            type="secondary"
-            txt={"Recommencer la dictée"}
-            onPress={restartDictation}
+            className="w-full"
+            disabled={userText === "" || userText.length < 20}
+            txt={state === "working" ? "Valider" : "Suivant"}
+            onPress={onPress}
           />
-        )}
-        <MyButton
-          disabled={userText === "" || userText.length < 20}
-          txt={state === "working" ? "Valider" : "Suivant"}
-          onPress={onPress}
-        />
+        </View>
       </View>
+      <BasicModal
+        visible={!!note}
+        title={`Tu as ${note}/20 !`}
+        description={"Veux-tu continuer à t'entraîner ?"}
+        txtButtonRight={"Oui !"}
+        onPressRight={() => {
+          hapticImpact("heavy");
+          resetTo(navigation, "Loader");
+        }}
+      />
     </ScreenTemplate>
   );
 };

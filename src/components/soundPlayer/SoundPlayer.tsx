@@ -1,7 +1,5 @@
 import useAudio from "@src/hooks/useAudio";
-import { View } from "react-native";
-import MyText from "../natives/MyText";
-import PlayPause from "./PlayPauseButton";
+import DictationPlayer from "./DictationPlayer";
 
 const SoundPlayer = ({
   mp3File,
@@ -10,15 +8,19 @@ const SoundPlayer = ({
   mp3File: any;
   shouldStop: boolean;
 }) => {
-  const { isPlaying, play, pause, time } = useAudio(mp3File, shouldStop);
+  const { isPlaying, play, pause, time, progression } = useAudio(
+    mp3File,
+    shouldStop,
+  );
 
   return (
-    <View className="items-center">
-      <View className="mb-2">
-        <PlayPause isPlaying={isPlaying} pause={pause} play={play} />
-      </View>
-      <MyText style="font-bold">{time}</MyText>
-    </View>
+    <DictationPlayer
+      isPlaying={isPlaying}
+      play={play}
+      pause={pause}
+      time={time}
+      progression={progression}
+    />
   );
 };
 

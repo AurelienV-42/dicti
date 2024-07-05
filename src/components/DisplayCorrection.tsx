@@ -16,7 +16,7 @@ const DisplayCorrection = ({
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 20 }}
-      className="pt-4 px-4 rounded-lg shadow-lg bg-light-100 mb-4"
+      className="pt-1 rounded-lg shadow-lg bg-white mb-4"
     >
       <MyText>
         {correction.map((correctedWord, index: number) => {
@@ -34,14 +34,14 @@ const DisplayCorrection = ({
                   />
                 )}
               <MyPressable
-                className={`z-0 rounded-full mr-1 mb-2 ${isError && "px-2 py-0.5 bg-red"}`}
+                className={`z-0 rounded-full mr-1 mb-2 ${isError && "px-2 py-0.5 bg-red-200"}`}
                 onPress={() => {
                   setIndexModalVisible(index);
                 }}
                 disabled
                 // disabled={!isError}
               >
-                <MyText style={`text-dark`}>{correctedWord.text}</MyText>
+                <MyText className={`text-dark`}>{correctedWord.text}</MyText>
               </MyPressable>
             </View>
           );

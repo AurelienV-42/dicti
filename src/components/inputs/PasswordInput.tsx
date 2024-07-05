@@ -12,7 +12,7 @@ const PasswordInput = (props: TextInputTemplateProps) => {
 
   return (
     <View
-      className={`flex-row items-center justify-between px-4 py-2 w-full bg-light-100 shadow-lg rounded-full mb-4`}
+      className={`flex-row items-center justify-between px-4 py-2 w-full bg-white shadow-lg rounded-2xl mb-4`}
       style={props.style}
     >
       <TextInput

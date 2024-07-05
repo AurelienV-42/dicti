@@ -2,7 +2,7 @@ import * as Speech from "expo-speech";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import MyText from "../natives/MyText";
-import PlayPause from "./PlayPauseButton";
+import DictationPlayer from "./DictationPlayer";
 
 const useTextToSpeech = (content: string, shouldStop: boolean) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -41,14 +41,12 @@ const TextToSpeech = ({
   const { isPlaying, play, pause } = useTextToSpeech(content, shouldStop);
 
   return (
-    <View className="items-center">
-      <MyText style="mb-6">
+    <View>
+      <MyText className="mb-6">
         Cette dictée n'est pas encore disponible avec nos belles voix, ça arrive
         !
       </MyText>
-      <View className="mb-2">
-        <PlayPause isPlaying={isPlaying} pause={pause} play={play} />
-      </View>
+      <DictationPlayer isPlaying={isPlaying} play={play} pause={pause} />
     </View>
   );
 };

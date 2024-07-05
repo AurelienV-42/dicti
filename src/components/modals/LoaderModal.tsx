@@ -11,7 +11,7 @@ const LoaderModal = () => {
       <View className="flex-1 items-center justify-center bg-overlay">
         <View className="absolute bottom-14 bg-light-100 shadow-sm px-4 py-3 rounded-full items-center flex-row">
           <ActivityIndicator color={colors.dark} className="mr-2" />
-          <MyText style="text-dark">Chargement</MyText>
+          <MyText className="text-dark">Chargement</MyText>
         </View>
       </View>
     </Modal>

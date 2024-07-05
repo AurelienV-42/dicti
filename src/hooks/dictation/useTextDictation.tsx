@@ -1,13 +1,12 @@
-import { useNavigation } from "@react-navigation/native";
 import { setAsyncStorage } from "@src/utils/asyncStorage";
 import checkErrors, { CorrectionItem } from "@src/utils/dictationString";
 import { useState } from "react";
 
 const useTextDictation = (dictationID: string, dictationText: string) => {
-  const navigation = useNavigation();
   const [userText, setUserText] = useState("");
   const [correction, setCorrectionItem] = useState<CorrectionItem[]>([]);
   const [state, setState] = useState<"working" | "finished">("working");
+  const [note, setNote] = useState<string>("");
 
   const verify = () => {
     if (state === "working") {
@@ -21,10 +20,7 @@ const useTextDictation = (dictationID: string, dictationText: string) => {
         correction.length
       ).toFixed();
       setAsyncStorage(dictationID, resultOn20);
-
-      navigation.navigate("Result", {
-        note: resultOn20,
-      });
+      setNote(resultOn20);
     }
   };
 
@@ -32,6 +28,7 @@ const useTextDictation = (dictationID: string, dictationText: string) => {
     state,
     userText,
     correction,
+    note,
     setUserText,
     verify,
     restartDictation: () => {

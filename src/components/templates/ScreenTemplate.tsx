@@ -1,10 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { ReactNode } from "react";
-import { Platform, SafeAreaView, View } from "react-native";
+import { Platform, View } from "react-native";
+import { Edges, SafeAreaView } from "react-native-safe-area-context";
 
 interface ScreenTemplateProps {
   children: ReactNode;
-  transparent?: boolean;
+  backgroundColor?: string;
+  edges?: Edges;
   className?: string;
   style?: any;
   padding?: boolean;
@@ -12,12 +14,14 @@ interface ScreenTemplateProps {
 
 const ScreenTemplate = ({
   children,
-  transparent = false,
+  backgroundColor = "bg-blue-100",
+  edges = ["top"],
   style,
-  padding = true,
+  padding = false,
 }: ScreenTemplateProps) => (
   <SafeAreaView
-    className={`flex-1 ${!transparent && "bg-light-200"} ${Platform.OS !== "ios" && "pt-10 pb-4"}`}
+    edges={edges}
+    className={`flex-1 ${backgroundColor} ${Platform.OS !== "ios" && "pt-10 pb-4"}`}
   >
     <StatusBar style="dark" />
     <View

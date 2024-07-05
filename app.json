@@ -10,11 +10,9 @@
     "splash": {
       "image": "./assets/logo/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#F4E9D7"
+      "backgroundColor": "#9ADDFE"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dicti",
@@ -26,7 +24,7 @@
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo/adaptiveIcon.png",
-        "backgroundColor": "#F4E9D7"
+        "backgroundColor": "#EBF8FF"
       },
       "package": "com.dicti",
       "versionCode": 9

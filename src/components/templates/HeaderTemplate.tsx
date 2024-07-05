@@ -12,6 +12,7 @@ interface HeaderTemplateProps {
   canGoBack?: boolean;
   children?: ReactNode;
   rightComponent?: ReactNode;
+  theme?: "dark" | "white";
 }
 
 const HeaderTemplate = ({
@@ -22,11 +23,16 @@ const HeaderTemplate = ({
   canGoBack = false,
   children,
   rightComponent,
+  theme = "dark",
 }: HeaderTemplateProps) => {
   const Title = () => (
     <>
       {titleComponent && titleComponent}
-      {!titleComponent && title && <MyText style={"text-2xl"}>{title}</MyText>}
+      {!titleComponent && title && (
+        <MyText className={`font-semibold text-base text-${theme}`}>
+          {title}
+        </MyText>
+      )}
     </>
   );
 
@@ -37,7 +43,7 @@ const HeaderTemplate = ({
       <View
         className={`${canGoBack && "-ml-2"} flex-row items-center justify-between`}
       >
-        {canGoBack && <BackButton />}
+        {canGoBack && <BackButton theme={theme} />}
       </View>
       <Title />
       {children}

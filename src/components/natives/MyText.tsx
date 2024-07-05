@@ -1,63 +1,18 @@
-import React, { ReactNode, memo } from "react";
-import { PixelRatio, Text } from "react-native";
+import { ComponentProps, ReactNode } from "react";
+import { Text } from "react-native";
 
-export type weightType = "medium" | "semiBold" | "bold";
-export type fontSizeType = "3xl" | "2xl" | "xl" | "l" | "body" | "sm";
-
-const fontSizes = {
-  "3xl": [48, 56],
-  "2xl": [32, 40],
-  xl: [24, 32],
-  l: [20, 24],
-  body: [14, 18],
-  sm: [12, 16],
-};
-
-interface MyTextProps {
+interface MyTextProps extends ComponentProps<typeof Text> {
   children: ReactNode;
-  style?: string;
 }
 
-const fontFamilies = {
-  medium: "JakartaMedium",
-  semiBold: "JakartaSemiBold",
-  bold: "JakartaBold",
-};
+const MyText = (props: MyTextProps) => {
+  const { style, children } = props;
 
-const fontScale = PixelRatio.getFontScale();
-const getFontSize = (size: fontSizeType) => fontSizes[size][0] / fontScale;
-
-const catchFontSize = (style?: string): fontSizeType => {
-  if (!style) return "body";
-
-  const regex = /text-(3xl|2xl|xl|l|body|sm)/;
-  const match = style.match(regex);
-
-  return match ? (match[1] as fontSizeType) : "body";
-};
-
-const catchFontWeight = (style?: string): weightType => {
-  if (!style) return "medium";
-
-  const regex = /text-(semiBold|bold)/;
-  const match = style.match(regex);
-
-  return match ? (match[1] as weightType) : "medium";
-};
-
-function MyText({ children, style }: MyTextProps): React.ReactElement {
   return (
-    <Text
-      className={`${style}`}
-      style={{
-        fontSize: getFontSize(catchFontSize(style)),
-        lineHeight: fontSizes[catchFontSize(style)][1],
-        fontFamily: fontFamilies[catchFontWeight(style)],
-      }}
-    >
+    <Text {...props} className="text-base" style={style}>
       {children}
     </Text>
   );
-}
+};
 
-export default memo(MyText);
+export default MyText;
