@@ -19,7 +19,9 @@ const DictationPlayer = ({
   progression,
 }: DictationPlayerProps) => {
   return (
-    <View className="p-3 rounded-2xl bg-white justify-between items-center flex-row w-full">
+    <View
+      className={`p-3 rounded-2xl bg-white justify-between items-center flex-row ${progression !== undefined ? "w-full" : "rounded-full aspect-square self-center"}`}
+    >
       <PlayPause isPlaying={isPlaying} pause={pause} play={play} />
 
       {progression !== undefined && (

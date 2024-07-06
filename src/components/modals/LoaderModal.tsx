@@ -9,7 +9,7 @@ const LoaderModal = () => {
   return (
     <Modal animationType="fade" transparent visible={isLoading}>
       <View className="flex-1 items-center justify-center bg-overlay">
-        <View className="absolute bottom-14 bg-light-100 shadow-sm px-4 py-3 rounded-full items-center flex-row">
+        <View className="absolute bottom-14 bg-white shadow-sm px-4 py-3 rounded-full items-center flex-row">
           <ActivityIndicator color={colors.dark} className="mr-2" />
           <MyText className="text-dark">Chargement</MyText>
         </View>

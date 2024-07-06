@@ -39,7 +39,7 @@ const ModalTemplate = ({
     >
       <View className={`items-center justify-center flex-1 px-4 bg-overlay`}>
         <View
-          className={`items-center justify-center bg-light-100 w-full px-8 py-7 rounded-2xl shadow-2xl ${Platform.OS === "web" && "w-1/2"} ${style}`}
+          className={`items-center justify-center bg-white w-full px-8 py-7 rounded-2xl shadow-2xl ${Platform.OS === "web" && "w-1/2"} ${style}`}
         >
           {children}
         </View>

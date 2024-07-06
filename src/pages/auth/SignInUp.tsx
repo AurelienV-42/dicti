@@ -57,7 +57,7 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
             }}
           >
             <MyText className="text-base text-dark mr-2">
-              {isSignIn ? "Pas de compte ?" : "J'ai un compte"}
+              {isSignIn ? "Pas de compte" : "J'ai un compte"}
             </MyText>
             <ArrowRight />
           </MyPressable>
@@ -90,19 +90,11 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
             {error && (
               <MyText className="text-red text-sm mb-2">{error}</MyText>
             )}
-            {/* <MyPressable
-              className="self-center px-3 py-[6] bg-light-100 shadow-md rounded-full"
-              onPress={() => navigation.navigate("ForgotPassword")}
-            >
-              <MyText className="text-purple text-sm mt-1">
-                Mot de passe oublié
-              </MyText>
-            </MyPressable> */}
           </View>
           <View>
             <MyButton
               className="w-full"
-              txt={isSignIn ? "S'inscrire" : "Se connecter"}
+              txt={isSignIn ? "Se connecter" : "S'inscrire"}
               onPress={complete}
               disabled={email.length < 2 || password.length < 2}
             />

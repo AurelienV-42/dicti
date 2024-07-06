@@ -64,7 +64,7 @@ const Profile = () => {
       <View className="px-4">
         <HeaderTemplate title={"Profil"} canGoBack />
       </View>
-      <ElevatedContainer padding={false}>
+      <ElevatedContainer className="flex-1" padding={false}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{

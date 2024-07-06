@@ -94,7 +94,7 @@ const DictationTemplate = ({
       <BasicModal
         visible={!!note}
         title={`Tu as ${note}/20 !`}
-        description={"Veux-tu continuer à t'entraîner ?"}
+        description={"Est-ce qu'on continue pour améliorer ta note ?"}
         txtButtonRight={"Oui !"}
         onPressRight={() => {
           hapticImpact("heavy");

@@ -42,7 +42,7 @@ const TextToSpeech = ({
 
   return (
     <View>
-      <MyText className="mb-6">
+      <MyText className="mb-6 text-white font-semibold">
         Cette dictée n'est pas encore disponible avec nos belles voix, ça arrive
         !
       </MyText>

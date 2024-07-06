@@ -1,3 +1,4 @@
+import LogoVectorized from "@assets/vectorized/LogoVectorized";
 import { orange } from "@config/colors";
 import { useNavigation } from "@react-navigation/native";
 import MyButton from "@src/components/natives/MyButton";
@@ -54,7 +55,7 @@ const Subscription = () => {
 
   return (
     <ScreenTemplate edges={["top", "bottom"]} padding>
-      <View className="w-60 h-60 bg-blue-200" />
+      <LogoVectorized width={200} height={200} />
 
       <MyText className="text-xl text-center w-[95%]">
         Les abonnés Dicti ont

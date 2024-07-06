@@ -16,9 +16,9 @@ const Introduction = ({ navigation }: { navigation: any }) => {
             Améliore ton orthographe quotidiennement
           </MyText>
           <MyText className={"text-base"}>
-            Lorem velit est elit quis. Adipisicing labore ullamco ipsum Lorem
-            excepteur cupidatat voluptate. Ut commodo aute voluptate. Nulla
-            tempor occaecat labore.
+            Dicti te permet de t'améliorer en orthographe en réalisant des
+            dictées quotidiennes. Fixe toi des objectifs et suis ta progression
+            !
           </MyText>
         </View>
         <View className="flex-row w-full justify-between">
