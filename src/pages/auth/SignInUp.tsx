@@ -8,7 +8,9 @@ import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
+import { useAuth } from "@src/context/Auth";
 import { useIsLoading } from "@src/context/IsLoading";
+import resetTo from "@src/utils/resetTo";
 import { emailChecker, passwordChecker } from "@src/utils/validation";
 import { ArrowRight } from "phosphor-react-native";
 import React, { useState } from "react";
@@ -20,6 +22,7 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
   const [error, setError] = useState("");
   const { setIsLoading } = useIsLoading();
   const { isSignIn } = route.params;
+  const auth = useAuth();
 
   const complete = async () => {
     const cleanedEmail = email.trim();
@@ -35,32 +38,41 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
     }
     setIsLoading(true);
     Keyboard.dismiss();
-    // auth?.signIn
-    //   .mutateAsync({ email: cleanedEmail, password })
-    //   .then(() => resetTo(navigation, "Loader"))
-    //   .catch((error: any) => console.warn("Sign In", error))
-    //   .finally(() => setIsLoading(false));
+
+    if (isSignIn) {
+      auth
+        ?.signIn(cleanedEmail, password)
+        .then(() => resetTo(navigation, "Loader"))
+        .catch((error: any) => console.warn("Sign In", error))
+        .finally(() => setIsLoading(false));
+      return;
+    }
+    auth
+      ?.signUp(cleanedEmail, password)
+      .then(() => resetTo(navigation, "Loader"))
+      .catch((error: any) => console.warn("Sign Up", error))
+      .finally(() => setIsLoading(false));
   };
 
   return (
     <ScreenTemplate edges={["top", "bottom"]} padding>
       <HeaderTemplate
         rightComponent={
-          <MyPressable
-            className="flex-row items-center"
-            onPress={() => {
-              isSignIn
-                ? navigation.navigate("FirstTest", {
-                    dictationID: ID_FIRST_TEST,
-                  })
-                : navigation.navigate("SignIn");
-            }}
-          >
-            <MyText className="text-base text-dark mr-2">
-              {isSignIn ? "Pas de compte" : "J'ai un compte"}
-            </MyText>
-            <ArrowRight />
-          </MyPressable>
+          isSignIn && (
+            <MyPressable
+              className="flex-row items-center"
+              onPress={() => {
+                navigation.navigate("FirstTest", {
+                  dictationID: ID_FIRST_TEST,
+                });
+              }}
+            >
+              <MyText className="text-base text-dark mr-2">
+                {"Pas de compte"}
+              </MyText>
+              <ArrowRight />
+            </MyPressable>
+          )
         }
       />
       <MyKeyboardAvoidingView className="justify-between flex-1">
@@ -87,9 +99,9 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
               maxLength={MAX_LENGTH_PASSWORD}
               onSubmitEditing={complete}
             />
-            {error && (
-              <MyText className="text-red text-sm mb-2">{error}</MyText>
-            )}
+            <MyText className="text-red-300 text-sm mb-2">
+              {error ? error : " "}
+            </MyText>
           </View>
           <View>
             <MyButton

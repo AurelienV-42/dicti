@@ -2,6 +2,7 @@ import fonts from "@config/fonts";
 import { NavigationContainer } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import LoaderModal from "@src/components/modals/LoaderModal";
+import { AuthProvider } from "@src/context/Auth";
 import IsLoadingProvider from "@src/context/IsLoading";
 import MyPostHogProvider from "@src/context/MyPostHog";
 import HomeStackNavigator from "@src/pages/navigation/HomeStackNavigator";
@@ -33,11 +34,13 @@ const App = () => {
             weight: "regular",
           }}
         >
-          <NavigationContainer onReady={onLayoutRootView}>
-            <MyPostHogProvider>
-              <HomeStackNavigator />
-            </MyPostHogProvider>
-          </NavigationContainer>
+          <AuthProvider>
+            <NavigationContainer onReady={onLayoutRootView}>
+              <MyPostHogProvider>
+                <HomeStackNavigator />
+              </MyPostHogProvider>
+            </NavigationContainer>
+          </AuthProvider>
           <LoaderModal />
         </IconContext.Provider>
       </IsLoadingProvider>

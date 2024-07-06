@@ -1,9 +1,7 @@
 import { Dictation } from "@config/dictations";
 import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
-import { getAsyncStorage } from "@src/utils/asyncStorage";
 import { hapticImpact } from "@src/utils/haptics";
-import { useEffect, useState } from "react";
 import { DimensionValue, View } from "react-native";
 
 const Level = ({ level }: { level: number }) => {
@@ -34,8 +32,8 @@ const Level = ({ level }: { level: number }) => {
   );
 };
 
-const Note = ({ note }: { note: number }) => {
-  return <MyText className={`font-bold mr-2`}>{note}/20</MyText>;
+const Grade = ({ grade }: { grade: number }) => {
+  return <MyText className={`font-bold mr-2`}>{grade}/20</MyText>;
 };
 
 const DisplayDictation = ({
@@ -45,36 +43,36 @@ const DisplayDictation = ({
   navigation: any;
   item: Dictation;
 }) => {
-  const [note, setNote] = useState(-1);
-
-  useEffect(() => {
-    getAsyncStorage(item.id).then((value) => value && setNote(Number(value)));
-  }, [item.id]);
-
   return (
     <MyPressable
       className={
-        "flex-row justify-between items-center bg-white w-full px-4 mb-4 rounded-xl shadow-md"
+        "flex-row justify-between items-center bg-white w-full mb-4 rounded-xl shadow-md"
       }
       onPress={() => {
         hapticImpact("medium");
         navigation.navigate("Dictation", { dictationID: item.id });
       }}
     >
-      <View
-        className="absolute left-0 top-0 h-full w-2 rounded-l-xl bg-blue-100"
-        style={{
-          width: ((note / 20) * 100 + "%") as DimensionValue,
-        }}
-      />
-      <View className="flex-1 py-2">
+      {item.grade !== undefined && (
+        <View
+          className={`absolute left-0 top-0 h-full w-2 rounded-l-xl bg-blue-200 opacity-50 ${item.grade === 20 && "rounded-r-xl"}`}
+          style={{
+            width: ((item.grade / 20) * 100 + "%") as DimensionValue,
+          }}
+        />
+      )}
+      <View className="ml-4 flex-1 py-2">
         <MyText className="mb-1 font-semibold">{item.title}</MyText>
         <MyText className="text-xs text-gray-300">
           {item.content.split(" ").length} mots
         </MyText>
       </View>
-      {note !== -1 && <Note note={note} />}
-      <Level level={item.level} />
+      <View className="flex-row items-center mr-4">
+        {item.grade !== undefined && item.grade !== -1 && (
+          <Grade grade={item.grade} />
+        )}
+        <Level level={item.level} />
+      </View>
     </MyPressable>
   );
 };

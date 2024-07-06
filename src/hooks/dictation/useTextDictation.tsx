@@ -1,12 +1,20 @@
-import { setAsyncStorage } from "@src/utils/asyncStorage";
+import { useAuth } from "@src/context/Auth";
+import { getGradeByUserId, updateGrade } from "@src/queries/grades.query";
 import checkErrors, { CorrectionItem } from "@src/utils/dictationString";
 import { useState } from "react";
 
-const useTextDictation = (dictationID: string, dictationText: string) => {
+const useTextDictation = (
+  dictationID: string,
+  dictationText: string,
+  setIsResultVisible: (value: boolean) => void,
+) => {
   const [userText, setUserText] = useState("");
   const [correction, setCorrectionItem] = useState<CorrectionItem[]>([]);
   const [state, setState] = useState<"working" | "finished">("working");
-  const [note, setNote] = useState<string>("");
+  const [grade, setGrade] = useState<string>("");
+  const { user } = useAuth();
+
+  if (!user) return;
 
   const verify = () => {
     if (state === "working") {
@@ -15,12 +23,22 @@ const useTextDictation = (dictationID: string, dictationText: string) => {
       setState("finished");
     } else {
       const nbError = correction.filter((r) => r.errors).length;
-      const resultOn20 = (
+      const gradeOn20 = (
         (20 * (correction.length - nbError)) /
         correction.length
       ).toFixed();
-      setAsyncStorage(dictationID, resultOn20);
-      setNote(resultOn20);
+      getGradeByUserId(user.id, dictationID).then((result) => {
+        updateGrade(
+          {
+            dictation_id: dictationID,
+            gradeOn20,
+          },
+          result.grade.length > 0 && result.grade[0].id, // index 0 because there is only one grade per dictation
+        );
+      });
+
+      setGrade(gradeOn20);
+      setIsResultVisible(true);
     }
   };
 
@@ -28,7 +46,7 @@ const useTextDictation = (dictationID: string, dictationText: string) => {
     state,
     userText,
     correction,
-    note,
+    grade,
     setUserText,
     verify,
     restartDictation: () => {

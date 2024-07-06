@@ -7,7 +7,6 @@ import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import useTextDictation from "@src/hooks/dictation/useTextDictation";
 import { hapticImpact } from "@src/utils/haptics";
-import resetTo from "@src/utils/resetTo";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import BasicModal from "../modals/BasicModal";
@@ -18,6 +17,7 @@ interface DictationTemplateProps {
   title: string;
   content: string;
   mp3File: any;
+  onComplete?: () => void;
 }
 
 const DictationTemplate = ({
@@ -25,17 +25,19 @@ const DictationTemplate = ({
   title,
   content,
   mp3File,
+  onComplete,
 }: DictationTemplateProps) => {
   const navigation = useNavigation();
+  const [isResultVisible, setIsResultVisible] = useState(false);
   const {
     state,
     userText,
     correction,
-    note,
+    grade,
     setUserText,
     verify,
     restartDictation,
-  } = useTextDictation(dictationID, content);
+  } = useTextDictation(dictationID, content, setIsResultVisible);
   const [shouldStop, setShouldStop] = useState(false);
 
   const onPress = () => {
@@ -92,13 +94,18 @@ const DictationTemplate = ({
         </View>
       </View>
       <BasicModal
-        visible={!!note}
-        title={`Tu as ${note}/20 !`}
-        description={"Est-ce qu'on continue pour améliorer ta note ?"}
+        visible={isResultVisible}
+        title={`Tu as ${grade}/20 !`}
+        description={"Est-ce qu'on continue pour améliorer ta grade ?"}
         txtButtonRight={"Oui !"}
         onPressRight={() => {
           hapticImpact("heavy");
-          resetTo(navigation, "Loader");
+          setIsResultVisible(false);
+          if (onComplete) {
+            onComplete();
+            return;
+          }
+          navigation.navigate("Loader");
         }}
       />
     </ScreenTemplate>

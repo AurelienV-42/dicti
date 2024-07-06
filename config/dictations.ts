@@ -3,7 +3,7 @@ export type Dictation = {
   title: string;
   content: string;
   level: number;
-  note?: number;
+  grade?: number;
 };
 
 export const ID_FIRST_TEST = "000013";
