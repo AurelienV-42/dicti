@@ -6,10 +6,19 @@ import MyText from "@src/components/natives/MyText";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
 import { myCaptureException } from "@src/utils/sentry";
+import { uppercaseFirstLetter } from "@src/utils/string";
 import { User } from "phosphor-react-native";
 import React from "react";
 import { View } from "react-native";
 import DisplayDictations from "../dictation/DisplayDictations";
+
+const showNiceEmail = (email: string) => {
+  return email
+    .split("@")[0]
+    .split(".")
+    .map((name) => uppercaseFirstLetter(name))
+    .join(" ");
+};
 
 const Home = () => {
   const navigation = useNavigation();
@@ -20,10 +29,10 @@ const Home = () => {
       <View className="px-4 w-full flex-row items-center justify-between mb-5">
         <View>
           <View className={"mb-2"}>
-            <MyText className={"text-xs text-gray-300"}>Bonjour,</MyText>
+            <MyText className={"text-xs text-gray-400"}>Bonjour,</MyText>
             {user?.email && (
               <MyText className={"text-xl"}>
-                {user.email.replace(/@.*$/, "")} 👋
+                {showNiceEmail(user.email)} 👋
               </MyText>
             )}
           </View>
