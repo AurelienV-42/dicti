@@ -7,16 +7,23 @@ import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
+import deleteAuthUser from "@src/queries/deleteAuthUser.query";
 import { setAsyncStorage } from "@src/utils/asyncStorage";
 import resetTo from "@src/utils/resetTo";
-import { ArrowRight, Icon, Money, SignOut } from "phosphor-react-native";
+import { ArrowRight, Icon, Money, SignOut, Trash } from "phosphor-react-native";
 import React from "react";
-import { Linking, ScrollView, View } from "react-native";
+import { Alert, Linking, ScrollView, View } from "react-native";
 
 const Profile = () => {
   const navigation = useNavigation();
   const { signOut } = useAuth();
 
+  const signOutWithThen = () => {
+    signOut().then(() => {
+      AsyncStorage.clear();
+      resetTo(navigation, "Loader");
+    });
+  };
   const list: Record<
     string,
     { name: string; onPress: () => void; icon?: Icon }[]
@@ -30,12 +37,52 @@ const Profile = () => {
       {
         name: "Se déconnecter",
         onPress: () => {
-          signOut().then(() => {
-            AsyncStorage.clear();
-            resetTo(navigation, "Loader");
-          });
+          Alert.alert("Déconnexion", "Es-tu sûr de vouloir te déconnecter ?", [
+            {
+              text: "Annuler",
+              style: "cancel",
+            },
+            {
+              text: "Se déconnecter",
+              onPress: signOutWithThen,
+            },
+          ]);
         },
         icon: SignOut,
+      },
+      {
+        name: "Supprimer mon compte",
+        onPress: () => {
+          Alert.alert(
+            "Supprimer mon compte",
+            "Es-tu sûr de vouloir supprimer ton compte ?",
+            [
+              {
+                text: "Annuler",
+                style: "cancel",
+              },
+              {
+                text: "Supprimer",
+                onPress: () => {
+                  deleteAuthUser().then(() => {
+                    AsyncStorage.clear();
+                    Alert.alert(
+                      "Compte supprimé",
+                      "Ton compte a bien été supprimé.",
+                      [
+                        {
+                          text: "OK",
+                          onPress: () => signOutWithThen,
+                        },
+                      ],
+                    );
+                  });
+                },
+              },
+            ],
+          );
+        },
+        icon: Trash,
       },
       {
         name: "Reset Subscription",
