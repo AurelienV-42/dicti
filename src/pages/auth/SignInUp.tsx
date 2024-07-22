@@ -55,7 +55,7 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
   };
 
   return (
-    <ScreenTemplate edges={["top", "bottom"]} padding>
+    <ScreenTemplate edges={["top", "bottom"]} padding className="pb-4">
       <HeaderTemplate
         rightComponent={
           isSignIn && (

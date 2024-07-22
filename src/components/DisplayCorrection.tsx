@@ -1,6 +1,6 @@
 import { CorrectionItem } from "@src/utils/dictationString";
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { Platform, ScrollView, View } from "react-native";
 import ModalToDisplayErrors from "./modals/ModalToDisplayErrors";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
@@ -15,8 +15,8 @@ const DisplayCorrection = ({
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 20 }}
-      className="pt-1 rounded-lg shadow-lg bg-white mb-4"
+      contentContainerStyle={{ paddingTop: 12, paddingBottom: 20 }}
+      className="pt-1 mb-4"
     >
       <MyText>
         {correction.map((correctedWord, index: number) => {
@@ -34,14 +34,16 @@ const DisplayCorrection = ({
                   />
                 )}
               <MyPressable
-                className={`z-0 rounded-full mr-1 mb-2 ${isError && "px-2 py-0.5 bg-red-200"}`}
+                className={`z-0 rounded-full mr-1 mb-2 ${Platform.OS === "ios" && isError && "px-2 py-0.5 bg-red-200"}`}
                 onPress={() => {
                   setIndexModalVisible(index);
                 }}
                 disabled
                 // disabled={!isError}
               >
-                <MyText className={`text-dark`}>{correctedWord.text}</MyText>
+                <MyText className={`text-dark ${isError && "text-red-300"}`}>
+                  {correctedWord.text}
+                </MyText>
               </MyPressable>
             </View>
           );

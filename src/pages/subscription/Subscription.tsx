@@ -29,7 +29,7 @@ const Advantages = () => {
       {advantages.map((advantage, index) => (
         <View className="flex-row items-center mb-3" key={index}>
           <View className="mr-2">
-            <advantage.Icon size={32} color={orange} />
+            <advantage.Icon size={32} color={orange[300]} />
           </View>
           <MyText className="text-xl ">{advantage.title}</MyText>
         </View>

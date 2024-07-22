@@ -24,8 +24,9 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
   };
 
   const getTime = () => {
-    const time =
-      isPlaying || timeInMs !== 0 ? maxTimeInMs - timeInMs : maxTimeInMs;
+    const time = isPlaying || timeInMs !== 0
+      ? maxTimeInMs - timeInMs
+      : maxTimeInMs;
     const minutes = Math.floor(time / 60000);
     const seconds = ((time % 60000) / 1000).toFixed(0);
 
@@ -49,8 +50,8 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
 
     return sound
       ? () => {
-          sound.unloadAsync();
-        }
+        sound.unloadAsync();
+      }
       : undefined;
   }, [mp3File, sound]);
 

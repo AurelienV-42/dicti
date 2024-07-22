@@ -14,9 +14,9 @@ const useTextDictation = (
   const [grade, setGrade] = useState<string>("");
   const { user } = useAuth();
 
-  if (!user) return;
-
   const verify = () => {
+    if (!user) throw new Error("User not found");
+
     if (state === "working") {
       const result = checkErrors(userText, dictationText);
       setCorrectionItem(result);

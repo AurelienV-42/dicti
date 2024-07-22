@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#9ADDFE"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dicti",
@@ -27,7 +29,7 @@
         "backgroundColor": "#EBF8FF"
       },
       "package": "com.dicti",
-      "versionCode": 9
+      "versionCode": 11
     },
     "plugins": [
       "expo-font",

@@ -16,11 +16,6 @@ const HomeStackNavigator = () => {
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Loader" component={LoaderScreen} />
       <HomeStack.Screen name="Introduction" component={Introduction} />
-      <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen name="Subscription" component={Subscription} />
-      <HomeStack.Screen name="FirstTest" component={FirstTest} />
-      <HomeStack.Screen name="Dictation" component={Dictation} />
-      <HomeStack.Screen name="Profile" component={Profile} />
       <HomeStack.Screen
         name="SignIn"
         component={SignInUp}
@@ -31,6 +26,11 @@ const HomeStackNavigator = () => {
         component={SignInUp}
         initialParams={{ isSignIn: false }}
       />
+      <HomeStack.Screen name="FirstTest" component={FirstTest} />
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Dictation" component={Dictation} />
+      <HomeStack.Screen name="Profile" component={Profile} />
+      <HomeStack.Screen name="Subscription" component={Subscription} />
     </HomeStack.Navigator>
   );
 };

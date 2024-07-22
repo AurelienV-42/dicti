@@ -55,6 +55,7 @@ const DictationTemplate = ({
       backgroundColor="bg-blue-300"
       edges={["top", "bottom"]}
       padding
+      className="pb-4"
     >
       <HeaderTemplate canGoBack title={title} theme={"white"} />
       <View className="mb-10 justify-center">
