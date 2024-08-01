@@ -13,9 +13,9 @@ type AuthContextType = {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string) => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
+  signUp: (email: string, password: string) => Promise;
+  signIn: (email: string, password: string) => Promise;
+  signOut: () => Promise;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,7 +24,7 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
@@ -88,11 +88,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       password,
     });
 
+    if (error) throw error;
+
+    setSession(data?.session);
     const account = {
       id: data.session?.user.id,
       email,
     };
-    if (error) throw error;
     if (data)
       await createAccount(account)
         .then((result) => {
@@ -104,11 +106,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
+
     if (error) throw error;
+
+    setSession(data?.session);
+    setUser(data?.user);
   };
 
   const signOut = async () => {

@@ -4,14 +4,16 @@ import { useNavigation } from "@react-navigation/native";
 import MyButton from "@src/components/natives/MyButton";
 import MyText from "@src/components/natives/MyText";
 import DisplayProducts from "@src/components/purchase/DisplayProducts";
+import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import useAnalytics from "@src/hooks/useAnalytics";
-import { setAsyncStorage } from "@src/utils/asyncStorage";
+import useGetSubscriptions from "@src/hooks/useGetSubscriptions";
 import { hapticImpact } from "@src/utils/haptics";
+import { pay } from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
 import { Brain, LockOpen } from "phosphor-react-native";
 import React, { useState } from "react";
-import { View } from "react-native";
+import { ActivityIndicator, Alert, View } from "react-native";
 
 const Advantages = () => {
   const advantages = [
@@ -42,19 +44,60 @@ const Subscription = () => {
   const navigation = useNavigation();
   const [selectedNbMonth, setSelectedNbMonth] = useState(12);
   const { capture } = useAnalytics();
+  const { subscriptions, loading, error } = useGetSubscriptions();
 
+  const successSubscription = () => {
+    resetTo(navigation, "Home");
+  };
   const subscribe = () => {
     hapticImpact("heavy");
     capture("Subscription", { property: selectedNbMonth });
 
-    const unsubscribedDate = new Date();
-    unsubscribedDate.setMonth(unsubscribedDate.getMonth() + selectedNbMonth);
-    setAsyncStorage("unsubscribedDate", unsubscribedDate.toISOString());
-    resetTo(navigation, "Home");
+    if (!subscriptions) throw new Error("No subscriptions available");
+    const selectedSubscription = subscriptions.find(
+      (s) => s.nbMonths === selectedNbMonth,
+    );
+    if (__DEV__) {
+      Alert.alert("Tu es en dév", "Veux-tu bypass le paiement ?", [
+        { text: "Annuler", style: "cancel" },
+        { text: "Oui", onPress: () => successSubscription() },
+      ]);
+      return;
+    }
+    pay(selectedSubscription).then(
+      (isSuccess) => isSuccess && successSubscription,
+    );
   };
 
+  if (loading)
+    return (
+      <ScreenTemplate padding>
+        <View className="flex-1 justify-center items-center">
+          <ActivityIndicator
+            className="mb-4"
+            size="large"
+            color={orange[300]}
+          />
+          <MyText>Chargement des abonnements...</MyText>
+        </View>
+      </ScreenTemplate>
+    );
+
+  if (error || !subscriptions || subscriptions.length === 0)
+    return (
+      <ScreenTemplate padding>
+        <HeaderTemplate canGoBack />
+        <View className="flex-1 justify-center items-center">
+          <MyText className="mb-2 text-xl text-dark text-center">
+            Une erreur est survenue lors du chargement des abonnements:
+          </MyText>
+          <MyText className="mt-2 text-center">{error}</MyText>
+        </View>
+      </ScreenTemplate>
+    );
+
   return (
-    <ScreenTemplate edges={["top", "bottom"]} padding>
+    <ScreenTemplate edges={["top", "bottom"]} padding className="pb-4">
       <LogoVectorized width={200} height={200} />
 
       <MyText className="text-xl text-center w-[95%]">
@@ -67,18 +110,7 @@ const Subscription = () => {
 
       <View className="w-full">
         <DisplayProducts
-          products={[
-            {
-              nbMonth: 1,
-              priceByMonth: "5.99€",
-              priceTotal: "5.99€",
-            },
-            {
-              nbMonth: 12,
-              priceByMonth: "4.99€",
-              priceTotal: "59.99€",
-            },
-          ]}
+          products={subscriptions}
           selectedNbMonth={selectedNbMonth}
           setSelectedNbMonth={setSelectedNbMonth}
         />

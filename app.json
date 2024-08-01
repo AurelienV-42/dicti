@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "dicti",
+    "name": "Dicti",
     "slug": "dicti",
     "scheme": "dicti",
     "version": "0.0.2",
@@ -29,7 +29,7 @@
         "backgroundColor": "#EBF8FF"
       },
       "package": "com.dicti",
-      "versionCode": 11
+      "versionCode": 12
     },
     "plugins": [
       "expo-font",

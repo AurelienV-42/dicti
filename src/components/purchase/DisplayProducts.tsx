@@ -8,9 +8,9 @@ const DisplayProducts = ({
   setSelectedNbMonth,
 }: {
   products: {
-    nbMonth: number;
-    priceByMonth: string;
-    priceTotal: string;
+    nbMonths: number;
+    priceByMonthString: string;
+    priceString: string;
   }[];
   selectedNbMonth: number;
   setSelectedNbMonth: (mbMonth: number) => void;
@@ -20,17 +20,17 @@ const DisplayProducts = ({
       {products.map((product, index) => (
         <MyPressable
           key={index}
-          onPress={() => setSelectedNbMonth(product.nbMonth)}
+          onPress={() => setSelectedNbMonth(product.nbMonths)}
           className={`flex-1 bg-white shadow-md items-center justify-center rounded-xl py-6 border-2 border-white ${
-            selectedNbMonth === product.nbMonth && "border-blue-300"
+            selectedNbMonth === product.nbMonths && "border-blue-300"
           }`}
         >
           <MyText className="mb-4">
-            {product.nbMonth === 1 ? "Mensuel" : "Annuel"}
+            {product.nbMonths === 1 ? "Mensuel" : "Annuel"}
           </MyText>
-          <MyText className="text-2xl">{product.priceByMonth}</MyText>
+          <MyText className="text-2xl">{product.priceByMonthString}</MyText>
           <MyText className="mb-4">par mois</MyText>
-          <MyText className="">{product.priceTotal}</MyText>
+          <MyText className="">{product.priceString}</MyText>
         </MyPressable>
       ))}
     </View>

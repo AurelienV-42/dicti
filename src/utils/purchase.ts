@@ -19,10 +19,11 @@ export const logInRevenueCat = async (
   userEmail?: string,
 ): Promise<void> => {
   await Purchases.logIn(userId);
-  if (userEmail)
+  if (userEmail) {
     await Purchases.setAttributes({
       email: userEmail,
     });
+  }
 };
 
 export const getPackages = async () => {
@@ -33,37 +34,49 @@ export const getPackages = async () => {
     if (!offerings || !currentOffering?.availablePackages) return [];
 
     return currentOffering.availablePackages.map((p) => {
-      const characterCurrency =
-        p.product.priceString[0] === "€" ||
-        p.product.priceString[0] === "$" ||
-        p.product.priceString[0] === "£" ||
-        p.product.priceString[0] === "¥" ||
-        p.product.priceString[0] === "₹" ||
-        p.product.priceString[0] === "₽" ||
-        p.product.priceString[0] === "₩" ||
-        p.product.priceString[0] === "₺" ||
-        p.product.priceString[0] === "₴" ||
-        p.product.priceString[0] === "₦" ||
-        p.product.priceString[0] === "฿"
-          ? p.product.priceString[0]
-          : p.product.priceString[p.product.priceString.length - 1];
+      const characterCurrency = p.product.priceString[0] === "€" ||
+          p.product.priceString[0] === "$" ||
+          p.product.priceString[0] === "£" ||
+          p.product.priceString[0] === "¥" ||
+          p.product.priceString[0] === "₹" ||
+          p.product.priceString[0] === "₽" ||
+          p.product.priceString[0] === "₩" ||
+          p.product.priceString[0] === "₺" ||
+          p.product.priceString[0] === "₴" ||
+          p.product.priceString[0] === "₦" ||
+          p.product.priceString[0] === "฿"
+        ? p.product.priceString[0]
+        : p.product.priceString[p.product.priceString.length - 1];
 
       let nbMonths = 3;
-      if (p.product.identifier.includes("1year")) {
-        nbMonths = 12;
-      } else if (p.product.identifier.includes("6months")) {
-        nbMonths = 6;
+      switch (p.packageType) {
+        case "MONTHLY":
+          nbMonths = 1;
+          break;
+        case "THREE_MONTH":
+          nbMonths = 3;
+          break;
+        case "ANNUAL":
+          nbMonths = 12;
+          break;
+        default:
+          nbMonths = 1;
+          break;
       }
 
       return {
         ...p,
         nbMonths,
-        priceString: `${Number(p.product.price).toFixed(
-          2,
-        )}${characterCurrency}`,
-        priceByMonthString: `${(p.product.price / nbMonths)
-          .toFixed(3)
-          .slice(0, -1)}${characterCurrency}`,
+        priceString: `${
+          Number(p.product.price).toFixed(
+            2,
+          )
+        }${characterCurrency}`,
+        priceByMonthString: `${
+          (p.product.price / nbMonths)
+            .toFixed(3)
+            .slice(0, -1)
+        }${characterCurrency}`,
       };
     });
   } catch (error: any) {
@@ -73,7 +86,9 @@ export const getPackages = async () => {
 
 const t = (key: string) => key;
 
-export const pay = async (selectedPackage: PurchasesPackage): Promise<void> => {
+export const pay = async (
+  selectedPackage: PurchasesPackage,
+): Promise<boolean> => {
   try {
     // Make purchase
     const { customerInfo } = await Purchases.purchasePackage(selectedPackage);
@@ -83,19 +98,32 @@ export const pay = async (selectedPackage: PurchasesPackage): Promise<void> => {
         t("account:payment.success"),
         t("account:payment.successMessage"),
       );
+      return true;
     } else {
       Alert.alert(
         t("account:payment.failure"),
         t("account:payment.failureMessage"),
       );
+      return false;
     }
   } catch (error: any) {
     console.warn("ERROR", error);
-    if (error.message.includes("cancel")) return;
+    if (error.message.includes("cancel")) return false;
 
     Alert.alert(
       t("account:payment.failure"),
       t("account:payment.failureMessage"),
     );
+    return false;
+  }
+};
+
+export const getIsSubscribed = async (): Promise<boolean> => {
+  try {
+    const purchaserInfo = await Purchases.getCustomerInfo();
+    return purchaserInfo.entitlements.all["Default"]?.isActive ?? false;
+  } catch (error: any) {
+    console.error("Error in getIsSubscribed:", error, error.code);
+    return false;
   }
 };

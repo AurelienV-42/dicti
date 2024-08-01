@@ -21,7 +21,7 @@ const ScreenTemplate = ({
 }: ScreenTemplateProps) => (
   <SafeAreaView
     edges={edges}
-    className={`flex-1 ${backgroundColor} ${Platform.OS === "android" && "pt-4"}`}
+    className={`flex-1 ${backgroundColor} ${Platform.OS === "android" && "pt-6"}`}
   >
     <StatusBar style="dark" />
     <View

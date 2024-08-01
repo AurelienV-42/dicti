@@ -7,6 +7,14 @@
 			"problemMatcher": [],
 			"label": "npm: ios",
 			"detail": "expo start --ios",
+			"group": "build"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": [],
+			"label": "npm: start",
+			"detail": "expo start",
 			"group": {
 				"kind": "build",
 				"isDefault": true

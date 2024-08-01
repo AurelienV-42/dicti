@@ -10,7 +10,7 @@ import { useAuth } from "@src/context/Auth";
 import deleteAuthUser from "@src/queries/deleteAuthUser.query";
 import { setAsyncStorage } from "@src/utils/asyncStorage";
 import resetTo from "@src/utils/resetTo";
-import { ArrowRight, Icon, Money, SignOut, Trash } from "phosphor-react-native";
+import { ArrowRight, Money, SignOut, Trash } from "phosphor-react-native";
 import React from "react";
 import { Alert, Linking, ScrollView, View } from "react-native";
 
@@ -24,10 +24,14 @@ const Profile = () => {
       resetTo(navigation, "Loader");
     });
   };
-  const list: Record<
-    string,
-    { name: string; onPress: () => void; icon?: Icon }[]
-  > = {
+
+  const list: {
+    [key: string]: {
+      name: string;
+      onPress: () => void;
+      icon?: React.FC;
+    }[];
+  } = {
     general: [
       // {
       //   name: "Informations personnelles",
@@ -64,19 +68,23 @@ const Profile = () => {
               {
                 text: "Supprimer",
                 onPress: () => {
-                  deleteAuthUser().then(() => {
-                    AsyncStorage.clear();
-                    Alert.alert(
-                      "Compte supprimé",
-                      "Ton compte a bien été supprimé.",
-                      [
-                        {
-                          text: "OK",
-                          onPress: () => signOutWithThen,
-                        },
-                      ],
-                    );
-                  });
+                  deleteAuthUser()
+                    .then(() => {
+                      AsyncStorage.clear();
+                      Alert.alert(
+                        "Compte supprimé",
+                        "Ton compte a bien été supprimé.",
+                        [
+                          {
+                            text: "OK",
+                            onPress: signOutWithThen,
+                          },
+                        ],
+                      );
+                    })
+                    .catch((error) => {
+                      Alert.alert("Erreur", error.message);
+                    });
                 },
               },
             ],

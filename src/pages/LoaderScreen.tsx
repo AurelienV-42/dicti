@@ -4,8 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import MyImage from "@src/components/natives/MyImage";
 import { useAuth } from "@src/context/Auth";
 import useAnalytics from "@src/hooks/useAnalytics";
+import {
+  getIsSubscribed,
+  initializeRevenueCatApiKeys,
+} from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
-import { isSubscribed } from "@src/utils/subscription";
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
@@ -17,7 +20,7 @@ const useManageRoute = () => {
     const manageRoute = async () => {
       if (loading) return; // Wait for auth to initialize
 
-      const unsubscribedDate = await isSubscribed();
+      const unsubscribedDate = await getIsSubscribed();
 
       if (!user) {
         resetTo(navigation, "Introduction");
@@ -41,7 +44,7 @@ const useInitialization = () => {
   useEffect(() => {
     if (user) {
       identify(user.id, user.email || "anonymous@user.com");
-      // initializeRevenueCatApiKeys(user.id);
+      initializeRevenueCatApiKeys(user.id);
     }
   }, [identify, user]);
 };

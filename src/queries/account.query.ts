@@ -13,7 +13,7 @@ export const getAccountById = async (userId: string): Promise<any> => {
     if (error) throw error;
     return { account: data, error: null };
   } catch (error) {
-    console.error("Error fetching account:", error);
+    console.error("Error fetching account:", error); // Si c'est après un Sign Up c'est normal, l'account n'existe pas encore mais est entrain d'être créé
     return { account: null, error: error as Error };
   }
 };
