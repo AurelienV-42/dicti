@@ -6,6 +6,7 @@ import MyText from "@src/components/natives/MyText";
 import DisplayProducts from "@src/components/purchase/DisplayProducts";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
+import { useIsLoading } from "@src/context/IsLoading";
 import useAnalytics from "@src/hooks/useAnalytics";
 import useGetSubscriptions from "@src/hooks/useGetSubscriptions";
 import { hapticImpact } from "@src/utils/haptics";
@@ -13,7 +14,7 @@ import { pay } from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
 import { Brain, LockOpen } from "phosphor-react-native";
 import React, { useState } from "react";
-import { ActivityIndicator, Alert, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 const Advantages = () => {
   const advantages = [
@@ -42,6 +43,7 @@ const Advantages = () => {
 
 const Subscription = () => {
   const navigation = useNavigation();
+  const { setIsLoading } = useIsLoading();
   const [selectedNbMonth, setSelectedNbMonth] = useState(12);
   const { capture } = useAnalytics();
   const { subscriptions, loading, error } = useGetSubscriptions();
@@ -57,15 +59,22 @@ const Subscription = () => {
     const selectedSubscription = subscriptions.find(
       (s) => s.nbMonths === selectedNbMonth,
     );
-    if (__DEV__) {
-      Alert.alert("Tu es en dév", "Veux-tu bypass le paiement ?", [
-        { text: "Annuler", style: "cancel" },
-        { text: "Oui", onPress: () => successSubscription() },
-      ]);
-      return;
-    }
-    pay(selectedSubscription).then(
-      (isSuccess) => isSuccess && successSubscription,
+    // if (__DEV__) {
+    //   Alert.alert("Tu es en dév", "Veux-tu bypass le paiement ?", [
+    //     {
+    //       text: "Non",
+    //       onPress: () =>
+    // pay(selectedSubscription).then(
+    //   (isSuccess) => isSuccess && successSubscription,
+    // ),
+    //     },
+    //     { text: "Oui", onPress: () => successSubscription() },
+    //   ]);
+    //   return;
+    // }
+    setIsLoading(true);
+    pay(selectedSubscription, successSubscription).finally(() =>
+      setIsLoading(false),
     );
   };
 

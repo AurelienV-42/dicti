@@ -97,7 +97,7 @@ const DictationTemplate = ({
       <BasicModal
         visible={isResultVisible}
         title={`Tu as ${grade}/20 !`}
-        description={"Est-ce qu'on continue pour améliorer ta grade ?"}
+        description={"Est-ce qu'on continue pour améliorer ta note ?"}
         txtButtonRight={"Oui !"}
         onPressRight={() => {
           hapticImpact("heavy");

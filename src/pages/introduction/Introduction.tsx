@@ -33,7 +33,7 @@ const Introduction = ({ navigation }: { navigation: any }) => {
           <MyButton
             className="self-end"
             txt={"C'est parti !"}
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => navigation.navigate("FirstTest")}
           />
         </View>
       </ElevatedContainer>

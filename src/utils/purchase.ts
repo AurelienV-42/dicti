@@ -88,40 +88,43 @@ const t = (key: string) => key;
 
 export const pay = async (
   selectedPackage: PurchasesPackage,
-): Promise<boolean> => {
-  try {
-    // Make purchase
-    const { customerInfo } = await Purchases.purchasePackage(selectedPackage);
+  onSuccess: () => void,
+) => {
+  return Purchases.purchasePackage(selectedPackage)
+    .then(({ customerInfo }) => {
+      if (customerInfo.entitlements.all["Subscription"]?.isActive) {
+        Alert.alert(
+          "Bravo",
+          "Tu as souscrit à l'abonnement, tu peux maintenant profiter de toutes les fonctionnalités de l'application",
+          [
+            {
+              text: "OK",
+              onPress: onSuccess,
+            },
+          ],
+        );
+      } else {
+        Alert.alert(
+          "Erreur",
+          "Une erreur est survenue lors de la souscription à l'abonnement, nous en sommes informer. Tu peux réessayer plus tard.",
+        );
+      }
+    })
+    .catch((error: any) => {
+      console.warn("ERROR", error);
+      if (error.message.includes("cancel")) return;
 
-    if (customerInfo.entitlements.all["Default"]?.isActive) {
-      Alert.alert(
-        t("account:payment.success"),
-        t("account:payment.successMessage"),
-      );
-      return true;
-    } else {
       Alert.alert(
         t("account:payment.failure"),
         t("account:payment.failureMessage"),
       );
-      return false;
-    }
-  } catch (error: any) {
-    console.warn("ERROR", error);
-    if (error.message.includes("cancel")) return false;
-
-    Alert.alert(
-      t("account:payment.failure"),
-      t("account:payment.failureMessage"),
-    );
-    return false;
-  }
+    });
 };
 
 export const getIsSubscribed = async (): Promise<boolean> => {
   try {
     const purchaserInfo = await Purchases.getCustomerInfo();
-    return purchaserInfo.entitlements.all["Default"]?.isActive ?? false;
+    return purchaserInfo.entitlements.all["Subscription"]?.isActive ?? false;
   } catch (error: any) {
     console.error("Error in getIsSubscribed:", error, error.code);
     return false;

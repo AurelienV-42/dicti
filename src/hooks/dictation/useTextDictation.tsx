@@ -15,8 +15,6 @@ const useTextDictation = (
   const { user } = useAuth();
 
   const verify = () => {
-    if (!user) throw new Error("User not found");
-
     if (state === "working") {
       const result = checkErrors(userText, dictationText);
       setCorrectionItem(result);
@@ -27,15 +25,16 @@ const useTextDictation = (
         (20 * (correction.length - nbError)) /
         correction.length
       ).toFixed();
-      getGradeByUserId(user.id, dictationID).then((result) => {
-        updateGrade(
-          {
-            dictation_id: dictationID,
-            gradeOn20,
-          },
-          result.grade.length > 0 && result.grade[0].id, // index 0 because there is only one grade per dictation
-        );
-      });
+      if (user)
+        getGradeByUserId(user.id, dictationID).then((result) => {
+          updateGrade(
+            {
+              dictation_id: dictationID,
+              gradeOn20,
+            },
+            result.grade.length > 0 && result.grade[0].id, // index 0 because there is only one grade per dictation
+          );
+        });
 
       setGrade(gradeOn20);
       setIsResultVisible(true);

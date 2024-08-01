@@ -8,7 +8,6 @@ import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
 import deleteAuthUser from "@src/queries/deleteAuthUser.query";
-import { setAsyncStorage } from "@src/utils/asyncStorage";
 import resetTo from "@src/utils/resetTo";
 import { ArrowRight, Money, SignOut, Trash } from "phosphor-react-native";
 import React from "react";
@@ -93,10 +92,9 @@ const Profile = () => {
         icon: Trash,
       },
       {
-        name: "Reset Subscription",
+        name: "Subscription",
         onPress: () => {
-          setAsyncStorage("unsubscribedDate", new Date().toISOString());
-          resetTo(navigation, "Loader");
+          navigation.navigate("Subscription");
         },
         icon: Money,
       },

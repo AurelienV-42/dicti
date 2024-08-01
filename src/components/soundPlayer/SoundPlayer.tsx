@@ -8,7 +8,7 @@ const SoundPlayer = ({
   mp3File: any;
   shouldStop: boolean;
 }) => {
-  const { isPlaying, play, pause, time, progression } = useAudio(
+  const { isPlaying, play, pause, time, reset, progression } = useAudio(
     mp3File,
     shouldStop,
   );
@@ -18,6 +18,7 @@ const SoundPlayer = ({
       isPlaying={isPlaying}
       play={play}
       pause={pause}
+      reset={reset}
       time={time}
       progression={progression}
     />

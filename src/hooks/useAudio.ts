@@ -7,32 +7,6 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
   const [timeInMs, setTimeInMs] = useState(0);
   const [maxTimeInMs, setMaxTimeInMs] = useState(0);
 
-  const play = () => {
-    sound?.setOnPlaybackStatusUpdate((status) => {
-      if (!status.isLoaded) {
-        setIsPlaying(false);
-      } else {
-        setIsPlaying(status.isPlaying);
-        setTimeInMs(status.positionMillis);
-      }
-    });
-    sound?.playAsync();
-  };
-
-  const pause = () => {
-    sound?.pauseAsync();
-  };
-
-  const getTime = () => {
-    const time = isPlaying || timeInMs !== 0
-      ? maxTimeInMs - timeInMs
-      : maxTimeInMs;
-    const minutes = Math.floor(time / 60000);
-    const seconds = ((time % 60000) / 1000).toFixed(0);
-
-    return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
   useEffect(() => {
     if (!sound) {
       Audio.Sound.createAsync(mp3File).then(({ sound }) => {
@@ -59,10 +33,42 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
     if (shouldStop) sound?.pauseAsync();
   }, [shouldStop, sound]);
 
+  const play = () => {
+    sound?.setOnPlaybackStatusUpdate((status) => {
+      if (!status.isLoaded) {
+        setIsPlaying(false);
+      } else {
+        setIsPlaying(status.isPlaying);
+        setTimeInMs(status.positionMillis);
+      }
+    });
+    sound?.playAsync();
+  };
+
+  const pause = () => {
+    sound?.pauseAsync();
+  };
+
+  const reset = () => {
+    sound?.setPositionAsync(0);
+    setTimeInMs(0);
+  };
+
+  const getTime = () => {
+    const time = isPlaying || timeInMs !== 0
+      ? maxTimeInMs - timeInMs
+      : maxTimeInMs;
+    const minutes = Math.floor(time / 60000);
+    const seconds = ((time % 60000) / 1000).toFixed(0);
+
+    return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
   return {
     isPlaying,
     play,
     pause,
+    reset,
     time: getTime(),
     progression: timeInMs / maxTimeInMs,
   };

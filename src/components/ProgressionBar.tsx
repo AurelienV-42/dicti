@@ -20,7 +20,7 @@ const ProgressionBar = ({ progression }: { progression: number }) => {
   });
 
   return (
-    <View className="h-1 bg-blue-100 flex-1 mx-5 rounded-full justify-center">
+    <View className="bg-blue-100 flex-1 mx-5 rounded-full justify-center">
       <Animated.View
         className="rounded-l-full h-1.5 bg-blue-200 absolute"
         style={animatedStyle}

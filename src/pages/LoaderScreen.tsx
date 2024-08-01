@@ -7,6 +7,7 @@ import useAnalytics from "@src/hooks/useAnalytics";
 import {
   getIsSubscribed,
   initializeRevenueCatApiKeys,
+  logInRevenueCat,
 } from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
 import React, { useEffect } from "react";
@@ -19,15 +20,15 @@ const useManageRoute = () => {
   useEffect(() => {
     const manageRoute = async () => {
       if (loading) return; // Wait for auth to initialize
-
-      const unsubscribedDate = await getIsSubscribed();
-
       if (!user) {
         resetTo(navigation, "Introduction");
         return;
       }
 
+      const unsubscribedDate = await getIsSubscribed();
+      logInRevenueCat(user.id, user.email);
       let route = "Home";
+
       if (!unsubscribedDate) route = "Subscription";
 
       resetTo(navigation, route);
@@ -50,8 +51,8 @@ const useInitialization = () => {
 };
 
 const LoaderScreen: React.FC = () => {
-  useManageRoute();
   useInitialization();
+  useManageRoute();
   const { loading } = useAuth(); // Use the auth context
 
   if (loading) {
