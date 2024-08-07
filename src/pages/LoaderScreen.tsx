@@ -25,11 +25,11 @@ const useManageRoute = () => {
         return;
       }
 
-      const unsubscribedDate = await getIsSubscribed();
+      const isSubscribed = await getIsSubscribed();
       logInRevenueCat(user.id, user.email);
       let route = "Home";
 
-      if (!unsubscribedDate) route = "Subscription";
+      if (!isSubscribed) route = "Subscription";
 
       resetTo(navigation, route);
     };

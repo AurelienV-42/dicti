@@ -1,10 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
-import BadgeLevel from "@src/components/BadgeLevel";
 import ElevatedContainer from "@src/components/ElevatedContainer";
 import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
+import useCheckSubscription from "@src/hooks/useCheckSubscription";
 import { myCaptureException } from "@src/utils/sentry";
 import { uppercaseFirstLetter } from "@src/utils/string";
 import { User } from "phosphor-react-native";
@@ -24,6 +24,8 @@ const Home = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
 
+  useCheckSubscription();
+
   return (
     <ScreenTemplate>
       <View className="px-4 w-full flex-row items-center justify-between mb-5">
@@ -36,7 +38,7 @@ const Home = () => {
               </MyText>
             )}
           </View>
-          <BadgeLevel level={""} />
+          {/* <BadgeLevel level={""} /> */}
         </View>
         <MyPressable
           className="bg-white shadow-md items-center justify-center rounded-full px-3 aspect-square"

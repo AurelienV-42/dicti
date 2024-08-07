@@ -1,6 +1,7 @@
 import LogoVectorized from "@assets/vectorized/LogoVectorized";
 import { orange } from "@config/colors";
 import { useNavigation } from "@react-navigation/native";
+import Legals from "@src/components/Legals";
 import MyButton from "@src/components/natives/MyButton";
 import MyText from "@src/components/natives/MyText";
 import DisplayProducts from "@src/components/purchase/DisplayProducts";
@@ -14,7 +15,7 @@ import { pay } from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
 import { Brain, LockOpen } from "phosphor-react-native";
 import React, { useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 
 const Advantages = () => {
   const advantages = [
@@ -28,7 +29,7 @@ const Advantages = () => {
     },
   ];
   return (
-    <View>
+    <View className="mb-5">
       {advantages.map((advantage, index) => (
         <View className="flex-row items-center mb-3" key={index}>
           <View className="mr-2">
@@ -83,7 +84,7 @@ const Subscription = () => {
       <ScreenTemplate padding>
         <View className="flex-1 justify-center items-center">
           <ActivityIndicator
-            className="mb-4"
+            className="mb-5"
             size="large"
             color={orange[300]}
           />
@@ -106,25 +107,39 @@ const Subscription = () => {
     );
 
   return (
-    <ScreenTemplate edges={["top", "bottom"]} padding className="pb-4">
-      <LogoVectorized width={200} height={200} />
+    <ScreenTemplate edges={["top", "bottom"]} padding={false}>
+      <ScrollView
+        className="w-full"
+        contentContainerStyle={{
+          paddingHorizontal: 16,
+          paddingBottom: 20,
+          alignItems: "center",
+        }}
+      >
+        <LogoVectorized className="mb-5" width={200} height={200} />
 
-      <MyText className="text-xl text-center w-[95%]">
-        Les abonnés Dicti ont
-        <MyText className="text-xl text-orange font-bold"> 2.8 fois </MyText>
-        plus de chances d'améliorer leur niveau en orthographe
-      </MyText>
+        <MyText className="text-xl text-center w-[95%] mb-5">
+          Les abonnés Dicti ont
+          <MyText className="text-xl text-orange font-bold"> 2.8 fois </MyText>
+          plus de chances d'améliorer leur niveau en orthographe
+        </MyText>
 
-      <Advantages />
+        <Advantages />
 
-      <View className="w-full">
-        <DisplayProducts
-          products={subscriptions}
-          selectedNbMonth={selectedNbMonth}
-          setSelectedNbMonth={setSelectedNbMonth}
-        />
-        <MyButton className={"w-full"} txt="S'abonner" onPress={subscribe} />
-      </View>
+        <View className="w-full">
+          <DisplayProducts
+            products={subscriptions}
+            selectedNbMonth={selectedNbMonth}
+            setSelectedNbMonth={setSelectedNbMonth}
+          />
+          <MyButton
+            className={"w-full mb-5"}
+            txt="S'abonner"
+            onPress={subscribe}
+          />
+          <Legals />
+        </View>
+      </ScrollView>
     </ScreenTemplate>
   );
 };

@@ -1,16 +1,6 @@
-const getErrors = (
-  userWord: string,
-  correctWord: string,
-  fullSentence: string,
-) => {
-  return [
-    "Il y a une erreur, on est bien d'accord, mais là, vraiment aucune idée de ce que c'est.",
-    "Même une deuxième, mais c'est peut-être juste pour test.",
-  ];
-};
-
 export type CorrectionItem = {
-  text: string;
+  correctWord: string;
+  userWord: string;
   errors?: string[];
 };
 
@@ -34,12 +24,16 @@ const checkErrors = (userTxt: string, correctTxt: string): CorrectionItem[] => {
   const corrections: CorrectionItem[] = [];
   correctWords.forEach((correctWord, index) => {
     const result: CorrectionItem = {
-      text: correctWord,
+      correctWord,
+      userWord: userWords[index] || "",
     };
 
     if (index > userWords.length - 1) result.errors = ["Ce mot est manquant"];
-    else if (!checkIfSameWord(correctWord, userWords[index]))
-      result.errors = getErrors(userWords[index], correctWord, correctTxt);
+    else if (!checkIfSameWord(correctWord, userWords[index])) {
+      result.errors = [
+        "Ce mot est incorrect et dans les mises à jour futures, je vais t'aider à le corriger",
+      ];
+    }
     corrections.push(result);
   });
 
