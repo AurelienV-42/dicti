@@ -75,7 +75,7 @@ const DictationTemplate = ({
             onSubmitEditing={verify}
           />
         ) : (
-          <DisplayCorrection correction={correction} />
+          <DisplayCorrection correction={correction} correctText={content} />
         )}
         <View className="w-full">
           {__DEV__ && state !== "working" && (

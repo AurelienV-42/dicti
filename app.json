@@ -29,7 +29,7 @@
         "backgroundColor": "#EBF8FF"
       },
       "package": "com.dicti",
-      "versionCode": 14
+      "versionCode": 16
     },
     "plugins": [
       "expo-font",

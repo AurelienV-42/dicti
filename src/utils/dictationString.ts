@@ -30,9 +30,7 @@ const checkErrors = (userTxt: string, correctTxt: string): CorrectionItem[] => {
 
     if (index > userWords.length - 1) result.errors = ["Ce mot est manquant"];
     else if (!checkIfSameWord(correctWord, userWords[index])) {
-      result.errors = [
-        "Ce mot est incorrect et dans les mises à jour futures, je vais t'aider à le corriger",
-      ];
+      result.errors = [];
     }
     corrections.push(result);
   });

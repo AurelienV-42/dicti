@@ -1,18 +1,24 @@
+import useErrorsFromAI from "@src/hooks/useErrorsFromAI";
 import { CorrectionItem } from "@src/utils/dictationString";
 import React, { useState } from "react";
 import { Platform, ScrollView, View } from "react-native";
 import ModalToDisplayErrors from "./modals/ModalToDisplayErrors";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
-import useErrorsFromAI from "@src/hooks/useErrorsFromAI";
 
 const DisplayCorrection = ({
   correction,
+  correctText,
 }: {
   correction: CorrectionItem[];
+  correctText: string;
 }) => {
   const [indexModalVisible, setIndexModalVisible] = useState(-1);
-  const errorsFromAI = useErrorsFromAI(correction, indexModalVisible);
+  const { errorsFromAI, isLoading } = useErrorsFromAI(
+    correction,
+    correctText,
+    indexModalVisible,
+  );
 
   return (
     <ScrollView
@@ -22,13 +28,16 @@ const DisplayCorrection = ({
     >
       <MyText>
         {correction.map((item, index: number) => {
-          const isError = !!item.errors && item.errors.length > 0;
+          const isError = !!item.errors;
 
           return (
             <View className="self-start" key={index}>
               {indexModalVisible === index && (
                 <ModalToDisplayErrors
+                  goodWord={item.correctWord}
+                  badWord={item.userWord}
                   errors={errorsFromAI ?? item.errors}
+                  isLoading={isLoading}
                   close={() => setIndexModalVisible(-1)}
                 />
               )}

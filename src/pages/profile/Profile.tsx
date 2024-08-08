@@ -9,7 +9,7 @@ import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
 import deleteAuthUser from "@src/queries/deleteAuthUser.query";
 import resetTo from "@src/utils/resetTo";
-import { ArrowRight, Money, SignOut, Trash } from "phosphor-react-native";
+import { ArrowRight, Envelope, SignOut, Trash } from "phosphor-react-native";
 import React from "react";
 import { Alert, Linking, ScrollView, View } from "react-native";
 
@@ -91,12 +91,19 @@ const Profile = () => {
         },
         icon: Trash,
       },
+      // {
+      //   name: "Subscription",
+      //   onPress: () => {
+      //     navigation.navigate("Subscription");
+      //   },
+      //   icon: Money,
+      // },
       {
-        name: "Subscription",
+        name: "Contact",
         onPress: () => {
-          navigation.navigate("Subscription");
+          Linking.openURL("mailto:aurelienvpro@gmail.com");
         },
-        icon: Money,
+        icon: Envelope,
       },
     ],
     Légals: [
