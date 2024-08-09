@@ -20,7 +20,8 @@
       "bundleIdentifier": "com.dicti",
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "buildNumber": "4"
     },
     "android": {
       "googleServicesFile": "./google-services.json",

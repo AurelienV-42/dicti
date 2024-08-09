@@ -22,6 +22,10 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
       });
     }
 
+    Audio.setAudioModeAsync({
+      playsInSilentModeIOS: true,
+    });
+
     return sound
       ? () => {
         sound.unloadAsync();

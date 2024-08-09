@@ -8,7 +8,7 @@ import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import useTextDictation from "@src/hooks/dictation/useTextDictation";
 import { hapticImpact } from "@src/utils/haptics";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
 import BasicModal from "../modals/BasicModal";
 import TextToSpeech from "../soundPlayer/TextToSpeech";
 
@@ -66,7 +66,11 @@ const DictationTemplate = ({
         )}
       </View>
 
-      <View className="flex-1 bg-white w-full rounded-3xl rounded-tl-none p-4 shadow-md">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={60}
+        className="flex-1 bg-white w-full rounded-3xl rounded-tl-none p-4 shadow-md"
+      >
         {state === "working" ? (
           <MyTextInput
             value={userText}
@@ -77,7 +81,7 @@ const DictationTemplate = ({
         ) : (
           <DisplayCorrection correction={correction} correctText={content} />
         )}
-        <View className="w-full">
+        <View className="w-full pb-4">
           {__DEV__ && state !== "working" && (
             <MyButton
               className="mb-2 w-full"
@@ -93,7 +97,7 @@ const DictationTemplate = ({
             onPress={onPress}
           />
         </View>
-      </View>
+      </KeyboardAvoidingView>
       <BasicModal
         visible={isResultVisible}
         title={`Tu as ${grade}/20 !`}

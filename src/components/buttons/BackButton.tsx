@@ -12,8 +12,13 @@ interface BackButtonProps {
 const BackButton = ({ padding = true, theme = "dark" }: BackButtonProps) => {
   const navigation = useNavigation();
 
+  const onPress = () => {
+    if (navigation.canGoBack()) navigation.goBack();
+    else navigation.navigate("Introduction");
+  };
+
   return (
-    <MyPressable onPress={navigation.goBack} className={`${padding && "p-2"}`}>
+    <MyPressable onPress={onPress} className={`${padding && "p-2"}`}>
       <ArrowLeft color={theme === "dark" ? dark : white} />
     </MyPressable>
   );

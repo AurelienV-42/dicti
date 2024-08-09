@@ -25,8 +25,7 @@ const useManageRoute = () => {
         return;
       }
 
-      const isSubscribed = (await getIsSubscribed()) || __DEV__;
-
+      const isSubscribed = await getIsSubscribed();
       logInRevenueCat(user.id, user.email);
       let route = "Home";
 

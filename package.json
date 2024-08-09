@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start -c",
     "ios": "expo start --ios",
     "android": "expo start --android",
     "import:assets": "cd assets && node import_assets.js"
@@ -20,7 +20,6 @@
     "expo-application": "~5.9.1",
     "expo-av": "~14.0.6",
     "expo-dev-client": "~4.0.21",
-    "expo-device": "~6.0.2",
     "expo-file-system": "~17.0.1",
     "expo-font": "~12.0.9",
     "expo-haptics": "~13.0.1",
