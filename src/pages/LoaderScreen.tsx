@@ -29,7 +29,7 @@ const useManageRoute = () => {
       logInRevenueCat(user.id, user.email);
       let route = "Home";
 
-      if (!isSubscribed) route = "Subscription";
+      if (!isSubscribed && user.role !== "admin") route = "Subscription";
 
       resetTo(navigation, route);
     };

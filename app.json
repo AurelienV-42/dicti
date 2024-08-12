@@ -21,7 +21,7 @@
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "4"
+      "buildNumber": "6"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -30,7 +30,7 @@
         "backgroundColor": "#EBF8FF"
       },
       "package": "com.dicti",
-      "versionCode": 16
+      "versionCode": 17
     },
     "plugins": [
       "expo-font",

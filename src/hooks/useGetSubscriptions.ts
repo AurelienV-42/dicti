@@ -18,6 +18,7 @@ const useGetSubscriptions = () => {
           setSubscriptions(packages);
         })
         .catch((error) => {
+          console.log(error);
           setError(error.message);
         })
         .finally(() => {

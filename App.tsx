@@ -5,6 +5,7 @@ import LoaderModal from "@src/components/modals/LoaderModal";
 import { AuthProvider } from "@src/context/Auth";
 import IsLoadingProvider from "@src/context/IsLoading";
 import MyPostHogProvider from "@src/context/MyPostHog";
+import useNotifications from "@src/hooks/useNotifications";
 import HomeStackNavigator from "@src/pages/navigation/HomeStackNavigator";
 import "@src/utils/sentry";
 import { useFonts } from "expo-font";
@@ -17,6 +18,7 @@ SplashScreen.preventAutoHideAsync();
 
 const App = () => {
   const [fontLoaded] = useFonts(fonts);
+  useNotifications();
 
   const onLayoutRootView = useCallback(async () => {
     await SplashScreen.hideAsync();
