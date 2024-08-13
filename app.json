@@ -3,7 +3,7 @@
     "name": "Dicti",
     "slug": "dicti",
     "scheme": "dicti",
-    "version": "0.0.2",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/logo/icon.png",
     "userInterfaceStyle": "light",
@@ -12,16 +12,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#9ADDFE"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.dicti",
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "6"
+      "buildNumber": "7"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -42,7 +40,11 @@
           "project": "dicti",
           "organization": "aurelien-vandaele"
         }
-      ]
+      ],
+      "expo-tracking-transparency",
+      {
+        "userTrackingPermission": "Cela permet de suivre votre utilisation pour améliorer votre expérience."
+      }
     ],
     "extra": {
       "eas": {

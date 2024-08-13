@@ -28,9 +28,9 @@ const DisplayProducts = ({
           <MyText className="mb-4">
             {product.nbMonths === 1 ? "Mensuel" : "Annuel"}
           </MyText>
-          <MyText className="text-2xl">{product.priceByMonthString}</MyText>
+          <MyText className="text-xl">{product.priceByMonthString}</MyText>
           <MyText className="mb-4">par mois</MyText>
-          <MyText className="">{product.priceString}</MyText>
+          <MyText className="text-2xl">{product.priceString}</MyText>
         </MyPressable>
       ))}
     </View>
