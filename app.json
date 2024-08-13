@@ -41,10 +41,12 @@
           "organization": "aurelien-vandaele"
         }
       ],
-      "expo-tracking-transparency",
-      {
-        "userTrackingPermission": "Cela permet de suivre votre utilisation pour améliorer votre expérience."
-      }
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "Cela permet de suivre votre utilisation pour améliorer votre expérience."
+        }
+      ]
     ],
     "extra": {
       "eas": {
