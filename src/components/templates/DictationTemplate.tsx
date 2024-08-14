@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 import BasicModal from "../modals/BasicModal";
 import TextToSpeech from "../soundPlayer/TextToSpeech";
+import useTracking from "@src/hooks/useTracking";
 
 interface DictationTemplateProps {
   dictationID: string;
@@ -27,6 +28,7 @@ const DictationTemplate = ({
   mp3File,
   onComplete,
 }: DictationTemplateProps) => {
+  useTracking();
   const navigation = useNavigation();
   const [isResultVisible, setIsResultVisible] = useState(false);
   const {
