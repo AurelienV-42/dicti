@@ -8,7 +8,7 @@ interface DictationPlayerProps {
   isPlaying: any;
   play: any;
   pause: any;
-  reset: any;
+  reset?: any;
   time?: string;
   progression?: number;
 }
@@ -34,7 +34,7 @@ const DictationPlayer = ({
             top: 40,
             bottom: 40,
           }}
-          onPress={reset}
+          onPress={() => reset?.()}
         >
           <ProgressionBar progression={progression} />
         </MyPressable>

@@ -1,3 +1,4 @@
+import { Audio } from "expo-av";
 import * as Speech from "expo-speech";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
@@ -25,6 +26,9 @@ const useTextToSpeech = (content: string, shouldStop: boolean) => {
   };
 
   useEffect(() => {
+    Audio.setAudioModeAsync({
+      playsInSilentModeIOS: true,
+    });
     if (shouldStop) pause();
   }, [shouldStop]);
 

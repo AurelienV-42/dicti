@@ -6,7 +6,8 @@
     "start": "expo start -c",
     "ios": "expo start --ios",
     "android": "expo start --android",
-    "import:assets": "cd assets && node import_assets.js"
+    "import:assets": "cd assets && node import_assets.js",
+    "addPunctuation": "node scripts/addPunctuation.js > punctuation.txt"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.23.1",

@@ -44,6 +44,14 @@ const DisplayDictation = ({ item }: { item: Dictation }) => {
   const { isSubscribed } = useIsSubscribed();
   const { isAdmin } = useAuth();
 
+  const goToDictation = () => {
+    if (!isSubscribed) {
+      navigation.navigate("Subscription");
+      return;
+    }
+    navigation.navigate("Dictation", { dictationID: item.id });
+  };
+
   return (
     <MyPressable
       className={
@@ -64,17 +72,12 @@ const DisplayDictation = ({ item }: { item: Dictation }) => {
               },
               {
                 text: "Oui",
-                onPress: () => navigation.navigate("Subscription"),
+                onPress: goToDictation,
               },
             ],
           );
           return;
         }
-        if (!isSubscribed) {
-          navigation.navigate("Subscription");
-          return;
-        }
-        navigation.navigate("Dictation", { dictationID: item.id });
       }}
     >
       {item.grade !== undefined && (
