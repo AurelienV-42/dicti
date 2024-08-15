@@ -9,13 +9,19 @@ import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
 import deleteAuthUser from "@src/queries/deleteAuthUser.query";
 import resetTo from "@src/utils/resetTo";
-import { ArrowRight, Envelope, SignOut, Trash } from "phosphor-react-native";
+import {
+  ArrowRight,
+  Envelope,
+  Money,
+  SignOut,
+  Trash,
+} from "phosphor-react-native";
 import React from "react";
 import { Alert, Linking, ScrollView, View } from "react-native";
 
 const Profile = () => {
   const navigation = useNavigation();
-  const { signOut } = useAuth();
+  const { isAdmin, signOut } = useAuth();
 
   const signOutWithThen = () => {
     signOut().then(() => {
@@ -91,13 +97,6 @@ const Profile = () => {
         },
         icon: Trash,
       },
-      // {
-      //   name: "Subscription",
-      //   onPress: () => {
-      //     navigation.navigate("Subscription");
-      //   },
-      //   icon: Money,
-      // },
       {
         name: "Contact",
         onPress: () => {
@@ -123,6 +122,16 @@ const Profile = () => {
       },
     ],
   };
+
+  if (isAdmin) {
+    list.general.push({
+      name: "Abonnement",
+      onPress: () => {
+        navigation.navigate("Subscription");
+      },
+      icon: Money,
+    });
+  }
 
   return (
     <ScreenTemplate edges={["top"]} className="px-0">

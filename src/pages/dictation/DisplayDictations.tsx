@@ -1,5 +1,4 @@
 import rawDictations, { Dictation } from "@config/dictations";
-import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@src/context/Auth";
 import { getGradesByUserId } from "@src/queries/grades.query";
 import { useEffect, useState } from "react";
@@ -7,7 +6,6 @@ import { FlatList } from "react-native";
 import DisplayDictation from "./DisplayDictation";
 
 const DisplayDictations = () => {
-  const navigation = useNavigation();
   const [dictations, setDictations] = useState<Dictation[]>(rawDictations);
   const { user } = useAuth();
 
@@ -39,9 +37,7 @@ const DisplayDictations = () => {
       showsVerticalScrollIndicator={false}
       data={dictations.sort((a, b) => a.level - b.level)}
       keyExtractor={(_, i) => i.toString()}
-      renderItem={({ item }) => (
-        <DisplayDictation navigation={navigation} item={item} />
-      )}
+      renderItem={({ item }) => <DisplayDictation item={item} />}
     />
   );
 };

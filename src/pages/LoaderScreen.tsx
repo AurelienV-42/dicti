@@ -5,7 +5,6 @@ import MyImage from "@src/components/natives/MyImage";
 import { useAuth } from "@src/context/Auth";
 import useAnalytics from "@src/hooks/useAnalytics";
 import {
-  getIsSubscribed,
   initializeRevenueCatApiKeys,
   logInRevenueCat,
 } from "@src/utils/purchase";
@@ -25,13 +24,9 @@ const useManageRoute = () => {
         return;
       }
 
-      const isSubscribed = await getIsSubscribed();
       logInRevenueCat(user.id, user.email);
-      let route = "Home";
 
-      if (!isSubscribed && user.role !== "admin") route = "Subscription";
-
-      resetTo(navigation, route);
+      resetTo(navigation, "Home"); // We check if the user is subscribed before accessing the content (dictations) as asked by Apple, not here.
     };
 
     manageRoute();

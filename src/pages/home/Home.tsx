@@ -4,7 +4,6 @@ import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
-import useCheckSubscription from "@src/hooks/useCheckSubscription";
 import { myCaptureException } from "@src/utils/sentry";
 import { uppercaseFirstLetter } from "@src/utils/string";
 import { User } from "phosphor-react-native";
@@ -23,8 +22,6 @@ const showNiceEmail = (email: string) => {
 const Home = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
-
-  useCheckSubscription();
 
   return (
     <ScreenTemplate>

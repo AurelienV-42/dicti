@@ -1,8 +1,11 @@
 import { Dictation } from "@config/dictations";
+import { useNavigation } from "@react-navigation/native";
 import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
+import { useAuth } from "@src/context/Auth";
+import useIsSubscribed from "@src/hooks/useIsSubscribed";
 import { hapticImpact } from "@src/utils/haptics";
-import { DimensionValue, View } from "react-native";
+import { Alert, DimensionValue, View } from "react-native";
 
 const Level = ({ level }: { level: number }) => {
   let color = "";
@@ -36,13 +39,11 @@ const Grade = ({ grade }: { grade: number }) => {
   return <MyText className={`font-bold mr-2`}>{grade}/20</MyText>;
 };
 
-const DisplayDictation = ({
-  navigation,
-  item,
-}: {
-  navigation: any;
-  item: Dictation;
-}) => {
+const DisplayDictation = ({ item }: { item: Dictation }) => {
+  const navigation = useNavigation();
+  const { isSubscribed } = useIsSubscribed();
+  const { isAdmin } = useAuth();
+
   return (
     <MyPressable
       className={
@@ -50,6 +51,29 @@ const DisplayDictation = ({
       }
       onPress={() => {
         hapticImpact("medium");
+        if (isAdmin) {
+          Alert.alert(
+            "Dictée",
+            "Vous êtes administrateur, souhaitez-vous avoir le parcours utilisateur ?",
+            [
+              {
+                text: "Non, bypass le paiement",
+                onPress: () =>
+                  navigation.navigate("Dictation", { dictationID: item.id }),
+                style: "cancel",
+              },
+              {
+                text: "Oui",
+                onPress: () => navigation.navigate("Subscription"),
+              },
+            ],
+          );
+          return;
+        }
+        if (!isSubscribed) {
+          navigation.navigate("Subscription");
+          return;
+        }
         navigation.navigate("Dictation", { dictationID: item.id });
       }}
     >

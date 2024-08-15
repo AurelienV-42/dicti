@@ -3,17 +3,19 @@ import { orange } from "@config/colors";
 import { useNavigation } from "@react-navigation/native";
 import Legals from "@src/components/Legals";
 import MyButton from "@src/components/natives/MyButton";
+import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import DisplayProducts from "@src/components/purchase/DisplayProducts";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
+import { useAuth } from "@src/context/Auth";
 import { useIsLoading } from "@src/context/IsLoading";
 import useAnalytics from "@src/hooks/useAnalytics";
 import useGetSubscriptions from "@src/hooks/useGetSubscriptions";
 import { hapticImpact } from "@src/utils/haptics";
 import { pay } from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
-import { Brain, LockOpen } from "phosphor-react-native";
+import { Brain, CaretLeft, LockOpen } from "phosphor-react-native";
 import React, { useState } from "react";
 import { ActivityIndicator, ScrollView, View } from "react-native";
 
@@ -48,6 +50,7 @@ const Subscription = () => {
   const [selectedNbMonth, setSelectedNbMonth] = useState(12);
   const { capture } = useAnalytics();
   const { subscriptions, loading, error } = useGetSubscriptions();
+  const { isAdmin } = useAuth();
 
   const successSubscription = () => {
     resetTo(navigation, "Home");
@@ -116,6 +119,11 @@ const Subscription = () => {
           alignItems: "center",
         }}
       >
+        {isAdmin && (
+          <MyPressable className="left-4 absolute" onPress={navigation.goBack}>
+            <CaretLeft />
+          </MyPressable>
+        )}
         <LogoVectorized className="mb-5" width={200} height={200} />
 
         <MyText className="text-xl text-center w-[95%] mb-5">

@@ -11,6 +11,7 @@ import React, {
 
 type AuthContextType = {
   user: User | null;
+  isAdmin: boolean;
   session: Session | null;
   loading: boolean;
   signUp: (email: string, password: string) => Promise;
@@ -114,17 +115,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (error) throw error;
 
     setSession(data?.session);
-    setUser(data?.user);
+
+    if (!data.session?.user) {
+      console.warn("Failed to get user session");
+      return;
+    }
+    const { account } = await getAccountById(data.session?.user.id);
+    setUser(account);
   };
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     setUser(null);
+    setSession(null);
   };
 
   const value: AuthContextType = {
     user,
+    isAdmin: user?.role === "admin",
     session,
     loading,
     signUp,

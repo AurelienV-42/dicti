@@ -1,5 +1,6 @@
 import { Alert, Platform } from "react-native";
 import Purchases, { LOG_LEVEL, PurchasesPackage } from "react-native-purchases";
+import getCurrencySymbolFromPrice from "./getCurrencySymbolFromPrice";
 
 const APIKeys = {
   apple: process.env.REVENUE_CAT_IOS_KEY ?? "",
@@ -34,19 +35,9 @@ export const getPackages = async () => {
     if (!offerings || !currentOffering?.availablePackages) return [];
 
     return currentOffering.availablePackages.map((p) => {
-      const characterCurrency = p.product.priceString[0] === "€" ||
-          p.product.priceString[0] === "$" ||
-          p.product.priceString[0] === "£" ||
-          p.product.priceString[0] === "¥" ||
-          p.product.priceString[0] === "₹" ||
-          p.product.priceString[0] === "₽" ||
-          p.product.priceString[0] === "₩" ||
-          p.product.priceString[0] === "₺" ||
-          p.product.priceString[0] === "₴" ||
-          p.product.priceString[0] === "₦" ||
-          p.product.priceString[0] === "฿"
-        ? p.product.priceString[0]
-        : p.product.priceString[p.product.priceString.length - 1];
+      const characterCurrency = getCurrencySymbolFromPrice(
+        p.product.priceString,
+      );
 
       let nbMonths = 3;
       switch (p.packageType) {

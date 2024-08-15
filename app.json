@@ -12,14 +12,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#9ADDFE"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.dicti",
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "7"
+      "buildNumber": "8"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -27,8 +29,8 @@
         "foregroundImage": "./assets/logo/adaptiveIcon.png",
         "backgroundColor": "#EBF8FF"
       },
-      "package": "com.dicti",
-      "versionCode": 17
+      "package": "app.dicti",
+      "versionCode": 20
     },
     "plugins": [
       "expo-font",
