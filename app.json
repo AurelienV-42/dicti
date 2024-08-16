@@ -12,14 +12,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#9ADDFE"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.dicti",
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "9"
+      "buildNumber": "10"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -28,7 +30,7 @@
         "backgroundColor": "#EBF8FF"
       },
       "package": "app.dicti",
-      "versionCode": 21
+      "versionCode": 22
     },
     "plugins": [
       "expo-font",

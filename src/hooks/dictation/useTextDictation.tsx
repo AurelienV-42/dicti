@@ -5,8 +5,8 @@ import { useState } from "react";
 
 const useTextDictation = (
   dictationID: string,
-  dictationText: string,
   setIsResultVisible: (value: boolean) => void,
+  dictationText?: string,
 ) => {
   const [userText, setUserText] = useState("");
   const [correction, setCorrectionItem] = useState<CorrectionItem[]>([]);
@@ -15,6 +15,7 @@ const useTextDictation = (
   const { user } = useAuth();
 
   const verify = () => {
+    if (!dictationText) return;
     if (state === "working") {
       const result = checkErrors(userText, dictationText);
       setCorrectionItem(result);

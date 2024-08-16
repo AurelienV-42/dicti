@@ -6,17 +6,18 @@ import SoundPlayer from "@src/components/soundPlayer/SoundPlayer";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import useTextDictation from "@src/hooks/dictation/useTextDictation";
+import useTracking from "@src/hooks/useTracking";
 import { hapticImpact } from "@src/utils/haptics";
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 import BasicModal from "../modals/BasicModal";
+import MyText from "../natives/MyText";
 import TextToSpeech from "../soundPlayer/TextToSpeech";
-import useTracking from "@src/hooks/useTracking";
 
 interface DictationTemplateProps {
   dictationID: string;
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
   mp3File: any;
   onComplete?: () => void;
 }
@@ -39,7 +40,7 @@ const DictationTemplate = ({
     setUserText,
     verify,
     restartDictation,
-  } = useTextDictation(dictationID, content, setIsResultVisible);
+  } = useTextDictation(dictationID, setIsResultVisible, content);
   const [shouldStop, setShouldStop] = useState(false);
 
   const onPress = () => {
@@ -60,46 +61,58 @@ const DictationTemplate = ({
       className="pb-4"
     >
       <HeaderTemplate canGoBack title={title} theme={"white"} />
-      <View className="mb-10 justify-center">
-        {mp3File ? (
-          <SoundPlayer mp3File={mp3File} shouldStop={shouldStop} />
-        ) : (
-          <TextToSpeech content={content} shouldStop={shouldStop} />
-        )}
-      </View>
+      {!content && (
+        <MyText className="text-white">
+          Nous n'avons pas retrouvé cette dictée 😰
+        </MyText>
+      )}
+      {content && (
+        <>
+          <View className="mb-10 justify-center">
+            {mp3File ? (
+              <SoundPlayer mp3File={mp3File} shouldStop={shouldStop} />
+            ) : (
+              <TextToSpeech content={content} shouldStop={shouldStop} />
+            )}
+          </View>
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={60}
-        className="flex-1 bg-white w-full rounded-3xl rounded-tl-none p-4 shadow-md"
-      >
-        {state === "working" ? (
-          <MyTextInput
-            value={userText}
-            onChangeText={setUserText}
-            placeholder={"Entre ta réponse"}
-            onSubmitEditing={verify}
-          />
-        ) : (
-          <DisplayCorrection correction={correction} correctText={content} />
-        )}
-        <View className="w-full pb-4">
-          {__DEV__ && state !== "working" && (
-            <MyButton
-              className="mb-2 w-full"
-              type="secondary"
-              txt={"Recommencer la dictée"}
-              onPress={restartDictation}
-            />
-          )}
-          <MyButton
-            className="w-full"
-            disabled={userText === "" || userText.length < 20}
-            txt={state === "working" ? "Valider" : "Suivant"}
-            onPress={onPress}
-          />
-        </View>
-      </KeyboardAvoidingView>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={60}
+            className="flex-1 bg-white w-full rounded-3xl rounded-tl-none p-4 shadow-md"
+          >
+            {state === "working" ? (
+              <MyTextInput
+                value={userText}
+                onChangeText={setUserText}
+                placeholder={"Entre ta réponse"}
+                onSubmitEditing={verify}
+              />
+            ) : (
+              <DisplayCorrection
+                correction={correction}
+                correctText={content}
+              />
+            )}
+            <View className="w-full pb-4">
+              {__DEV__ && state !== "working" && (
+                <MyButton
+                  className="mb-2 w-full"
+                  type="secondary"
+                  txt={"Recommencer la dictée"}
+                  onPress={restartDictation}
+                />
+              )}
+              <MyButton
+                className="w-full"
+                disabled={userText === "" || userText.length < 20}
+                txt={state === "working" ? "Valider" : "Suivant"}
+                onPress={onPress}
+              />
+            </View>
+          </KeyboardAvoidingView>
+        </>
+      )}
       <BasicModal
         visible={isResultVisible}
         title={`Tu as ${grade}/20 !`}

@@ -77,7 +77,7 @@ const DisplayDictation = ({ item }: { item: Dictation }) => {
             ],
           );
           return;
-        }
+        } else goToDictation();
       }}
     >
       {item.grade !== undefined && (

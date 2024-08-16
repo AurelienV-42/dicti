@@ -6,7 +6,7 @@ export type Dictation = {
   grade?: number;
 };
 
-export const ID_FIRST_TEST = "000013";
+export const ID_FIRST_TEST = "1003";
 
 export enum DictationLevel {
   EASY = 1,
