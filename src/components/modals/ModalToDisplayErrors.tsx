@@ -12,7 +12,7 @@ const Title = ({
   goodWord: string;
   badWord: string;
 }) => (
-  <View className="flex-row items-center justify-center mb-2">
+  <View className="flex-row items-center justify-center">
     {badWord.length > 0 && (
       <MyText className="text-2xl text-red-300 line-through mr-2">
         {badWord}
@@ -51,8 +51,13 @@ const ModalToDisplayErrors = ({
 
   return (
     <ModalTemplate visible close={close}>
-      <DisplayLifes variant="small" />
-      <Title badWord={badWord} goodWord={goodWord} />
+      <View className="w-full flex-row justify-between items-center mb-2">
+        <View className="flex-1" />
+        <Title badWord={badWord} goodWord={goodWord} />
+        <View className="flex-1 items-end">
+          <DisplayLifes variant="small" />
+        </View>
+      </View>
       <View className="mb-4">
         {isLoading && <LoadingFromAI />}
         {!isLoading &&

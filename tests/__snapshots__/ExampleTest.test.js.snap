@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExampleComponent renders correctly 1`] = `
+<View>
+  <Text>
+    Hello, Expo!
+  </Text>
+</View>
+`;

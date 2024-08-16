@@ -24,6 +24,29 @@ const DisplayCorrection = ({
   );
   const { decrementLife } = useLifes();
 
+  const showCorrection = (index: number) => {
+    decrementLife().then((isSuccess: boolean) => {
+      if (isSuccess) {
+        setIndexModalVisible(index);
+        return;
+      }
+      Alert.alert(
+        "Vous n'avez plus de vies 😕",
+        "Pour avoir des vies en illimité, abonnez-vous !",
+        [
+          {
+            text: "Plus tard",
+            style: "cancel",
+          },
+          {
+            text: "S'abonner",
+            onPress: () => setIsSubscriptionVisible(true),
+          },
+        ],
+      );
+    });
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -47,28 +70,7 @@ const DisplayCorrection = ({
               )}
               <MyPressable
                 className={`z-0 rounded-full mr-1 mb-2 ${Platform.OS === "ios" && isError && "px-2 py-0.5 bg-red-200"}`}
-                onPress={() => {
-                  decrementLife().then((isSuccess: boolean) => {
-                    if (isSuccess) {
-                      setIndexModalVisible(index);
-                      return;
-                    }
-                    Alert.alert(
-                      "Vous n'avez plus de vies 😕",
-                      "Pour avoir des vies en illimité, abonnez-vous !",
-                      [
-                        {
-                          text: "Plus tard",
-                          style: "cancel",
-                        },
-                        {
-                          text: "S'abonner",
-                          onPress: () => setIsSubscriptionVisible(true),
-                        },
-                      ],
-                    );
-                  });
-                }}
+                onPress={() => showCorrection(index)}
                 disabled={!isError}
               >
                 <MyText className={`text-dark ${isError && "text-red-300"}`}>

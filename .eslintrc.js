@@ -47,4 +47,5 @@ module.exports = {
       parser: "espree",
     },
   ],
+  jest: true,
 };

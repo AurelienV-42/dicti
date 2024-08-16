@@ -7,9 +7,17 @@
     "paths": {
       "@src/*": ["src/*"],
       "@config/*": ["config/*"],
-      "@assets/*": ["assets/*"],
+      "@assets/*": ["assets/*"]
     }
   },
-  "include": ["config/**/*", "src/**/*", "assets/**/*", "./*", "App.tsx", "supabase/**/*"],
-  "exclude": ["node_modules", "**/node_modules/*",]
+  "include": [
+    "tests/**/*",
+    "config/**/*",
+    "src/**/*",
+    "assets/**/*",
+    "./*",
+    "App.tsx",
+    "supabase/**/*"
+  ],
+  "exclude": ["node_modules", "**/node_modules/*"]
 }

@@ -36,18 +36,21 @@ const Home = () => {
               </MyText>
             )}
           </View>
-          <DisplayLifes />
           {/* <BadgeLevel level={""} /> */}
         </View>
-        <MyPressable
-          className="bg-white shadow-md items-center justify-center rounded-full px-3 aspect-square"
-          onPress={() => {
-            myCaptureException(new Error("First error"));
-            navigation.navigate("Profile");
-          }}
-        >
-          <User size={24} />
-        </MyPressable>
+        <View className="flex-row items-center justify-center">
+          <DisplayLifes />
+
+          <MyPressable
+            className="ml-2 bg-white shadow-md items-center justify-center rounded-full px-3 aspect-square"
+            onPress={() => {
+              myCaptureException(new Error("First error"));
+              navigation.navigate("Profile");
+            }}
+          >
+            <User size={24} />
+          </MyPressable>
+        </View>
       </View>
       <ElevatedContainer className="flex-1" padding={false}>
         <DisplayDictations />

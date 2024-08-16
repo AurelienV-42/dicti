@@ -1,8 +1,9 @@
 import { red } from "@config/colors";
+import { useLifes } from "@src/context/Lifes";
 import { Heart } from "phosphor-react-native";
 import MyPressable from "../natives/MyPressable";
 import MyText from "../natives/MyText";
-import { useLifes } from "@src/context/Lifes";
+import { View } from "react-native";
 
 interface DisplayLifesProps {
   variant?: "small" | "normal";
@@ -26,10 +27,12 @@ const DisplayLifes = ({ variant = "normal" }: DisplayLifesProps) => {
   return (
     <MyPressable
       onPress={resetLifes}
-      className={`self-start flex-row items-center ${pressableStyle[variant]}`}
+      className={`flex-row items-center ${pressableStyle[variant]}`}
     >
-      <Heart weight={"duotone"} color={red[300]} size={heartSize[variant]} />
-      <MyText className={`text-red-300 font-bold ml-1 ${textStyle[variant]}`}>
+      <View className=" mr-1">
+        <Heart weight={"duotone"} color={red[300]} size={heartSize[variant]} />
+      </View>
+      <MyText className={`text-red-300 font-bold ${textStyle[variant]}`}>
         {lifes}
       </MyText>
     </MyPressable>
