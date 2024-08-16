@@ -11,7 +11,6 @@ function MyPressable(props: MyPressableProps) {
   const { disabled, disabledFull = false, ...otherProps } = props;
 
   const [hovered, setHovered] = useState(false);
-  const [pressed, setPressed] = useState(false);
 
   const [disabledNoMultipleClick, setDisabledNoMultipleClick] = useState(false);
 
@@ -24,16 +23,20 @@ function MyPressable(props: MyPressableProps) {
   return (
     <Pressable
       disabled={disabled || disabledFull || disabledNoMultipleClick}
-      className={`opacity-${!disabledFull && (pressed || disabled) ? "30" : hovered ? "70" : "100"}`}
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}
-      onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
       {...otherProps}
       onPress={(event: GestureResponderEvent) => {
         disableToAvoidMultipleClick();
         props.onPress?.(event);
       }}
+      // @ts-ignore
+      style={({ pressed }) => [
+        {
+          opacity: pressed || disabled ? 0.3 : hovered ? 0.7 : 1,
+        },
+        otherProps.style,
+      ]}
     />
   );
 }

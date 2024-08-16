@@ -1,8 +1,10 @@
+import { useLifes } from "@src/context/Lifes";
 import useErrorsFromAI from "@src/hooks/useErrorsFromAI";
 import { CorrectionItem } from "@src/utils/dictationString";
 import React, { useState } from "react";
-import { Platform, ScrollView, View } from "react-native";
+import { Alert, Platform, ScrollView, View } from "react-native";
 import ModalToDisplayErrors from "./modals/ModalToDisplayErrors";
+import SubscriptionModal from "./modals/SubscriptionModal";
 import MyPressable from "./natives/MyPressable";
 import MyText from "./natives/MyText";
 
@@ -13,12 +15,14 @@ const DisplayCorrection = ({
   correction: CorrectionItem[];
   correctText: string;
 }) => {
+  const [isSubscriptionVisible, setIsSubscriptionVisible] = useState(false);
   const [indexModalVisible, setIndexModalVisible] = useState(-1);
   const { errorsFromAI, isLoading } = useErrorsFromAI(
     correction,
     correctText,
     indexModalVisible,
   );
+  const { decrementLife } = useLifes();
 
   return (
     <ScrollView
@@ -44,7 +48,26 @@ const DisplayCorrection = ({
               <MyPressable
                 className={`z-0 rounded-full mr-1 mb-2 ${Platform.OS === "ios" && isError && "px-2 py-0.5 bg-red-200"}`}
                 onPress={() => {
-                  setIndexModalVisible(index);
+                  decrementLife().then((isSuccess: boolean) => {
+                    if (isSuccess) {
+                      setIndexModalVisible(index);
+                      return;
+                    }
+                    Alert.alert(
+                      "Vous n'avez plus de vies 😕",
+                      "Pour avoir des vies en illimité, abonnez-vous !",
+                      [
+                        {
+                          text: "Plus tard",
+                          style: "cancel",
+                        },
+                        {
+                          text: "S'abonner",
+                          onPress: () => setIsSubscriptionVisible(true),
+                        },
+                      ],
+                    );
+                  });
                 }}
                 disabled={!isError}
               >
@@ -56,6 +79,10 @@ const DisplayCorrection = ({
           );
         })}
       </MyText>
+      <SubscriptionModal
+        isVisible={isSubscriptionVisible}
+        close={() => setIsSubscriptionVisible(false)}
+      />
     </ScrollView>
   );
 };

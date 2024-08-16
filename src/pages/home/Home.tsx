@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import ElevatedContainer from "@src/components/ElevatedContainer";
+import DisplayLifes from "@src/components/gamification/DisplayLifes";
 import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
@@ -35,6 +36,7 @@ const Home = () => {
               </MyText>
             )}
           </View>
+          <DisplayLifes />
           {/* <BadgeLevel level={""} /> */}
         </View>
         <MyPressable

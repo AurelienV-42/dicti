@@ -1,4 +1,6 @@
+import { DEFAULT_NB_LIFES } from "@config/gamification";
 import { createAccount, getAccountById } from "@src/queries/account.query";
+import { setAsyncStorage } from "@src/utils/asyncStorage";
 import { supabase } from "@src/utils/supabase";
 import { Session, User } from "@supabase/supabase-js";
 import React, {
@@ -91,6 +93,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     if (error) throw error;
 
+    setAsyncStorage("lifes", DEFAULT_NB_LIFES.toString());
     setSession(data?.session);
     const account = {
       id: data.session?.user.id,

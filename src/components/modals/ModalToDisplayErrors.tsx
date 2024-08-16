@@ -1,5 +1,6 @@
 import { ArrowRight } from "phosphor-react-native";
 import { ActivityIndicator, View } from "react-native";
+import DisplayLifes from "../gamification/DisplayLifes";
 import MyButton from "../natives/MyButton";
 import MyText from "../natives/MyText";
 import ModalTemplate from "../templates/ModalTemplate";
@@ -50,6 +51,7 @@ const ModalToDisplayErrors = ({
 
   return (
     <ModalTemplate visible close={close}>
+      <DisplayLifes variant="small" />
       <Title badWord={badWord} goodWord={goodWord} />
       <View className="mb-4">
         {isLoading && <LoadingFromAI />}
