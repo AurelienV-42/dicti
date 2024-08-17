@@ -3,7 +3,7 @@ export default {
     name: process.env.APP_NAME || "Dicti",
     slug: "dicti",
     scheme: "dicti",
-    version: "1.0.3",
+    version: "1.0.2",
     orientation: "portrait",
     icon: "./assets/logo/icon.png",
     userInterfaceStyle: "light",
