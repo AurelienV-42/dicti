@@ -1,7 +1,7 @@
 import { DEFAULT_NB_LIFES } from "@config/gamification";
 import { useAuth } from "@src/context/Auth";
-import useIsSubscribed from "@src/hooks/useIsSubscribed";
 import { getAsyncStorage, setAsyncStorage } from "@src/utils/asyncStorage";
+import { getIsSubscribed } from "@src/utils/purchase";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Alert } from "react-native";
 
@@ -9,6 +9,7 @@ interface LifesContextType {
   lifes: string;
   decrementLife: () => Promise<boolean>;
   resetLifes: () => void;
+  init: () => void;
 }
 
 type Life = {
@@ -19,11 +20,11 @@ type Life = {
 const LifesContext = createContext<LifesContextType | undefined>(undefined);
 
 export const LifesProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isSubscribed, setIsSubscribed] = useState(false); // We do not use the hook because when the Context is created, the purchases are not yet initialized
   const [lifesState, setLifesState] = useState<Life>({
     value: DEFAULT_NB_LIFES,
     display: DEFAULT_NB_LIFES.toString(),
   });
-  const { isSubscribed } = useIsSubscribed();
   const { isAdmin } = useAuth();
 
   useEffect(() => {
@@ -43,7 +44,10 @@ export const LifesProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const decrementLife = async () => {
-    if (isSubscribed) return true;
+    const newIsSubscribed = await getIsSubscribed();
+    setIsSubscribed(newIsSubscribed);
+
+    if (newIsSubscribed) return true;
     const decrementedLife = lifesState.value - 1;
     if (decrementedLife < 0) {
       return false;
@@ -76,10 +80,15 @@ export const LifesProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const init = async () => {
+    setIsSubscribed(await getIsSubscribed());
+  };
+
   const value = {
     lifes: isSubscribed ? "∞" : lifesState.display,
     decrementLife,
     resetLifes,
+    init,
   };
 
   return (

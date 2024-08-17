@@ -1,9 +1,9 @@
 import { red } from "@config/colors";
 import { useLifes } from "@src/context/Lifes";
 import { Heart } from "phosphor-react-native";
+import { View } from "react-native";
 import MyPressable from "../natives/MyPressable";
 import MyText from "../natives/MyText";
-import { View } from "react-native";
 
 interface DisplayLifesProps {
   variant?: "small" | "normal";

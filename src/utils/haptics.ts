@@ -27,6 +27,5 @@ export const hapticImpact = (
       break;
   }
 
-  console.log("Haptic Feedback", styleFormatted);
   Haptics.impactAsync(styleFormatted);
 };

@@ -5,7 +5,6 @@ import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
-import { myCaptureException } from "@src/utils/sentry";
 import { uppercaseFirstLetter } from "@src/utils/string";
 import { User } from "phosphor-react-native";
 import React from "react";
@@ -44,7 +43,6 @@ const Home = () => {
           <MyPressable
             className="ml-2 bg-white shadow-md items-center justify-center rounded-full px-3 aspect-square"
             onPress={() => {
-              myCaptureException(new Error("First error"));
               navigation.navigate("Profile");
             }}
           >

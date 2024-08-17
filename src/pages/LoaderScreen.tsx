@@ -1,54 +1,32 @@
 import assets from "@assets/index";
 import { white } from "@config/colors";
-import { useNavigation } from "@react-navigation/native";
 import MyImage from "@src/components/natives/MyImage";
 import { useAuth } from "@src/context/Auth";
+import { useLifes } from "@src/context/Lifes";
 import useAnalytics from "@src/hooks/useAnalytics";
-import {
-  initializeRevenueCatApiKeys,
-  logInRevenueCat,
-} from "@src/utils/purchase";
-import resetTo from "@src/utils/resetTo";
+import useManageRoute from "@src/hooks/useManageRoute";
+import { initializeRevenueCatApiKeys } from "@src/utils/purchase";
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-const useManageRoute = () => {
-  const navigation = useNavigation();
-  const { user, loading } = useAuth(); // Use the auth context
-
-  useEffect(() => {
-    const manageRoute = async () => {
-      if (loading) return; // Wait for auth to initialize
-      if (!user) {
-        resetTo(navigation, "Introduction");
-        return;
-      }
-
-      logInRevenueCat(user.id, user.email);
-
-      resetTo(navigation, "Home"); // We check if the user is subscribed before accessing the content (dictations) as asked by Apple, not here.
-    };
-
-    manageRoute();
-  }, [navigation, user, loading]);
-};
-
 const useInitialization = () => {
   const { identify } = useAnalytics();
-  const { user } = useAuth(); // Use the auth context
+  const { user } = useAuth();
+  const { init } = useLifes();
 
   useEffect(() => {
-    if (user) {
-      identify(user.id, user.email || "anonymous@user.com");
-      initializeRevenueCatApiKeys(user.id);
-    }
-  }, [identify, user]);
+    if (!user) return;
+
+    identify(user.id, user.email || "anonymous@user.com");
+    initializeRevenueCatApiKeys(user.id);
+    init();
+  }, [identify, user, init]);
 };
 
 const LoaderScreen: React.FC = () => {
   useInitialization();
   useManageRoute();
-  const { loading } = useAuth(); // Use the auth context
+  const { loading } = useAuth();
 
   if (loading) {
     return (

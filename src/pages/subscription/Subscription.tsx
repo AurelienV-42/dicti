@@ -43,7 +43,7 @@ const Advantages = () => {
   );
 };
 
-const Subscription = ({ close }: { close: () => void }) => {
+const Subscription = ({ close }: { close?: () => void }) => {
   const navigation = useNavigation();
   const { setIsLoading } = useIsLoading();
   const [selectedNbMonth, setSelectedNbMonth] = useState(12);

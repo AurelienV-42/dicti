@@ -4,10 +4,10 @@ import Home from "@src/pages/home/Home";
 import Introduction from "@src/pages/introduction/Introduction";
 import FirstTest from "@src/pages/introduction/firstTest/FirstTest";
 import React from "react";
-import SignInUp from "../auth/SignInUp";
 import Dictation from "../dictation/Dictation";
 import Profile from "../profile/Profile";
 import Subscription from "../subscription/Subscription";
+import SignInUp from "@src/pages/auth/SignInUp";
 
 const HomeStack = createNativeStackNavigator();
 

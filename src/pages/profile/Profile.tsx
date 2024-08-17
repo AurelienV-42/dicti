@@ -60,6 +60,13 @@ const Profile = () => {
         icon: SignOut,
       },
       {
+        name: "Contact",
+        onPress: () => {
+          Linking.openURL("mailto:aurelienvpro@gmail.com");
+        },
+        icon: Envelope,
+      },
+      {
         name: "Supprimer mon compte",
         onPress: () => {
           Alert.alert(
@@ -97,15 +104,8 @@ const Profile = () => {
         },
         icon: Trash,
       },
-      {
-        name: "Contact",
-        onPress: () => {
-          Linking.openURL("mailto:aurelienvpro@gmail.com");
-        },
-        icon: Envelope,
-      },
     ],
-    Légals: [
+    "Légals": [
       {
         name: "Conditions Générales d’Utilisation",
         onPress: () =>
@@ -157,7 +157,11 @@ const Profile = () => {
                   onPress={item.onPress}
                   className="bg-blue-100 shadow-md items-center justify-between flex-row px-5 py-3 w-full rounded-2xl mb-3"
                 >
-                  <MyText className="">{item.name}</MyText>
+                  <MyText
+                    className={`${item.name === "Supprimer mon compte" ? "text-red-300" : ""}`}
+                  >
+                    {item.name}
+                  </MyText>
                   {item.icon ? <item.icon /> : <ArrowRight />}
                 </MyPressable>
               ))}
