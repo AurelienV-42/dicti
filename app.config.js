@@ -19,7 +19,6 @@ export default {
       config: {
         usesNonExemptEncryption: false,
       },
-      buildNumber: "11",
     },
     android: {
       googleServicesFile: "./google-services.json",
@@ -28,7 +27,6 @@ export default {
         backgroundColor: "#EBF8FF",
       },
       package: "app.dicti",
-      versionCode: 23,
     },
     plugins: [
       "expo-font",
