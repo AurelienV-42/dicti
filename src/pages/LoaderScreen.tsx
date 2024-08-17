@@ -38,7 +38,7 @@ const LoaderScreen: React.FC = () => {
 
   return (
     <View className="flex-1 justify-center items-center bg-blue-200">
-      <MyImage style="w-full h-full" img={assets.splash} />
+      <MyImage style="w-full h-full" img={assets.splash} resizeMode="cover" />
     </View>
   );
 };

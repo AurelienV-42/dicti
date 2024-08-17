@@ -52,7 +52,6 @@ const ModalToDisplayErrors = ({
   return (
     <ModalTemplate visible close={close}>
       <View className="w-full flex-row justify-between items-center mb-2">
-        <View className="flex-1" />
         <Title badWord={badWord} goodWord={goodWord} />
         <View className="flex-1 items-end">
           <DisplayLifes variant="small" />

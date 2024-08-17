@@ -9,7 +9,7 @@ export default {
     userInterfaceStyle: "light",
     splash: {
       image: "./assets/logo/splash.png",
-      resizeMode: "contain",
+      resizeMode: "cover",
       backgroundColor: "#9ADDFE",
     },
     assetBundlePatterns: ["**/*"],
