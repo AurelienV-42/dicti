@@ -44,6 +44,13 @@ const Profile = () => {
       //   icon: User,
       // },
       {
+        name: "Contact",
+        onPress: () => {
+          Linking.openURL("mailto:aurelienvpro@gmail.com");
+        },
+        icon: Envelope,
+      },
+      {
         name: "Se déconnecter",
         onPress: () => {
           Alert.alert("Déconnexion", "Es-tu sûr de vouloir te déconnecter ?", [
@@ -58,13 +65,6 @@ const Profile = () => {
           ]);
         },
         icon: SignOut,
-      },
-      {
-        name: "Contact",
-        onPress: () => {
-          Linking.openURL("mailto:aurelienvpro@gmail.com");
-        },
-        icon: Envelope,
       },
       {
         name: "Supprimer mon compte",
@@ -105,7 +105,7 @@ const Profile = () => {
         icon: Trash,
       },
     ],
-    "Légals": [
+    Légals: [
       {
         name: "Conditions Générales d’Utilisation",
         onPress: () =>

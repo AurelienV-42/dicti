@@ -1,4 +1,5 @@
 import { red } from "@config/colors";
+import { useAuth } from "@src/context/Auth";
 import { useLifes } from "@src/context/Lifes";
 import { Heart } from "phosphor-react-native";
 import { View } from "react-native";
@@ -11,6 +12,8 @@ interface DisplayLifesProps {
 
 const DisplayLifes = ({ variant = "normal" }: DisplayLifesProps) => {
   const { lifes, resetLifes } = useLifes();
+  const { isAdmin } = useAuth();
+  const Container = !isAdmin ? View : MyPressable;
   const pressableStyle = {
     small: "",
     normal: "bg-red-100 px-4 py-1 rounded-full",
@@ -25,17 +28,18 @@ const DisplayLifes = ({ variant = "normal" }: DisplayLifesProps) => {
   };
 
   return (
-    <MyPressable
+    <Container
+      disabled={!isAdmin}
       onPress={resetLifes}
       className={`flex-row items-center ${pressableStyle[variant]}`}
     >
-      <View className=" mr-1">
+      <View className="mr-1">
         <Heart weight={"duotone"} color={red[300]} size={heartSize[variant]} />
       </View>
       <MyText className={`text-red-300 font-bold ${textStyle[variant]}`}>
         {lifes}
       </MyText>
-    </MyPressable>
+    </Container>
   );
 };
 
