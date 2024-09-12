@@ -26,7 +26,7 @@ export default {
         foregroundImage: "./assets/logo/adaptiveIcon.png",
         backgroundColor: "#EBF8FF",
       },
-      package: "app.dicti",
+      package: "co.dicti",
     },
     plugins: [
       "expo-font",
