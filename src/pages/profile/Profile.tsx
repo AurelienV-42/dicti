@@ -6,7 +6,7 @@ import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import { useAuth } from "@src/context/Auth";
+import { useAuth } from "@src/stores/auth.store";
 import deleteAuthUser from "@src/queries/deleteAuthUser.query";
 import resetTo from "@src/utils/resetTo";
 import {

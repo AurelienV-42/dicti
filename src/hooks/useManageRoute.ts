@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "@src/context/Auth";
+import { useAuth } from "@src/stores/auth.store";
 import { logInRevenueCat } from "@src/utils/purchase";
 import resetTo from "@src/utils/resetTo";
 import { useEffect } from "react";

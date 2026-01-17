@@ -1,5 +1,5 @@
 import colors from "@config/colors";
-import { useIsLoading } from "@src/context/IsLoading";
+import { useIsLoading } from "@src/stores/loading.store";
 import { ActivityIndicator, Modal, View } from "react-native";
 import MyText from "../natives/MyText";
 

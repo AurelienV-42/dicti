@@ -1,86 +1,85 @@
+import { z } from "zod";
+
 type CountryCode = "FR";
 
-// Stub for i18n translation function
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const t = (key: string, options?: Record<string, string>): string => key;
+const NAME_REGEX = /^[^.,?!^:;/$&(){}@*<>+=_%"#0-9[\]\\]{2,50}$/;
+const FR_PHONE_REGEX =
+  /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
-export const nameChecker = (name: string, field_name = t("fields.default")) => {
-  if (!name) {
-    return t("errors.cannotBeEmpty", { x: field_name });
-  }
-  if (name.length < 2) {
-    return t("errors.tooShort", { x: field_name });
-  }
-  if (name.length > 50) {
-    return t("errors.tooLong", { x: field_name });
-  }
-  const regex = /^[^.,?!^:;/$&(){}@€*<>§+=£¥%_"#°0-9[\]\\]{2,50}$/;
-  if (!regex.test(name)) {
-    return t("errors.wrongFormat", { x: field_name });
-  }
+const nameSchema = (fieldName: string): z.ZodString =>
+  z
+    .string()
+    .min(1, `${fieldName} ne peut pas etre vide.`)
+    .min(2, `${fieldName} est trop court.`)
+    .max(50, `${fieldName} est trop long.`)
+    .regex(NAME_REGEX, `${fieldName} n'est pas au bon format.`);
+
+const emailSchema = z
+  .string()
+  .min(1, "L'email ne peut pas etre vide.")
+  .max(100, "L'email est trop long.")
+  .email("L'email ne semble pas etre au bon format.");
+
+const passwordSchema = z
+  .string()
+  .min(1, "Le mot de passe ne peut pas etre vide.")
+  .min(6, "Le mot de passe est trop court.")
+  .max(100, "Le mot de passe est trop long.");
+
+const phoneSchema = z
+  .string()
+  .min(1, "Le numero de telephone ne peut pas etre vide.")
+  .max(30, "Le numero de telephone est trop long.")
+  .regex(FR_PHONE_REGEX, "Le numero de telephone n'est pas au bon format.");
+
+export const nameChecker = (
+  name: string,
+  fieldName = "Ce champ",
+): string | undefined => {
+  const result = nameSchema(fieldName).safeParse(name);
+  return result.success ? undefined : result.error.issues[0]?.message;
 };
 
-export const emailChecker = (email: string) => {
-  if (!email) {
-    return "L'email ne peut pas être vide.";
-  }
-  if (email.length > 100) {
-    return "L'email est trop long.";
-  }
-  const regex = /^[\w\-.]+(\+\w+)?@([\w-]+\.)+[\w-]{2,}$/;
-  if (!regex.test(email)) {
-    return "L'email ne semble pas être au bon format.";
-  }
+export const emailChecker = (email: string): string | undefined => {
+  const result = emailSchema.safeParse(email);
+  return result.success ? undefined : result.error.issues[0]?.message;
 };
 
-export const passwordChecker = (password: string) => {
-  if (!password) {
-    return "Le mot de passe ne peut pas être vide.";
-  }
-  if (password.length < 6) {
-    return "Le mot de passe est trop court.";
-  }
-  if (password.length > 100) {
-    return "Le mot de passe est trop long.";
-  }
+export const passwordChecker = (password: string): string | undefined => {
+  const result = passwordSchema.safeParse(password);
+  return result.success ? undefined : result.error.issues[0]?.message;
 };
 
-export const phoneChecker = (phoneNumber: string, countryCode: CountryCode) => {
-  const fieldName = t("fields.thePhoneNumber");
-  const regexList = {
-    FR: /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/,
-  };
-
-  if (phoneNumber === "") return t("errors.cannotBeEmpty", { x: fieldName });
-
-  if (phoneNumber.length > 30) {
-    return t("errors.tooLong", { x: fieldName });
-  }
-  if (!regexList[countryCode].test(phoneNumber)) {
-    return t("errors.wrongFormat", { x: fieldName });
-  }
+export const phoneChecker = (
+  phoneNumber: string,
+  _countryCode: CountryCode,
+): string | undefined => {
+  const result = phoneSchema.safeParse(phoneNumber);
+  return result.success ? undefined : result.error.issues[0]?.message;
 };
 
 export const startEndDatechecker = (
   startDate: Date | null,
   endDate: Date | null,
   minDate: Date,
-) => {
+): string | undefined => {
   if (!startDate) {
-    return "La date de début ne peut être vide";
+    return "La date de debut ne peut etre vide";
   }
   const today = new Date();
-  const _endDate = endDate ?? today;
+  const effectiveEndDate = endDate ?? today;
 
   if (startDate > today) {
-    return "La date de début ne peut être dans le futur.";
+    return "La date de debut ne peut etre dans le futur.";
   }
 
-  if (startDate > _endDate) {
-    return "La date de début ne peut être après la date de fin.";
+  if (startDate > effectiveEndDate) {
+    return "La date de debut ne peut etre apres la date de fin.";
   }
 
-  if (startDate < minDate || _endDate < minDate) {
+  if (startDate < minDate || effectiveEndDate < minDate) {
     return "Les dates sont trop anciennes.";
   }
+
+  return undefined;
 };

@@ -8,7 +8,7 @@ import MyText from "@src/components/natives/MyText";
 import DisplayProducts from "@src/components/purchase/DisplayProducts";
 import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import { useIsLoading } from "@src/context/IsLoading";
+import { useIsLoading } from "@src/stores/loading.store";
 import useAnalytics from "@src/hooks/useAnalytics";
 import useGetSubscriptions from "@src/hooks/useGetSubscriptions";
 import { hapticImpact } from "@src/utils/haptics";

@@ -4,7 +4,7 @@ import DisplayLifes from "@src/components/gamification/DisplayLifes";
 import MyPressable from "@src/components/natives/MyPressable";
 import MyText from "@src/components/natives/MyText";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import { useAuth } from "@src/context/Auth";
+import { useAuth } from "@src/stores/auth.store";
 import { uppercaseFirstLetter } from "@src/utils/string";
 import { User } from "phosphor-react-native";
 import React from "react";

@@ -30,6 +30,7 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env.production
 
 # Firebase
 google-services.json

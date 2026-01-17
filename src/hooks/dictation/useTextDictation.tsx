@@ -1,4 +1,4 @@
-import { useAuth } from "@src/context/Auth";
+import { useAuth } from "@src/stores/auth.store";
 import { getGradeByUserId, updateGrade } from "@src/queries/grades.query";
 import checkErrors, { CorrectionItem } from "@src/utils/dictationString";
 import { useState } from "react";

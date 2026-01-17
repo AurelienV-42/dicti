@@ -1,4 +1,4 @@
-import { useAuth } from "@src/context/Auth";
+import { useAuth } from "@src/stores/auth.store";
 import { CorrectionItem } from "@src/utils/dictationString";
 import { supabase } from "@src/utils/supabase";
 import { useEffect, useState } from "react";

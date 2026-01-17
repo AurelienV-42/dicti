@@ -1,6 +1,6 @@
 import { red } from "@config/colors";
-import { useAuth } from "@src/context/Auth";
-import { useLifes } from "@src/context/Lifes";
+import { useAuth } from "@src/stores/auth.store";
+import { useLifes } from "@src/stores/lifes.store";
 import { Heart } from "phosphor-react-native";
 import { View } from "react-native";
 import MyPressable from "../natives/MyPressable";
@@ -30,7 +30,7 @@ const DisplayLifes = ({ variant = "normal" }: DisplayLifesProps) => {
   return (
     <Container
       disabled={!isAdmin}
-      onPress={resetLifes}
+      onPress={() => resetLifes(isAdmin)}
       className={`flex-row items-center ${pressableStyle[variant]}`}
     >
       <View className="mr-1">

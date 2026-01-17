@@ -1,4 +1,4 @@
-import { useLifes } from "@src/context/Lifes";
+import { useLifes } from "@src/stores/lifes.store";
 import useErrorsFromAI from "@src/hooks/useErrorsFromAI";
 import { CorrectionItem } from "@src/utils/dictationString";
 import React, { useState } from "react";

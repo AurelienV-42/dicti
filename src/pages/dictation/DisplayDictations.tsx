@@ -1,5 +1,5 @@
 import rawDictations, { Dictation } from "@config/dictations";
-import { useAuth } from "@src/context/Auth";
+import { useAuth } from "@src/stores/auth.store";
 import { getGradesByUserId } from "@src/queries/grades.query";
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
