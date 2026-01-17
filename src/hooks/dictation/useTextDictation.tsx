@@ -22,22 +22,23 @@ const useTextDictation = (
       setState("finished");
     } else {
       const nbError = correction.filter((r) => r.errors).length;
-      const gradeOn20 = (
-        (20 * (correction.length - nbError)) /
-        correction.length
-      ).toFixed();
+      const gradeOn20 = Math.round(
+        (20 * (correction.length - nbError)) / correction.length,
+      );
       if (user)
         getGradeByUserId(user.id, dictationID).then((result) => {
           updateGrade(
             {
+              user_id: user.id,
               dictation_id: dictationID,
+              grade: gradeOn20,
               gradeOn20,
             },
-            result.grade.length > 0 && result.grade[0].id, // index 0 because there is only one grade per dictation
+            result.grade?.id,
           );
         });
 
-      setGrade(gradeOn20);
+      setGrade(gradeOn20.toString());
       setIsResultVisible(true);
     }
   };

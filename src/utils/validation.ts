@@ -1,4 +1,8 @@
-const t = (key: string, other?: any) => key;
+type CountryCode = "FR";
+
+// Stub for i18n translation function
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const t = (key: string, options?: Record<string, string>): string => key;
 
 export const nameChecker = (name: string, field_name = t("fields.default")) => {
   if (!name) {

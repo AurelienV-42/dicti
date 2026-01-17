@@ -1,5 +1,5 @@
-import { ID_FIRST_TEST } from "@config/dictations";
 import { MAX_LENGTH_PASSWORD } from "@config/inputs";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import MyKeyboardAvoidingView from "@src/components/MyKeyboardAvoidingView";
 import EmailInput from "@src/components/inputs/EmailInput";
 import PasswordInput from "@src/components/inputs/PasswordInput";
@@ -10,13 +10,16 @@ import HeaderTemplate from "@src/components/templates/HeaderTemplate";
 import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import { useAuth } from "@src/context/Auth";
 import { useIsLoading } from "@src/context/IsLoading";
+import { RootStackParamList } from "@src/types/navigation";
 import resetTo from "@src/utils/resetTo";
 import { emailChecker, passwordChecker } from "@src/utils/validation";
 import { ArrowRight } from "phosphor-react-native";
 import React, { useState } from "react";
 import { Keyboard, View } from "react-native";
 
-const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
+const SignInUp = () => {
+  const navigation = useNavigation();
+  const route = useRoute<RouteProp<RootStackParamList, "SignIn">>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -43,14 +46,14 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
       auth
         ?.signIn(cleanedEmail, password)
         .then(() => resetTo(navigation, "Loader"))
-        .catch((error: any) => console.warn("Sign In", error))
+        .catch((err: Error) => console.warn("Sign In", err))
         .finally(() => setIsLoading(false));
       return;
     }
     auth
       ?.signUp(cleanedEmail, password)
       .then(() => resetTo(navigation, "Loader"))
-      .catch((error: any) => console.warn("Sign Up", error))
+      .catch((err: Error) => console.warn("Sign Up", err))
       .finally(() => setIsLoading(false));
   };
 
@@ -61,11 +64,7 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
           isSignIn && (
             <MyPressable
               className="flex-row items-center"
-              onPress={() => {
-                navigation.navigate("FirstTest", {
-                  dictationID: ID_FIRST_TEST,
-                });
-              }}
+              onPress={() => navigation.navigate("FirstTest")}
             >
               <MyText className="text-base text-dark mr-2">
                 {"Pas de compte"}
@@ -82,8 +81,8 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
             <MyText className="text-l mb-2">{"Email"}</MyText>
             <EmailInput
               value={email}
-              onChangeText={(email: string) => {
-                setEmail(email);
+              onChangeText={(newEmail: string) => {
+                setEmail(newEmail);
                 setError("");
               }}
               autoFocus
@@ -92,8 +91,8 @@ const SignInUp = ({ navigation, route }: { navigation: any; route: any }) => {
             <MyText className="text-l mb-2">Mot de passe</MyText>
             <PasswordInput
               value={password}
-              onChangeText={(email: string) => {
-                setPassword(email);
+              onChangeText={(newPassword: string) => {
+                setPassword(newPassword);
                 setError("");
               }}
               maxLength={MAX_LENGTH_PASSWORD}

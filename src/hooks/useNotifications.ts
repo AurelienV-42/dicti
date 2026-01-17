@@ -1,4 +1,3 @@
-import { User } from "@supabase/supabase-js";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -13,9 +12,10 @@ Notifications.setNotificationHandler({
   }),
 });
 
-async function registerForPushNotificationsAsync() {
+async function registerForPushNotificationsAsync(): Promise<
+  Notifications.ExpoPushToken | undefined
+> {
   if (!Device.isDevice) {
-    alert("Must use physical device for Push Notifications");
     return;
   }
 
@@ -25,7 +25,6 @@ async function registerForPushNotificationsAsync() {
     const { status } = await Notifications.requestPermissionsAsync();
 
     if (status !== "granted") {
-      alert("Failed to get push token for push notification!");
       return;
     }
   }
@@ -46,69 +45,35 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
-async function pushTokenToUser(
-  pushToken: string,
-  token: string,
-  user: User,
-  setUser: any,
-  setLoading: any,
-) {
-  // On enlève le ExponentPushToken[ et le ] à la fin pour n'avoir que le token et pas surcharger la DB pour rien
-  const newPushToken = pushToken.replace("ExponentPushToken[", "").slice(0, -1);
-
-  if (newPushToken !== user.pushToken && token) {
-    try {
-      const user = await QueryUserUpdate(token, {
-        pushToken: newPushToken,
-      });
-
-      if (user) {
-        setUser(user);
-      }
-    } catch (error) {
-      console.warn("pushTokenToUser", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-}
-
 const useNotifications = () => {
-  const [notification, setNotification] = useState(null);
-  const notificationListener = useRef<Notifications.Subscription>();
-  const responseListener = useRef();
+  const [notification, setNotification] =
+    useState<Notifications.Notification | null>(null);
+  const notificationListener = useRef<Notifications.Subscription | null>(null);
+  const responseListener = useRef<Notifications.Subscription | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const pushToken = await registerForPushNotificationsAsync();
+    registerForPushNotificationsAsync();
 
-      if (pushToken?.data) {
-        // await pushTokenToUser(
-        //   pushToken.data,
-        //   auth.authenticationToken,
-        //   auth.user,
-        //   (user: User) => setAuth({ ...auth, user }),
-        //   (isLoading: boolean) => setUtils({ isLoading }),
-        // );
-      }
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notif) => {
+        setNotification(notif);
+      });
 
-      notificationListener.current = Notifications
-        .addNotificationReceivedListener((notification) => {
-          setNotification(notification);
-        });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener(() => {
+        // Handle notification response
+      });
 
-      responseListener.current = Notifications
-        .addNotificationResponseReceivedListener((response) => {
-          console.log(response);
-        });
-
-      return () => {
+    return () => {
+      if (notificationListener.current) {
         Notifications.removeNotificationSubscription(
           notificationListener.current,
         );
+      }
+      if (responseListener.current) {
         Notifications.removeNotificationSubscription(responseListener.current);
-      };
-    })();
+      }
+    };
   }, []);
 
   return { notification };

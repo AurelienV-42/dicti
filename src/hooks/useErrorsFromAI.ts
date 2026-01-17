@@ -3,21 +3,17 @@ import { CorrectionItem } from "@src/utils/dictationString";
 import { supabase } from "@src/utils/supabase";
 import { useEffect, useState } from "react";
 
+interface ExplanationResponse {
+  data: string | undefined;
+  error: Error | null;
+}
+
 async function getCorrectedWordExplanation(
   incorrectWord: string,
   correctWord: string,
   correctText: string,
   userID: string,
-): Promise<
-  | {
-    data: string;
-    error: any;
-  }
-  | {
-    data: undefined;
-    error: any;
-  }
-> {
+): Promise<ExplanationResponse> {
   const response = await supabase.functions.invoke("explanation", {
     body: JSON.stringify({ incorrectWord, correctWord, correctText, userID }),
   });
@@ -34,16 +30,16 @@ const useErrorsFromAI = (
   const userID = useAuth().user?.id;
 
   useEffect(() => {
+    const currentCorrection = correction[indexModalVisible];
     if (
       indexModalVisible === -1 ||
-      (correction[indexModalVisible].errors &&
-        correction[indexModalVisible].errors.length > 0)
+      (currentCorrection?.errors && currentCorrection.errors.length > 0)
     ) {
       setErrorsFromAI(undefined);
       setIsLoading(false);
       return;
     }
-    const { correctWord, userWord } = correction[indexModalVisible];
+    const { correctWord, userWord } = currentCorrection;
 
     setIsLoading(true);
     getCorrectedWordExplanation(
@@ -51,13 +47,12 @@ const useErrorsFromAI = (
       correctWord,
       correctText,
       userID ?? "anonymous",
-    ).then(
-      (result) => {
+    )
+      .then((result) => {
         if (result.data) {
           setErrorsFromAI([result.data]);
         }
-      },
-    )
+      })
       .catch((error) => console.warn("Fetch Correction with AI Failed", error))
       .finally(() => {
         setIsLoading(false);

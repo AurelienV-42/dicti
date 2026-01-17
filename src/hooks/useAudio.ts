@@ -1,7 +1,9 @@
-import { Audio } from "expo-av";
+import { Audio, AVPlaybackStatus } from "expo-av";
 import { useEffect, useState } from "react";
 
-const useAudio = (mp3File: any, shouldStop: boolean) => {
+type AssetSource = ReturnType<typeof require>;
+
+const useAudio = (mp3File: AssetSource, shouldStop: boolean) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [sound, setSound] = useState<Audio.Sound>();
   const [timeInMs, setTimeInMs] = useState(0);
@@ -9,14 +11,16 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
 
   useEffect(() => {
     if (!sound) {
-      Audio.Sound.createAsync(mp3File).then(({ sound }) => {
-        setSound(sound);
-        sound
+      Audio.Sound.createAsync(mp3File).then(({ sound: newSound }) => {
+        setSound(newSound);
+        newSound
           .getStatusAsync()
-          .then((status: any) => {
-            setMaxTimeInMs(status.durationMillis ?? -1);
+          .then((status: AVPlaybackStatus) => {
+            if (status.isLoaded) {
+              setMaxTimeInMs(status.durationMillis ?? -1);
+            }
           })
-          .catch((error: any) => {
+          .catch((error: Error) => {
             console.warn(error);
           });
       });
@@ -28,8 +32,8 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
 
     return sound
       ? () => {
-        sound.unloadAsync();
-      }
+          sound.unloadAsync();
+        }
       : undefined;
   }, [mp3File, sound]);
 
@@ -59,9 +63,8 @@ const useAudio = (mp3File: any, shouldStop: boolean) => {
   };
 
   const getTime = () => {
-    const time = isPlaying || timeInMs !== 0
-      ? maxTimeInMs - timeInMs
-      : maxTimeInMs;
+    const time =
+      isPlaying || timeInMs !== 0 ? maxTimeInMs - timeInMs : maxTimeInMs;
     const minutes = Math.floor(time / 60000);
     const seconds = ((time % 60000) / 1000).toFixed(0);
 

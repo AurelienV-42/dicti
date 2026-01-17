@@ -1,8 +1,9 @@
+import { SubscriptionPackage } from "@src/types/subscription";
 import { getPackages } from "@src/utils/purchase";
 import { useEffect, useState } from "react";
 
 const useGetSubscriptions = () => {
-  const [subscriptions, setSubscriptions] = useState<any[]>();
+  const [subscriptions, setSubscriptions] = useState<SubscriptionPackage[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 

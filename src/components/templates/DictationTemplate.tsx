@@ -14,11 +14,13 @@ import BasicModal from "../modals/BasicModal";
 import MyText from "../natives/MyText";
 import TextToSpeech from "../soundPlayer/TextToSpeech";
 
+type AssetSource = ReturnType<typeof require>;
+
 interface DictationTemplateProps {
   dictationID: string;
   title?: string;
   content?: string;
-  mp3File: any;
+  mp3File: AssetSource | null;
   onComplete?: () => void;
 }
 

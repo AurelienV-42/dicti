@@ -1,13 +1,20 @@
 import colors from "@config/colors";
 import React, { useState } from "react";
-import { ActivityIndicator, Image, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  ImageSourcePropType,
+  View,
+} from "react-native";
+
+type ImageSource = ImageSourcePropType | string;
 
 interface MyImageProps {
   style?: string;
   containerStyle?: string;
   loaderStyle?: string;
   resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
-  img: any;
+  img: ImageSource;
   loader?: boolean;
 }
 
@@ -38,7 +45,7 @@ const MyImage = ({
             loaderStyle ? loaderStyle : "bottom-4"
           }`}
           size={"small"}
-          color={colors.blue["20"]}
+          color={colors.blue["200"]}
         />
       )}
     </View>

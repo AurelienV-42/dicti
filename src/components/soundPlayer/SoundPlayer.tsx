@@ -1,13 +1,14 @@
 import useAudio from "@src/hooks/useAudio";
 import DictationPlayer from "./DictationPlayer";
 
-const SoundPlayer = ({
-  mp3File,
-  shouldStop,
-}: {
-  mp3File: any;
+type AssetSource = ReturnType<typeof require>;
+
+interface SoundPlayerProps {
+  mp3File: AssetSource;
   shouldStop: boolean;
-}) => {
+}
+
+const SoundPlayer = ({ mp3File, shouldStop }: SoundPlayerProps) => {
   const { isPlaying, play, pause, time, reset, progression } = useAudio(
     mp3File,
     shouldStop,

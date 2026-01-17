@@ -8,7 +8,12 @@
     "ios": "expo start --ios",
     "android": "expo start --android",
     "import:assets": "cd assets && node import_assets.js",
-    "addPunctuation": "node scripts/addPunctuation.js > punctuation.txt"
+    "addPunctuation": "node scripts/addPunctuation.js > punctuation.txt",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "check": "npm run typecheck && npm run lint && npm test"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.23.1",

@@ -1,9 +1,11 @@
 import { ID_FIRST_TEST } from "@config/dictations";
+import { useNavigation } from "@react-navigation/native";
 import DictationTemplate from "@src/components/templates/DictationTemplate";
 import useDatabaseDictation from "@src/hooks/dictation/useDatabaseDictation";
 import React from "react";
 
-const FirstTest = ({ navigation }: { navigation: any }) => {
+const FirstTest = () => {
+  const navigation = useNavigation();
   const dictationID = ID_FIRST_TEST;
   const { dictation, mp3File } = useDatabaseDictation(dictationID);
 
@@ -13,7 +15,7 @@ const FirstTest = ({ navigation }: { navigation: any }) => {
       title={dictation?.title}
       content={dictation?.content}
       mp3File={mp3File}
-      onComplete={() => navigation.navigate("SignUp")}
+      onComplete={() => navigation.navigate("SignUp", { isSignIn: false })}
     />
   );
 };

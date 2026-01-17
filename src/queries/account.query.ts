@@ -1,8 +1,9 @@
+import { Account, AccountResult, CreateAccountData } from "@src/types/database";
 import { supabase } from "@src/utils/supabase";
-import { User } from "@supabase/supabase-js";
 
-// Read an account by ID
-export const getAccountById = async (userId: string): Promise<any> => {
+export const getAccountById = async (
+  userId: string,
+): Promise<AccountResult> => {
   try {
     const { data, error } = await supabase
       .from("account")
@@ -11,15 +12,15 @@ export const getAccountById = async (userId: string): Promise<any> => {
       .single();
 
     if (error) throw error;
-    return { account: data, error: null };
+    return { account: data as Account, error: null };
   } catch (error) {
-    console.error("Error fetching account:", error); // Si c'est après un Sign Up c'est normal, l'account n'existe pas encore mais est entrain d'être créé
     return { account: null, error: error as Error };
   }
 };
 
-// Create an account
-export const createAccount = async (data: any): Promise<any> => {
+export const createAccount = async (
+  data: CreateAccountData,
+): Promise<AccountResult> => {
   try {
     const { data: account, error } = await supabase
       .from("account")
@@ -28,18 +29,16 @@ export const createAccount = async (data: any): Promise<any> => {
       .single();
 
     if (error) throw error;
-    return { account, error: null };
+    return { account: account as Account, error: null };
   } catch (error) {
-    console.error("Error creating account:", error);
     return { account: null, error: error as Error };
   }
 };
 
-// Update an account
 export const updateAccount = async (
   userId: string,
-  updates: Partial<User>,
-): Promise<any> => {
+  updates: Partial<Account>,
+): Promise<AccountResult> => {
   try {
     const { data, error } = await supabase
       .from("account")
@@ -48,9 +47,8 @@ export const updateAccount = async (
       .single();
 
     if (error) throw error;
-    return { account: data, error: null };
+    return { account: data as Account, error: null };
   } catch (error) {
-    console.error("Error updating account:", error);
     return { account: null, error: error as Error };
   }
 };

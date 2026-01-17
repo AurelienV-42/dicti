@@ -9,9 +9,7 @@ const useAnalytics = () => {
 
   const capture = (
     key: string,
-    properties: {
-      [key: string]: any;
-    },
+    properties: Record<string, string | number | boolean>,
   ) => {
     posthog.capture(key, properties);
   };

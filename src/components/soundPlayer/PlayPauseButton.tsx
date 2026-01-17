@@ -3,12 +3,7 @@ import { hapticImpact } from "@src/utils/haptics";
 import { Pause, Play } from "phosphor-react-native";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
-import {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming,
-} from "react-native-reanimated";
+import { useSharedValue } from "react-native-reanimated";
 
 const AnimatedButton = ({
   animate,
@@ -18,18 +13,6 @@ const AnimatedButton = ({
   onPress: () => void;
 }) => {
   const pressed = useSharedValue(false);
-
-  const primaryButtonAnimatedStyle = useAnimatedStyle(
-    () => ({
-      borderRadius: withTiming(animate ? 5 : 30),
-      width: withSpring(animate ? 30 : 60),
-      height: withSpring(animate ? 30 : 60),
-      transform: [
-        { scale: withSpring(pressed.value ? 0.8 : 1, { mass: 0.1 }) },
-      ],
-    }),
-    [animate, pressed.value],
-  );
 
   return (
     <Pressable

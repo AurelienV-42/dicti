@@ -5,10 +5,10 @@ import ProgressionBar from "../ProgressionBar";
 import PlayPause from "./PlayPauseButton";
 
 interface DictationPlayerProps {
-  isPlaying: any;
-  play: any;
-  pause: any;
-  reset?: any;
+  isPlaying: boolean;
+  play: () => void;
+  pause: () => void;
+  reset?: () => void;
   time?: string;
   progression?: number;
 }

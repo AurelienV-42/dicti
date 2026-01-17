@@ -1,8 +1,9 @@
 import { DEFAULT_NB_LIFES } from "@config/gamification";
 import { createAccount, getAccountById } from "@src/queries/account.query";
+import { Account } from "@src/types/database";
 import { setAsyncStorage } from "@src/utils/asyncStorage";
 import { supabase } from "@src/utils/supabase";
-import { Session, User } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import React, {
   createContext,
   ReactNode,
@@ -12,13 +13,13 @@ import React, {
 } from "react";
 
 type AuthContextType = {
-  user: User | null;
+  user: Account | null;
   isAdmin: boolean;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string) => Promise;
-  signIn: (email: string, password: string) => Promise;
-  signOut: () => Promise;
+  signUp: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,7 +29,7 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Account | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 

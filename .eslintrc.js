@@ -24,6 +24,7 @@ module.exports = {
   },
   env: {
     "react-native/react-native": true,
+    jest: true,
   },
   plugins: ["@typescript-eslint"],
   rules: {
@@ -37,7 +38,7 @@ module.exports = {
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "error",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
   },
@@ -47,5 +48,4 @@ module.exports = {
       parser: "espree",
     },
   ],
-  jest: true,
 };

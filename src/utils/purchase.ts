@@ -1,5 +1,6 @@
+import { SubscriptionPackage } from "@src/types/subscription";
 import { Alert, Platform } from "react-native";
-import Purchases, { LOG_LEVEL, PurchasesPackage } from "react-native-purchases";
+import Purchases, { LOG_LEVEL } from "react-native-purchases";
 import getCurrencySymbolFromPrice from "./getCurrencySymbolFromPrice";
 
 const APIKeys = {
@@ -27,7 +28,7 @@ export const logInRevenueCat = async (
   }
 };
 
-export const getPackages = async () => {
+export const getPackages = async (): Promise<SubscriptionPackage[]> => {
   try {
     const offerings = await Purchases.getOfferings();
     const currentOffering = offerings?.current;
@@ -58,29 +59,28 @@ export const getPackages = async () => {
       return {
         ...p,
         nbMonths,
-        priceString: `${
-          Number(p.product.price).toFixed(
-            2,
-          )
-        }${characterCurrency}`,
-        priceByMonthString: `${
-          (p.product.price / nbMonths)
-            .toFixed(3)
-            .slice(0, -1)
-        }${characterCurrency}`,
+        priceString: `${Number(p.product.price).toFixed(
+          2,
+        )}${characterCurrency}`,
+        priceByMonthString: `${(p.product.price / nbMonths)
+          .toFixed(3)
+          .slice(0, -1)}${characterCurrency}`,
       };
     });
-  } catch (error: any) {
-    console.error("Error in getPackages:", error, error.code);
+  } catch (error) {
+    const err = error as Error & { code?: string };
+    console.error("Error in getPackages:", err.message, err.code);
+    return [];
   }
 };
 
 const t = (key: string) => key;
 
 export const pay = async (
-  selectedPackage: PurchasesPackage,
+  selectedPackage: SubscriptionPackage | undefined,
   onSuccess: () => void,
-) => {
+): Promise<void> => {
+  if (!selectedPackage) return;
   return Purchases.purchasePackage(selectedPackage)
     .then(({ customerInfo }) => {
       if (customerInfo.entitlements.all["Subscription"]?.isActive) {
@@ -101,7 +101,7 @@ export const pay = async (
         );
       }
     })
-    .catch((error: any) => {
+    .catch((error: Error) => {
       console.warn("ERROR", error);
       if (error.message.includes("cancel")) return;
 
@@ -116,8 +116,9 @@ export const getIsSubscribed = async (): Promise<boolean> => {
   try {
     const purchaserInfo = await Purchases.getCustomerInfo();
     return purchaserInfo.entitlements.all["Subscription"]?.isActive ?? false;
-  } catch (error: any) {
-    console.error("Error in getIsSubscribed:", error, error.code);
+  } catch (error) {
+    const err = error as Error & { code?: string };
+    console.error("Error in getIsSubscribed:", err.message, err.code);
     return false;
   }
 };

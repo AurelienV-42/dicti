@@ -1,9 +1,10 @@
+import { Grade, GradeResult, GradesResult } from "@src/types/database";
 import { supabase } from "@src/utils/supabase";
 
 export const updateGrade = async (
-  updates: Partial<any>,
+  updates: Partial<Grade>,
   gradeId?: string,
-): Promise<any> => {
+): Promise<GradeResult> => {
   try {
     let payload = updates;
 
@@ -17,14 +18,15 @@ export const updateGrade = async (
       .single();
 
     if (error) throw error;
-    return { grade: data, error: null };
+    return { grade: data as Grade, error: null };
   } catch (error) {
-    console.error("Error updating grade:", error);
     return { grade: null, error: error as Error };
   }
 };
 
-export const getGradesByUserId = async (userId: string): Promise<any> => {
+export const getGradesByUserId = async (
+  userId: string,
+): Promise<GradesResult> => {
   try {
     const { data, error } = await supabase
       .from("grades")
@@ -32,9 +34,8 @@ export const getGradesByUserId = async (userId: string): Promise<any> => {
       .eq("user_id", userId);
 
     if (error) throw error;
-    return { grades: data, error: null };
+    return { grades: data as Grade[], error: null };
   } catch (error) {
-    console.error("Error fetching grades:", error);
     return { grades: null, error: error as Error };
   }
 };
@@ -42,7 +43,7 @@ export const getGradesByUserId = async (userId: string): Promise<any> => {
 export const getGradeByUserId = async (
   userId: string,
   dictationId: string,
-): Promise<any> => {
+): Promise<GradeResult> => {
   try {
     const { data, error } = await supabase
       .from("grades")
@@ -51,9 +52,9 @@ export const getGradeByUserId = async (
       .eq("dictation_id", dictationId);
 
     if (error) throw error;
-    return { grade: data, error: null };
+    const grade = Array.isArray(data) ? data[0] : data;
+    return { grade: (grade as Grade) ?? null, error: null };
   } catch (error) {
-    console.error("Error fetching grade:", error);
     return { grade: null, error: error as Error };
   }
 };

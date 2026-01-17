@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { ReactNode } from "react";
-import { Platform, View } from "react-native";
+import { Platform, View, ViewStyle } from "react-native";
 import { Edges, SafeAreaView } from "react-native-safe-area-context";
 
 interface ScreenTemplateProps {
@@ -8,7 +8,7 @@ interface ScreenTemplateProps {
   backgroundColor?: string;
   edges?: Edges;
   className?: string;
-  style?: any;
+  style?: ViewStyle;
   padding?: boolean;
 }
 

@@ -31,9 +31,16 @@ yarn-error.*
 # local env files
 .env*.local
 
+# Firebase
+google-services.json
+GoogleService-Info.plist
+
 # typescript
 *.tsbuildinfo
 
 /.idea
 .env
 punctuation.txt
+
+*.apk
+backup.backup

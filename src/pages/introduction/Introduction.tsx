@@ -1,4 +1,5 @@
 import LogoVectorized from "@assets/vectorized/LogoVectorized";
+import { useNavigation } from "@react-navigation/native";
 import ElevatedContainer from "@src/components/ElevatedContainer";
 import MyButton from "@src/components/natives/MyButton";
 import MyText from "@src/components/natives/MyText";
@@ -6,7 +7,9 @@ import ScreenTemplate from "@src/components/templates/ScreenTemplate";
 import React from "react";
 import { View } from "react-native";
 
-const Introduction = ({ navigation }: { navigation: any }) => {
+const Introduction = () => {
+  const navigation = useNavigation();
+
   return (
     <ScreenTemplate>
       <View className="flex-1 justify-center">
@@ -28,7 +31,7 @@ const Introduction = ({ navigation }: { navigation: any }) => {
             type="secondary"
             className="border-0 px-0"
             txt={"J'ai déjà un compte"}
-            onPress={() => navigation.navigate("SignIn")}
+            onPress={() => navigation.navigate("SignIn", { isSignIn: true })}
           />
           <MyButton
             className="self-end"

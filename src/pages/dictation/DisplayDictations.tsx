@@ -14,9 +14,7 @@ const DisplayDictations = () => {
 
     getGradesByUserId(user.id).then((result) => {
       const dictationWithGrades = rawDictations.map((item) => {
-        const grade = result.grades.find(
-          (r: any) => r.dictation_id === item.id,
-        );
+        const grade = result.grades?.find((r) => r.dictation_id === item.id);
         return {
           ...item,
           grade: grade ? grade.gradeOn20 : undefined,
