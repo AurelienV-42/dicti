@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import renderer from "react-test-renderer";
+import renderer, { act } from "react-test-renderer";
 
 // Simple component for testing
 const ExampleComponent = () => (
@@ -10,7 +10,10 @@ const ExampleComponent = () => (
 
 describe("ExampleComponent", () => {
   it("renders correctly", () => {
-    const tree = renderer.create(<ExampleComponent />).toJSON();
-    expect(tree).toMatchSnapshot();
+    let tree;
+    act(() => {
+      tree = renderer.create(<ExampleComponent />);
+    });
+    expect(tree.toJSON()).toMatchSnapshot();
   });
 });

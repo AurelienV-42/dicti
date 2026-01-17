@@ -4,8 +4,8 @@ import Purchases, { LOG_LEVEL } from "react-native-purchases";
 import getCurrencySymbolFromPrice from "./getCurrencySymbolFromPrice";
 
 const APIKeys = {
-  apple: process.env.REVENUE_CAT_IOS_KEY ?? "",
-  google: process.env.REVENUE_CAT_ANDROID_KEY ?? "",
+  apple: process.env.EXPO_PUBLIC_REVENUE_CAT_IOS_KEY ?? "",
+  google: process.env.EXPO_PUBLIC_REVENUE_CAT_ANDROID_KEY ?? "",
 };
 
 export const initializeRevenueCatApiKeys = (userId: string): void => {
