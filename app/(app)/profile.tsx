@@ -4,7 +4,7 @@ import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import HeaderTemplate from "@components/templates/HeaderTemplate";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
-import deleteAuthUser from "@queries/deleteAuthUser.query";
+import { deleteAuthUser } from "@api/auth.query";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@stores/auth.store";
 import { useRouter } from "expo-router";

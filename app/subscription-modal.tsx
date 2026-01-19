@@ -1,4 +1,5 @@
 import LogoVectorized from "@assets/vectorized/LogoVectorized";
+import { SubscriptionPackage } from "@appTypes/subscription";
 import { orange } from "@config/colors";
 import { useRouter } from "expo-router";
 import Legals from "@components/Legals";
@@ -8,11 +9,11 @@ import MyText from "@components/natives/MyText";
 import DisplayProducts from "@components/purchase/DisplayProducts";
 import HeaderTemplate from "@components/templates/HeaderTemplate";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
-import { useIsLoading } from "@stores/loading.store";
 import useAnalytics from "@hooks/useAnalytics";
 import useGetSubscriptions from "@hooks/useGetSubscriptions";
 import { hapticImpact } from "@utils/haptics";
 import { pay } from "@utils/purchase";
+import { useMutation } from "@tanstack/react-query";
 import { Brain, LockOpen, X } from "lucide-react-native";
 import { useState } from "react";
 import { ActivityIndicator, ScrollView, View } from "react-native";
@@ -44,7 +45,6 @@ const Advantages = (): React.ReactElement => {
 
 const SubscriptionModal = (): React.ReactElement => {
   const router = useRouter();
-  const { setIsLoading } = useIsLoading();
   const [selectedNbMonth, setSelectedNbMonth] = useState(12);
   const { capture } = useAnalytics();
   const { subscriptions, loading, error } = useGetSubscriptions();
@@ -53,9 +53,10 @@ const SubscriptionModal = (): React.ReactElement => {
     router.back();
   };
 
-  const successSubscription = (): void => {
-    router.replace("/(app)/home");
-  };
+  const payMutation = useMutation({
+    mutationFn: async (selectedSubscription: SubscriptionPackage) =>
+      pay(selectedSubscription, () => router.replace("/(app)/home")),
+  });
 
   const subscribe = (): void => {
     hapticImpact("heavy");
@@ -65,10 +66,8 @@ const SubscriptionModal = (): React.ReactElement => {
     const selectedSubscription = subscriptions.find(
       (s) => s.nbMonths === selectedNbMonth,
     );
-    setIsLoading(true);
-    pay(selectedSubscription, successSubscription).finally(() =>
-      setIsLoading(false),
-    );
+    if (!selectedSubscription) return;
+    payMutation.mutate(selectedSubscription);
   };
 
   if (loading)
@@ -131,6 +130,7 @@ const SubscriptionModal = (): React.ReactElement => {
             className={"w-full mb-5"}
             txt="S'abonner"
             onPress={subscribe}
+            isLoading={payMutation.isPending}
           />
           <Legals />
         </View>

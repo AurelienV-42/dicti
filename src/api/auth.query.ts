@@ -1,11 +1,9 @@
 import { supabase } from "@utils/supabase";
 
-const deleteAuthUser = async (): Promise<void> => {
+export const deleteAuthUser = async (): Promise<void> => {
   const { data, error } = await supabase.functions.invoke("delete_auth_user");
 
   if (error) throw error;
 
   return data;
 };
-
-export default deleteAuthUser;

@@ -1,6 +1,5 @@
 import { ConnectivityBanners } from "@components/common/connectivity-banners";
 import { ErrorBoundary } from "@components/common/error-boundary";
-import LoaderModal from "@components/modals/LoaderModal";
 import UpdateModal from "@components/modals/UpdateModal";
 import fonts from "@config/fonts";
 import MyPostHogProvider from "@context/MyPostHog";
@@ -79,7 +78,6 @@ const RootLayoutContent = (): React.ReactElement | null => {
           </Stack>
           <UpdateModal />
         </MyPostHogProvider>
-        <LoaderModal />
       </SafeAreaProvider>
     </View>
   );

@@ -8,8 +8,8 @@ import MyText from "@components/natives/MyText";
 import { MAX_LENGTH_PASSWORD } from "@config/inputs";
 import useKeyboardAnimation from "@hooks/useKeyboardAnimation";
 import { useAuth } from "@stores/auth.store";
-import { useIsLoading } from "@stores/loading.store";
 import { emailChecker, passwordChecker } from "@utils/validation";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Image, Keyboard, Pressable, TextInput, View } from "react-native";
@@ -46,13 +46,27 @@ const AuthForm = ({ mode }: AuthFormProps): React.ReactElement => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { setIsLoading } = useIsLoading();
   const auth = useAuth();
   const animatedStyle = useKeyboardAnimation(10);
 
   const copy = MICROCOPY[mode];
 
-  const complete = async (): Promise<void> => {
+  const authMutation = useMutation({
+    mutationFn: async ({
+      cleanedEmail,
+      cleanedPassword,
+    }: {
+      cleanedEmail: string;
+      cleanedPassword: string;
+    }) => {
+      const authMethod = mode === "sign-in" ? auth?.signIn : auth?.signUp;
+      return authMethod?.(cleanedEmail, cleanedPassword);
+    },
+    onSuccess: () => router.replace("/"),
+    onError: (err: Error) => console.warn(mode, err),
+  });
+
+  const complete = (): void => {
     const cleanedEmail = email.trim();
     const resultEmail = emailChecker(cleanedEmail);
     const resultPassword = passwordChecker(password);
@@ -64,14 +78,8 @@ const AuthForm = ({ mode }: AuthFormProps): React.ReactElement => {
       setError(resultPassword);
       return;
     }
-    setIsLoading(true);
     Keyboard.dismiss();
-
-    const authMethod = mode === "sign-in" ? auth?.signIn : auth?.signUp;
-    authMethod?.(cleanedEmail, password)
-      .then(() => router.replace("/"))
-      .catch((err: Error) => console.warn(mode, err))
-      .finally(() => setIsLoading(false));
+    authMutation.mutate({ cleanedEmail, cleanedPassword: password });
   };
 
   return (
@@ -127,6 +135,7 @@ const AuthForm = ({ mode }: AuthFormProps): React.ReactElement => {
             txt={copy.button}
             onPress={complete}
             disabled={email.length < 2 || password.length < 2}
+            isLoading={authMutation.isPending}
           />
 
           <MyPressable

@@ -1,29 +1,25 @@
+import { useGrades } from "@api/grades.hook";
 import rawDictations, { Dictation } from "@config/dictations";
-import { useAuth } from "@stores/auth.store";
-import { getGradesByUserId } from "@queries/grades.query";
-import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
 import DisplayDictation from "@screens/dictation/DisplayDictation";
+import { useAuth } from "@stores/auth.store";
+import { useMemo } from "react";
+import { FlatList } from "react-native";
 
 const DisplayDictations = () => {
-  const [dictations, setDictations] = useState<Dictation[]>(rawDictations);
   const { user } = useAuth();
+  const { data: gradesData } = useGrades(user?.id ?? "");
 
-  useEffect(() => {
-    if (!user) return;
+  const dictations: Dictation[] = useMemo(() => {
+    if (!gradesData?.grades) return rawDictations;
 
-    getGradesByUserId(user.id).then((result) => {
-      const dictationWithGrades = rawDictations.map((item) => {
-        const grade = result.grades?.find((r) => r.dictation_id === item.id);
-        return {
-          ...item,
-          grade: grade ? grade.grade_on_20 : undefined,
-        };
-      });
-
-      setDictations(dictationWithGrades);
+    return rawDictations.map((item) => {
+      const grade = gradesData.grades?.find((r) => r.dictation_id === item.id);
+      return {
+        ...item,
+        grade: grade ? grade.grade_on_20 : undefined,
+      };
     });
-  }, [user]);
+  }, [gradesData?.grades]);
 
   return (
     <FlatList

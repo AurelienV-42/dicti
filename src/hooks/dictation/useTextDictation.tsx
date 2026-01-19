@@ -1,5 +1,5 @@
+import { useGrade, useUpdateGrade } from "@api/grades.hook";
 import { useAuth } from "@stores/auth.store";
-import { getGradeByUserId, updateGrade } from "@queries/grades.query";
 import checkErrors, { CorrectionItem } from "@utils/dictationString";
 import { useState } from "react";
 
@@ -14,6 +14,9 @@ const useTextDictation = (
   const [grade, setGrade] = useState<string>("");
   const { user } = useAuth();
 
+  const { data: gradeData } = useGrade(user?.id ?? "", dictationID);
+  const updateGradeMutation = useUpdateGrade();
+
   const verify = () => {
     if (!dictationText) return;
     if (state === "working") {
@@ -26,21 +29,22 @@ const useTextDictation = (
         (20 * (correction.length - nbError)) / correction.length,
       );
       if (user) {
-        getGradeByUserId(user.id, dictationID)
-          .then((result) => {
-            return updateGrade(
-              {
-                user_id: user.id,
-                dictation_id: dictationID,
-                grade: gradeOn20,
-                grade_on_20: gradeOn20,
-              },
-              result.grade?.id,
-            );
-          })
-          .catch((error) => {
-            console.warn("Failed to save grade:", error);
-          });
+        updateGradeMutation.mutate(
+          {
+            updates: {
+              user_id: user.id,
+              dictation_id: dictationID,
+              grade: gradeOn20,
+              grade_on_20: gradeOn20,
+            },
+            gradeId: gradeData?.grade?.id,
+          },
+          {
+            onError: (error) => {
+              console.warn("Failed to save grade:", error);
+            },
+          },
+        );
       }
 
       setGrade(gradeOn20.toString());

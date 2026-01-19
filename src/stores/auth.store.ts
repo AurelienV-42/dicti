@@ -1,5 +1,5 @@
 import { DEFAULT_NB_LIFES } from "@config/gamification";
-import { getUserById } from "@queries/user.query";
+import { getUserById } from "@api/user.query";
 import { User } from "@appTypes/database";
 import { setAsyncStorage } from "@utils/asyncStorage";
 import { supabase } from "@utils/supabase";
