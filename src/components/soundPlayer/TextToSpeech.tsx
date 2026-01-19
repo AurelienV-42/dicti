@@ -1,4 +1,4 @@
-import { Audio } from "expo-av";
+import { setAudioModeAsync } from "expo-audio";
 import * as Speech from "expo-speech";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
@@ -11,8 +11,8 @@ const useTextToSpeech = (content: string, shouldStop: boolean) => {
   const play = async () => {
     setIsPlaying(true);
     Speech.speak(content, {
-      language: "fr-FR", // Définir la langue à Français
-      rate: 0.1, // Définir la vitesse de lecture
+      language: "fr-FR",
+      rate: 0.1,
       voice: "com.apple.voice.compact.fr-CA.Amelie",
       onDone: () => setIsPlaying(false),
       onStopped: () => setIsPlaying(false),
@@ -26,9 +26,7 @@ const useTextToSpeech = (content: string, shouldStop: boolean) => {
   };
 
   useEffect(() => {
-    Audio.setAudioModeAsync({
-      playsInSilentModeIOS: true,
-    });
+    setAudioModeAsync({ playsInSilentMode: true });
     if (shouldStop) pause();
   }, [shouldStop]);
 

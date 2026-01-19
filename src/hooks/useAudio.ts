@@ -1,64 +1,42 @@
-import { Audio, AVPlaybackStatus } from "expo-av";
+import { useAudioPlayer, setAudioModeAsync } from "expo-audio";
 import { useEffect, useState } from "react";
 
 type AssetSource = ReturnType<typeof require>;
 
 const useAudio = (mp3File: AssetSource, shouldStop: boolean) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [sound, setSound] = useState<Audio.Sound>();
+  const player = useAudioPlayer(mp3File);
   const [timeInMs, setTimeInMs] = useState(0);
-  const [maxTimeInMs, setMaxTimeInMs] = useState(0);
+
+  const isPlaying = player.playing;
+  const maxTimeInMs = (player.duration ?? 0) * 1000;
 
   useEffect(() => {
-    if (!sound) {
-      Audio.Sound.createAsync(mp3File).then(({ sound: newSound }) => {
-        setSound(newSound);
-        newSound
-          .getStatusAsync()
-          .then((status: AVPlaybackStatus) => {
-            if (status.isLoaded) {
-              setMaxTimeInMs(status.durationMillis ?? -1);
-            }
-          })
-          .catch((error: Error) => {
-            console.warn(error);
-          });
-      });
-    }
-
-    Audio.setAudioModeAsync({
-      playsInSilentModeIOS: true,
-    });
-
-    return sound
-      ? () => {
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [mp3File, sound]);
+    setAudioModeAsync({ playsInSilentMode: true });
+  }, []);
 
   useEffect(() => {
-    if (shouldStop) sound?.pauseAsync();
-  }, [shouldStop, sound]);
+    if (shouldStop) player.pause();
+  }, [shouldStop, player]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (player.playing) {
+        setTimeInMs(player.currentTime * 1000);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, [player]);
 
   const play = () => {
-    sound?.setOnPlaybackStatusUpdate((status) => {
-      if (!status.isLoaded) {
-        setIsPlaying(false);
-      } else {
-        setIsPlaying(status.isPlaying);
-        setTimeInMs(status.positionMillis);
-      }
-    });
-    sound?.playAsync();
+    player.play();
   };
 
   const pause = () => {
-    sound?.pauseAsync();
+    player.pause();
   };
 
   const reset = () => {
-    sound?.setPositionAsync(0);
+    player.seekTo(0);
     setTimeInMs(0);
   };
 
@@ -77,7 +55,7 @@ const useAudio = (mp3File: AssetSource, shouldStop: boolean) => {
     pause,
     reset,
     time: getTime(),
-    progression: timeInMs / maxTimeInMs,
+    progression: maxTimeInMs > 0 ? timeInMs / maxTimeInMs : 0,
   };
 };
 

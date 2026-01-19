@@ -6,15 +6,9 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "@src/*": [
-        "src/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ]
+      "@src/*": ["src/*"],
+      "@config/*": ["config/*"],
+      "@assets/*": ["assets/*"]
     }
   },
   "include": [
@@ -27,9 +21,5 @@
     "supabase/**/*",
     "nativewind-env.d.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*",
-    "supabase/functions"
-  ]
+  "exclude": ["node_modules", "**/node_modules/*", "supabase/functions"]
 }
