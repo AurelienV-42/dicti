@@ -9,6 +9,7 @@ import { queryClient } from "@lib/react-query";
 import * as Sentry from "@sentry/react-native";
 import { useAuthStore } from "@stores/auth.store";
 import { useLifesStore } from "@stores/lifes.store";
+import { useSettingsStore } from "@stores/settings.store";
 import { QueryClientProvider } from "@tanstack/react-query";
 import "@utils/sentry";
 import { useFonts } from "expo-font";
@@ -26,11 +27,13 @@ const RootLayoutContent = (): React.ReactElement | null => {
   const [appIsReady, setAppIsReady] = useState(false);
   const initAuth = useAuthStore((state) => state.initAuth);
   const initLifes = useLifesStore((state) => state.init);
+  const initSettings = useSettingsStore((state) => state.initSettings);
   useNotifications();
 
   useEffect(() => {
     const unsubscribe = initAuth();
     initLifes();
+    initSettings();
 
     async function prepare(): Promise<void> {
       try {
@@ -47,7 +50,7 @@ const RootLayoutContent = (): React.ReactElement | null => {
     return () => {
       unsubscribe();
     };
-  }, [initAuth, initLifes]);
+  }, [initAuth, initLifes, initSettings]);
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) await SplashScreen.hideAsync();

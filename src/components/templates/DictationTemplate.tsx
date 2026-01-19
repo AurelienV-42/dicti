@@ -1,18 +1,18 @@
-import { useRouter } from "expo-router";
 import DisplayCorrection from "@components/DisplayCorrection";
 import MyTextInput from "@components/inputs/MyTextInput";
+import BasicModal from "@components/modals/BasicModal";
 import MyButton from "@components/natives/MyButton";
+import MyText from "@components/natives/MyText";
 import SoundPlayer from "@components/soundPlayer/SoundPlayer";
+import TextToSpeech from "@components/soundPlayer/TextToSpeech";
 import HeaderTemplate from "@components/templates/HeaderTemplate";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
 import useTextDictation from "@hooks/dictation/useTextDictation";
 import useTracking from "@hooks/useTracking";
 import { hapticImpact } from "@utils/haptics";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
-import BasicModal from "@components/modals/BasicModal";
-import MyText from "@components/natives/MyText";
-import TextToSpeech from "@components/soundPlayer/TextToSpeech";
 
 type AssetSource = ReturnType<typeof require>;
 
