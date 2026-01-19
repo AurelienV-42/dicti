@@ -7,7 +7,7 @@ import { Platform } from "react-native";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
+    shouldPlaySound: true,
     shouldSetBadge: false,
     shouldShowBanner: true,
     shouldShowList: true,
@@ -45,6 +45,65 @@ async function registerForPushNotificationsAsync(): Promise<
   }
 
   return token;
+}
+
+interface ReminderTime {
+  hour: number;
+  minute: number;
+}
+
+function getRandomReminderTime(): ReminderTime {
+  const minMinutes = 19 * 60; // 19:00
+  const maxMinutes = 21 * 60; // 21:00
+  const randomMinutes =
+    Math.floor(Math.random() * (maxMinutes - minMinutes)) + minMinutes;
+  return {
+    hour: Math.floor(randomMinutes / 60),
+    minute: randomMinutes % 60,
+  };
+}
+
+export async function scheduleStreakReminder(
+  currentStreak: number,
+): Promise<void> {
+  await Notifications.cancelAllScheduledNotificationsAsync();
+
+  const { hour, minute } = getRandomReminderTime();
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "N'oublie pas ta dictée !",
+      body: `Tu as une série de ${currentStreak} jours. Continue !`,
+      data: { type: "streak_reminder" },
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DAILY,
+      hour,
+      minute,
+    },
+  });
+}
+
+export async function scheduleStreakLostNotification(): Promise<void> {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(9, 0, 0, 0);
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Ta série est terminée",
+      body: "Recommence une nouvelle série aujourd'hui !",
+      data: { type: "streak_lost" },
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DATE,
+      date: tomorrow,
+    },
+  });
+}
+
+export async function onDicteeCompleted(currentStreak: number): Promise<void> {
+  await scheduleStreakReminder(currentStreak + 1);
 }
 
 const useNotifications = () => {
