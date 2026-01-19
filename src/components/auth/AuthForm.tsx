@@ -1,18 +1,19 @@
 import assets from "@assets/index";
 import ElevatedContainer from "@components/ElevatedContainer";
-import MyKeyboardAvoidingView from "@components/MyKeyboardAvoidingView";
 import EmailInput from "@components/inputs/EmailInput";
 import PasswordInput from "@components/inputs/PasswordInput";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { MAX_LENGTH_PASSWORD } from "@config/inputs";
+import useKeyboardAnimation from "@hooks/useKeyboardAnimation";
 import { useAuth } from "@stores/auth.store";
 import { useIsLoading } from "@stores/loading.store";
 import { emailChecker, passwordChecker } from "@utils/validation";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
-import { Image, Keyboard, TextInput, View } from "react-native";
+import { Image, Keyboard, Pressable, TextInput, View } from "react-native";
+import Animated from "react-native-reanimated";
 
 type AuthFormProps = {
   mode: "sign-in" | "sign-up";
@@ -47,6 +48,7 @@ const AuthForm = ({ mode }: AuthFormProps): React.ReactElement => {
   const [error, setError] = useState("");
   const { setIsLoading } = useIsLoading();
   const auth = useAuth();
+  const animatedStyle = useKeyboardAnimation(10);
 
   const copy = MICROCOPY[mode];
 
@@ -73,14 +75,14 @@ const AuthForm = ({ mode }: AuthFormProps): React.ReactElement => {
   };
 
   return (
-    <MyKeyboardAvoidingView className="flex-1 bg-red-500">
-      <View className="flex-1 justify-end bg-blue-100">
-        <View className="items-center mb-10 w-96 h-96 self-center">
-          <Image source={assets.hello} className="w-full h-full" />
-        </View>
+    <Pressable className="flex-1 bg-blue-100" onPress={Keyboard.dismiss}>
+      <View className="items-center w-96 h-96 self-center mt-auto">
+        <Image source={assets.hello} className="w-full h-full" />
+      </View>
 
-        <ElevatedContainer className="">
-          <MyText className="self-start mt-3 text-3xl font-black text-gray-400 text-center mb-2">
+      <Animated.View style={animatedStyle}>
+        <ElevatedContainer>
+          <MyText className="self-start mt-3 text-3xl font-black text-gray-500 text-center mb-2">
             {copy.title}
           </MyText>
           <MyText className="text-base text-gray-300 mb-8">
@@ -134,8 +136,8 @@ const AuthForm = ({ mode }: AuthFormProps): React.ReactElement => {
             <MyText className="text-blue-300">{copy.linkText}</MyText>
           </MyPressable>
         </ElevatedContainer>
-      </View>
-    </MyKeyboardAvoidingView>
+      </Animated.View>
+    </Pressable>
   );
 };
 

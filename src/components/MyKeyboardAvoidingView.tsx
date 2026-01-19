@@ -19,14 +19,12 @@ const MyKeyboardAvoidingView = (props: MyKeyboardAvoidingViewProps) => {
 
   return (
     <KeyboardAvoidingView
-    className="flex-1 bg-white"
+      className="flex-1 bg-white"
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className={props.className}>
-          {children}
-        </View>
+        <View className={props.className}>{children}</View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
