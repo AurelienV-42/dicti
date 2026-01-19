@@ -29,6 +29,7 @@ export default {
       package: "co.dicti",
     },
     plugins: [
+      "expo-asset",
       "expo-router",
       "expo-font",
       "expo-localization",
