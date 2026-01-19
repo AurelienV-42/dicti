@@ -26,6 +26,7 @@ interface ConnectivityPillProps {
   color: keyof typeof COLORS;
   Icon: LucideIcon;
   text: string;
+  expandedWidth?: number;
 }
 
 function ConnectivityPill({
@@ -33,6 +34,7 @@ function ConnectivityPill({
   color,
   Icon,
   text,
+  expandedWidth = EXPANDED_WIDTH,
 }: ConnectivityPillProps): React.ReactNode {
   const [expanded, setExpanded] = useState(false);
   const width = useSharedValue(COLLAPSED_WIDTH);
@@ -44,7 +46,7 @@ function ConnectivityPill({
   const handlePress = (): void => {
     const newExpanded = !expanded;
     setExpanded(newExpanded);
-    width.value = newExpanded ? EXPANDED_WIDTH : COLLAPSED_WIDTH;
+    width.value = newExpanded ? expandedWidth : COLLAPSED_WIDTH;
   };
 
   return (
@@ -121,12 +123,13 @@ export function ConnectivityBanners(): React.ReactNode {
 
   const top = insets.top + 8;
 
-  if (!isConnected) {
+  if (isConnected) {
     return (
       <ConnectivityPill
         top={top}
         color="red"
         Icon={WifiOff}
+        expandedWidth={146}
         text="Pas de connexion"
       />
     );
