@@ -2,8 +2,8 @@ import { setAudioModeAsync } from "expo-audio";
 import * as Speech from "expo-speech";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import MyText from "../natives/MyText";
-import DictationPlayer from "./DictationPlayer";
+import MyText from "@components/natives/MyText";
+import DictationPlayer from "@components/soundPlayer/DictationPlayer";
 
 const useTextToSpeech = (content: string, shouldStop: boolean) => {
   const [isPlaying, setIsPlaying] = useState(false);

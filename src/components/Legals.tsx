@@ -1,6 +1,6 @@
 import { Linking, Platform, View } from "react-native";
-import MyPressable from "./natives/MyPressable";
-import MyText from "./natives/MyText";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
 
 const Legals = () => {
   return (

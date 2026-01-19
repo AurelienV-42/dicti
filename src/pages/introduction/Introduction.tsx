@@ -1,9 +1,9 @@
 import LogoVectorized from "@assets/vectorized/LogoVectorized";
 import { useNavigation } from "@react-navigation/native";
-import ElevatedContainer from "@src/components/ElevatedContainer";
-import MyButton from "@src/components/natives/MyButton";
-import MyText from "@src/components/natives/MyText";
-import ScreenTemplate from "@src/components/templates/ScreenTemplate";
+import ElevatedContainer from "@components/ElevatedContainer";
+import MyButton from "@components/natives/MyButton";
+import MyText from "@components/natives/MyText";
+import ScreenTemplate from "@components/templates/ScreenTemplate";
 import React from "react";
 import { View } from "react-native";
 

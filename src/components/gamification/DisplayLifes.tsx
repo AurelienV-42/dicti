@@ -1,10 +1,10 @@
 import { red } from "@config/colors";
-import { useAuth } from "@src/stores/auth.store";
-import { useLifes } from "@src/stores/lifes.store";
+import { useAuth } from "@stores/auth.store";
+import { useLifes } from "@stores/lifes.store";
 import { Heart } from "phosphor-react-native";
 import { View } from "react-native";
-import MyPressable from "../natives/MyPressable";
-import MyText from "../natives/MyText";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
 
 interface DisplayLifesProps {
   variant?: "small" | "normal";

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DEFAULT_NB_LIFES } from "@config/gamification";
-import { getIsSubscribed } from "@src/utils/purchase";
+import { getIsSubscribed } from "@utils/purchase";
 import { Alert } from "react-native";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";

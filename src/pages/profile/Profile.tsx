@@ -1,14 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import AppVersion from "@src/components/AppVersion";
-import ElevatedContainer from "@src/components/ElevatedContainer";
-import MyPressable from "@src/components/natives/MyPressable";
-import MyText from "@src/components/natives/MyText";
-import HeaderTemplate from "@src/components/templates/HeaderTemplate";
-import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import { useAuth } from "@src/stores/auth.store";
-import deleteAuthUser from "@src/queries/deleteAuthUser.query";
-import resetTo from "@src/utils/resetTo";
+import AppVersion from "@components/AppVersion";
+import ElevatedContainer from "@components/ElevatedContainer";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import HeaderTemplate from "@components/templates/HeaderTemplate";
+import ScreenTemplate from "@components/templates/ScreenTemplate";
+import { useAuth } from "@stores/auth.store";
+import deleteAuthUser from "@queries/deleteAuthUser.query";
+import resetTo from "@utils/resetTo";
 import {
   ArrowRight,
   Envelope,

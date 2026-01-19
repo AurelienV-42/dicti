@@ -1,7 +1,7 @@
 import colors from "@config/colors";
-import { useIsLoading } from "@src/stores/loading.store";
+import { useIsLoading } from "@stores/loading.store";
 import { ActivityIndicator, Modal, View } from "react-native";
-import MyText from "../natives/MyText";
+import MyText from "@components/natives/MyText";
 
 const LoaderModal = () => {
   const { isLoading } = useIsLoading();

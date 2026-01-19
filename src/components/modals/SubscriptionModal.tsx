@@ -1,4 +1,4 @@
-import Subscription from "@src/pages/subscription/Subscription";
+import Subscription from "@pages/subscription/Subscription";
 import { Modal } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 

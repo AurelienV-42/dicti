@@ -1,6 +1,6 @@
-import { useAuth } from "@src/stores/auth.store";
-import { getGradeByUserId, updateGrade } from "@src/queries/grades.query";
-import checkErrors, { CorrectionItem } from "@src/utils/dictationString";
+import { useAuth } from "@stores/auth.store";
+import { getGradeByUserId, updateGrade } from "@queries/grades.query";
+import checkErrors, { CorrectionItem } from "@utils/dictationString";
 import { useState } from "react";
 
 const useTextDictation = (

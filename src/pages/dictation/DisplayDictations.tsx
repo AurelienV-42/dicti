@@ -1,9 +1,9 @@
 import rawDictations, { Dictation } from "@config/dictations";
-import { useAuth } from "@src/stores/auth.store";
-import { getGradesByUserId } from "@src/queries/grades.query";
+import { useAuth } from "@stores/auth.store";
+import { getGradesByUserId } from "@queries/grades.query";
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
-import DisplayDictation from "./DisplayDictation";
+import DisplayDictation from "@pages/dictation/DisplayDictation";
 
 const DisplayDictations = () => {
   const [dictations, setDictations] = useState<Dictation[]>(rawDictations);

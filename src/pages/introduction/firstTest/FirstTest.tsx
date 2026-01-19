@@ -1,7 +1,7 @@
 import { ID_FIRST_TEST } from "@config/dictations";
 import { useNavigation } from "@react-navigation/native";
-import DictationTemplate from "@src/components/templates/DictationTemplate";
-import useDatabaseDictation from "@src/hooks/dictation/useDatabaseDictation";
+import DictationTemplate from "@components/templates/DictationTemplate";
+import useDatabaseDictation from "@hooks/dictation/useDatabaseDictation";
 import React from "react";
 
 const FirstTest = () => {

@@ -1,18 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
-import DisplayCorrection from "@src/components/DisplayCorrection";
-import MyTextInput from "@src/components/inputs/MyTextInput";
-import MyButton from "@src/components/natives/MyButton";
-import SoundPlayer from "@src/components/soundPlayer/SoundPlayer";
-import HeaderTemplate from "@src/components/templates/HeaderTemplate";
-import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import useTextDictation from "@src/hooks/dictation/useTextDictation";
-import useTracking from "@src/hooks/useTracking";
-import { hapticImpact } from "@src/utils/haptics";
+import DisplayCorrection from "@components/DisplayCorrection";
+import MyTextInput from "@components/inputs/MyTextInput";
+import MyButton from "@components/natives/MyButton";
+import SoundPlayer from "@components/soundPlayer/SoundPlayer";
+import HeaderTemplate from "@components/templates/HeaderTemplate";
+import ScreenTemplate from "@components/templates/ScreenTemplate";
+import useTextDictation from "@hooks/dictation/useTextDictation";
+import useTracking from "@hooks/useTracking";
+import { hapticImpact } from "@utils/haptics";
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
-import BasicModal from "../modals/BasicModal";
-import MyText from "../natives/MyText";
-import TextToSpeech from "../soundPlayer/TextToSpeech";
+import BasicModal from "@components/modals/BasicModal";
+import MyText from "@components/natives/MyText";
+import TextToSpeech from "@components/soundPlayer/TextToSpeech";
 
 type AssetSource = ReturnType<typeof require>;
 

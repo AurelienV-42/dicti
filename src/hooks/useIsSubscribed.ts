@@ -1,4 +1,4 @@
-import { getIsSubscribed } from "@src/utils/purchase";
+import { getIsSubscribed } from "@utils/purchase";
 import { useEffect, useState } from "react";
 
 const useIsSubscribed = () => {

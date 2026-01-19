@@ -1,5 +1,5 @@
 import { dark } from "@config/colors";
-import { hapticImpact } from "@src/utils/haptics";
+import { hapticImpact } from "@utils/haptics";
 import { Pause, Play } from "phosphor-react-native";
 import { useState } from "react";
 import { Pressable, View } from "react-native";

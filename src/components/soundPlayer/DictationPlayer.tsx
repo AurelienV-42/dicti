@@ -1,8 +1,8 @@
 import { View } from "react-native";
-import MyPressable from "../natives/MyPressable";
-import MyText from "../natives/MyText";
-import ProgressionBar from "../ProgressionBar";
-import PlayPause from "./PlayPauseButton";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import ProgressionBar from "@components/ProgressionBar";
+import PlayPause from "@components/soundPlayer/PlayPauseButton";
 
 interface DictationPlayerProps {
   isPlaying: boolean;

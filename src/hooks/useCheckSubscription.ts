@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import { getIsSubscribed } from "@src/utils/purchase";
-import resetTo from "@src/utils/resetTo";
+import { getIsSubscribed } from "@utils/purchase";
+import resetTo from "@utils/resetTo";
 import { useEffect } from "react";
-import useAppState from "./useAppState";
+import useAppState from "@hooks/useAppState";
 
 const useCheckSubscription = () => {
   const navigation = useNavigation();

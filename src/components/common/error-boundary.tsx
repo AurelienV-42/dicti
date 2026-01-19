@@ -1,5 +1,5 @@
-import MyButton from "@src/components/natives/MyButton";
-import MyText from "@src/components/natives/MyText";
+import MyButton from "@components/natives/MyButton";
+import MyText from "@components/natives/MyText";
 import { Component, ReactNode } from "react";
 import { View } from "react-native";
 

@@ -1,5 +1,5 @@
 import { CommonActions } from "@react-navigation/native";
-import { RootStackParamList } from "@src/types/navigation";
+import { RootStackParamList } from "@appTypes/navigation";
 
 interface NavigationLike {
   dispatch: (action: ReturnType<typeof CommonActions.reset>) => void;

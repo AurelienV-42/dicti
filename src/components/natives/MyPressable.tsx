@@ -1,4 +1,4 @@
-import sleep from "@src/utils/sleep";
+import sleep from "@utils/sleep";
 import React, { ComponentProps, useState } from "react";
 import { GestureResponderEvent, Pressable } from "react-native";
 

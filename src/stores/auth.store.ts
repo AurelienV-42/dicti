@@ -1,8 +1,8 @@
 import { DEFAULT_NB_LIFES } from "@config/gamification";
-import { createAccount, getAccountById } from "@src/queries/account.query";
-import { Account } from "@src/types/database";
-import { setAsyncStorage } from "@src/utils/asyncStorage";
-import { supabase } from "@src/utils/supabase";
+import { createAccount, getAccountById } from "@queries/account.query";
+import { Account } from "@appTypes/database";
+import { setAsyncStorage } from "@utils/asyncStorage";
+import { supabase } from "@utils/supabase";
 import { Session } from "@supabase/supabase-js";
 import { create } from "zustand";
 

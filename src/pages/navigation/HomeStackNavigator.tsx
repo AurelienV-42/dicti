@@ -1,14 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoaderScreen from "@src/pages/LoaderScreen";
-import Home from "@src/pages/home/Home";
-import Introduction from "@src/pages/introduction/Introduction";
-import FirstTest from "@src/pages/introduction/firstTest/FirstTest";
-import { RootStackParamList } from "@src/types/navigation";
+import LoaderScreen from "@pages/LoaderScreen";
+import Home from "@pages/home/Home";
+import Introduction from "@pages/introduction/Introduction";
+import FirstTest from "@pages/introduction/firstTest/FirstTest";
+import { RootStackParamList } from "@appTypes/navigation";
 import React from "react";
-import Dictation from "../dictation/Dictation";
-import Profile from "../profile/Profile";
-import Subscription from "../subscription/Subscription";
-import SignInUp from "@src/pages/auth/SignInUp";
+import Dictation from "@pages/dictation/Dictation";
+import Profile from "@pages/profile/Profile";
+import Subscription from "@pages/subscription/Subscription";
+import SignInUp from "@pages/auth/SignInUp";
 
 const HomeStack = createNativeStackNavigator<RootStackParamList>();
 

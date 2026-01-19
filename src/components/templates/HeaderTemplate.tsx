@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { View } from "react-native";
-import BackButton from "../buttons/BackButton";
-import MyText from "../natives/MyText";
+import BackButton from "@components/buttons/BackButton";
+import MyText from "@components/natives/MyText";
 
 interface HeaderTemplateProps {
   tight?: boolean;

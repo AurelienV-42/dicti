@@ -1,7 +1,7 @@
-import { SubscriptionPackage } from "@src/types/subscription";
+import { SubscriptionPackage } from "@appTypes/subscription";
 import { Alert, Platform } from "react-native";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
-import getCurrencySymbolFromPrice from "./getCurrencySymbolFromPrice";
+import getCurrencySymbolFromPrice from "@utils/getCurrencySymbolFromPrice";
 
 const APIKeys = {
   apple: process.env.EXPO_PUBLIC_REVENUE_CAT_IOS_KEY ?? "",

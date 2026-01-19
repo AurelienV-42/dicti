@@ -1,5 +1,5 @@
-import MyText from "@src/components/natives/MyText";
-import { supabase } from "@src/utils/supabase";
+import MyText from "@components/natives/MyText";
+import { supabase } from "@utils/supabase";
 import NetInfo from "@react-native-community/netinfo";
 import { WifiSlash, WarningCircle } from "phosphor-react-native";
 import { useCallback, useEffect, useState } from "react";

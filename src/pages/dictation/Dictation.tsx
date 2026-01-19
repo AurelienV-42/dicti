@@ -1,7 +1,7 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import DictationTemplate from "@src/components/templates/DictationTemplate";
-import useDatabaseDictation from "@src/hooks/dictation/useDatabaseDictation";
-import { RootStackParamList } from "@src/types/navigation";
+import DictationTemplate from "@components/templates/DictationTemplate";
+import useDatabaseDictation from "@hooks/dictation/useDatabaseDictation";
+import { RootStackParamList } from "@appTypes/navigation";
 import React from "react";
 
 const Dictation = () => {

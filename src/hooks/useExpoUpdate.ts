@@ -5,7 +5,7 @@ import {
   useUpdates,
 } from "expo-updates";
 import { useEffect, useState } from "react";
-import useAppState from "./useAppState";
+import useAppState from "@hooks/useAppState";
 
 const useExpoUpdate = () => {
   const {

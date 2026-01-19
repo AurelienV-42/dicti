@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import MyText from "./natives/MyText";
+import MyText from "@components/natives/MyText";
 
 interface BadgeLevelProps {
   level: string;

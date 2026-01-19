@@ -1,7 +1,7 @@
 import { Eye, EyeClosed } from "phosphor-react-native";
 import { useState } from "react";
 import { TextInput, View } from "react-native";
-import MyPressable from "../natives/MyPressable";
+import MyPressable from "@components/natives/MyPressable";
 
 interface TextInputTemplateProps extends React.ComponentProps<
   typeof TextInput

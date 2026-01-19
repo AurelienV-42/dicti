@@ -1,4 +1,4 @@
-import TextInputTemplate from "../templates/TextInputTemplate";
+import TextInputTemplate from "@components/templates/TextInputTemplate";
 
 interface MyTextInputProps {
   value: string;

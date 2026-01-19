@@ -1,4 +1,4 @@
-import { readableDate, onlyHours } from "../../src/utils/dates";
+import { readableDate, onlyHours } from "@utils/dates";
 
 describe("dates utility functions", () => {
   describe("readableDate", () => {

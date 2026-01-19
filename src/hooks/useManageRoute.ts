@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import { useAuth } from "@src/stores/auth.store";
-import { logInRevenueCat } from "@src/utils/purchase";
-import resetTo from "@src/utils/resetTo";
+import { useAuth } from "@stores/auth.store";
+import { logInRevenueCat } from "@utils/purchase";
+import resetTo from "@utils/resetTo";
 import { useEffect } from "react";
 
 const useManageRoute = () => {

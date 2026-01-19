@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { View } from "react-native";
-import MyButton from "../natives/MyButton";
-import MyText from "../natives/MyText";
-import ModalTemplate from "../templates/ModalTemplate";
+import MyButton from "@components/natives/MyButton";
+import MyText from "@components/natives/MyText";
+import ModalTemplate from "@components/templates/ModalTemplate";
 
 interface BasicModalProps {
   title: string;

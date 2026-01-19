@@ -1,5 +1,5 @@
-import useUpdate from "@src/hooks/useUpdate";
-import BasicModal from "./BasicModal";
+import useUpdate from "@hooks/useUpdate";
+import BasicModal from "@components/modals/BasicModal";
 
 const UpdateModal = () => {
   const { updateType, showModal, handleUpdatePress, isLoading } = useUpdate();

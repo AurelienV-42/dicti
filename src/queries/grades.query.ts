@@ -1,5 +1,5 @@
-import { Grade, GradeResult, GradesResult } from "@src/types/database";
-import { supabase } from "@src/utils/supabase";
+import { Grade, GradeResult, GradesResult } from "@appTypes/database";
+import { supabase } from "@utils/supabase";
 
 export const updateGrade = async (
   updates: Partial<Grade>,

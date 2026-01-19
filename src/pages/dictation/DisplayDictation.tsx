@@ -1,8 +1,8 @@
 import { Dictation } from "@config/dictations";
 import { useNavigation } from "@react-navigation/native";
-import MyPressable from "@src/components/natives/MyPressable";
-import MyText from "@src/components/natives/MyText";
-import { hapticImpact } from "@src/utils/haptics";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import { hapticImpact } from "@utils/haptics";
 import { DimensionValue, View } from "react-native";
 
 const Level = ({ level }: { level: number }) => {

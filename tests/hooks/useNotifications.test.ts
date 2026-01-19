@@ -3,7 +3,7 @@ import {
   scheduleStreakReminder,
   scheduleStreakLostNotification,
   onDicteeCompleted,
-} from "../../src/hooks/useNotifications";
+} from "@hooks/useNotifications";
 
 jest.mock("expo-notifications", () => ({
   setNotificationHandler: jest.fn(),

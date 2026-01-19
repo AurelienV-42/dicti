@@ -1,7 +1,7 @@
 import * as Application from "expo-application";
 import * as Updates from "expo-updates";
 import { View } from "react-native";
-import MyText from "./natives/MyText";
+import MyText from "@components/natives/MyText";
 
 const AppVersion = () => {
   return (

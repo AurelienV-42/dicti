@@ -1,5 +1,5 @@
-import useAudio from "@src/hooks/useAudio";
-import DictationPlayer from "./DictationPlayer";
+import useAudio from "@hooks/useAudio";
+import DictationPlayer from "@components/soundPlayer/DictationPlayer";
 
 type AssetSource = ReturnType<typeof require>;
 

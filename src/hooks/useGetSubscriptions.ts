@@ -1,5 +1,5 @@
-import { SubscriptionPackage } from "@src/types/subscription";
-import { getPackages } from "@src/utils/purchase";
+import { SubscriptionPackage } from "@appTypes/subscription";
+import { getPackages } from "@utils/purchase";
 import { useEffect, useState } from "react";
 
 const useGetSubscriptions = () => {

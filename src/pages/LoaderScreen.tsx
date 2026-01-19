@@ -1,11 +1,11 @@
 import assets from "@assets/index";
 import { white } from "@config/colors";
-import MyImage from "@src/components/natives/MyImage";
-import { useAuth } from "@src/stores/auth.store";
-import { useLifes } from "@src/stores/lifes.store";
-import useAnalytics from "@src/hooks/useAnalytics";
-import useManageRoute from "@src/hooks/useManageRoute";
-import { initializeRevenueCatApiKeys } from "@src/utils/purchase";
+import MyImage from "@components/natives/MyImage";
+import { useAuth } from "@stores/auth.store";
+import { useLifes } from "@stores/lifes.store";
+import useAnalytics from "@hooks/useAnalytics";
+import useManageRoute from "@hooks/useManageRoute";
+import { initializeRevenueCatApiKeys } from "@utils/purchase";
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 

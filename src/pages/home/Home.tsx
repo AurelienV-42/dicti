@@ -1,15 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
-import ElevatedContainer from "@src/components/ElevatedContainer";
-import DisplayLifes from "@src/components/gamification/DisplayLifes";
-import MyPressable from "@src/components/natives/MyPressable";
-import MyText from "@src/components/natives/MyText";
-import ScreenTemplate from "@src/components/templates/ScreenTemplate";
-import { useAuth } from "@src/stores/auth.store";
-import { uppercaseFirstLetter } from "@src/utils/string";
+import ElevatedContainer from "@components/ElevatedContainer";
+import DisplayLifes from "@components/gamification/DisplayLifes";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
+import ScreenTemplate from "@components/templates/ScreenTemplate";
+import { useAuth } from "@stores/auth.store";
+import { uppercaseFirstLetter } from "@utils/string";
 import { User } from "phosphor-react-native";
 import React from "react";
 import { View } from "react-native";
-import DisplayDictations from "../dictation/DisplayDictations";
+import DisplayDictations from "@pages/dictation/DisplayDictations";
 
 const showNiceEmail = (email: string) => {
   return email

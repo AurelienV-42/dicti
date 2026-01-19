@@ -1,7 +1,7 @@
-import MyText from "@src/components/natives/MyText";
+import MyText from "@components/natives/MyText";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
-import MyPressable from "./MyPressable";
+import MyPressable from "@components/natives/MyPressable";
 
 interface MyButtonProps {
   onPress?: () => void;

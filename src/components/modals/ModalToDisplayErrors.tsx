@@ -1,9 +1,9 @@
 import { ArrowRight } from "phosphor-react-native";
 import { ActivityIndicator, View } from "react-native";
-import DisplayLifes from "../gamification/DisplayLifes";
-import MyButton from "../natives/MyButton";
-import MyText from "../natives/MyText";
-import ModalTemplate from "../templates/ModalTemplate";
+import DisplayLifes from "@components/gamification/DisplayLifes";
+import MyButton from "@components/natives/MyButton";
+import MyText from "@components/natives/MyText";
+import ModalTemplate from "@components/templates/ModalTemplate";
 
 const Title = ({
   goodWord,

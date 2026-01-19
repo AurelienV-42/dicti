@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react-native";
 import React from "react";
-import MyText from "../../../src/components/natives/MyText";
+import MyText from "@components/natives/MyText";
 
 describe("MyText", () => {
   it("renders correctly", () => {

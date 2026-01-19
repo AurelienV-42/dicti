@@ -1,5 +1,5 @@
-import useExpoUpdate from "./useExpoUpdate";
-import useStoreUpdate from "./useStoreUpdate";
+import useExpoUpdate from "@hooks/useExpoUpdate";
+import useStoreUpdate from "@hooks/useStoreUpdate";
 
 const useUpdate = () => {
   const { isStoreUpdateAvailable, handleStoreUpdatePress } = useStoreUpdate();

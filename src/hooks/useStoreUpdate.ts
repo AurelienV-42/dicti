@@ -1,10 +1,10 @@
 import stores from "@config/stores";
 import { captureException } from "@sentry/react-native";
-import { supabase } from "@src/utils/supabase";
+import { supabase } from "@utils/supabase";
 import { useEffect, useState } from "react";
 import { Linking, Platform } from "react-native";
 import appConfig from "../../app.config";
-import useAppState from "./useAppState";
+import useAppState from "@hooks/useAppState";
 
 const isVersionLower = (version1: string, version2: string) => {
   let isLower = false;

@@ -1,5 +1,5 @@
-import { Account, AccountResult, CreateAccountData } from "@src/types/database";
-import { supabase } from "@src/utils/supabase";
+import { Account, AccountResult, CreateAccountData } from "@appTypes/database";
+import { supabase } from "@utils/supabase";
 
 export const getAccountById = async (
   userId: string,
