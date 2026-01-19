@@ -1,12 +1,88 @@
 import MyText from "@components/natives/MyText";
 import NetInfo from "@react-native-community/netinfo";
 import { supabase } from "@utils/supabase";
-import { AlertCircle, WifiOff } from "lucide-react-native";
+import { AlertCircle, LucideIcon, WifiOff } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { Pressable } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const BACKEND_CHECK_INTERVAL = 30000;
+const COLLAPSED_WIDTH = 34;
+const EXPANDED_WIDTH = 164;
+const ANIMATION_DURATION = 300;
+
+const COLORS = {
+  red: "rgba(239, 68, 68, 0.8)",
+  yellow: "rgba(234, 179, 8, 0.8)",
+} as const;
+
+interface ConnectivityPillProps {
+  top: number;
+  color: keyof typeof COLORS;
+  Icon: LucideIcon;
+  text: string;
+}
+
+function ConnectivityPill({
+  top,
+  color,
+  Icon,
+  text,
+}: ConnectivityPillProps): React.ReactNode {
+  const [expanded, setExpanded] = useState(false);
+  const width = useSharedValue(COLLAPSED_WIDTH);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    width: withTiming(width.value, { duration: ANIMATION_DURATION }),
+  }));
+
+  const handlePress = (): void => {
+    const newExpanded = !expanded;
+    setExpanded(newExpanded);
+    width.value = newExpanded ? EXPANDED_WIDTH : COLLAPSED_WIDTH;
+  };
+
+  return (
+    <Pressable
+      onPress={handlePress}
+      style={{
+        position: "absolute",
+        right: 16,
+        top,
+        zIndex: 50,
+      }}
+    >
+      <Animated.View
+        style={[
+          {
+            flexDirection: "row",
+            alignItems: "center",
+            overflow: "hidden",
+            borderRadius: 9999,
+            backgroundColor: COLORS[color],
+            padding: 8,
+          },
+          animatedStyle,
+        ]}
+      >
+        <Icon size={18} color="#fff" />
+        {expanded && (
+          <MyText
+            className="ml-2 text-sm font-medium text-white"
+            numberOfLines={1}
+          >
+            {text}
+          </MyText>
+        )}
+      </Animated.View>
+    </Pressable>
+  );
+}
 
 export function ConnectivityBanners(): React.ReactNode {
   const insets = useSafeAreaInsets();
@@ -43,29 +119,25 @@ export function ConnectivityBanners(): React.ReactNode {
     return null;
   }
 
+  const top = insets.top + 8;
+
   if (!isConnected) {
     return (
-      <View
-        className="absolute left-0 right-0 top-0 z-50 flex-row items-center justify-center gap-2 bg-red-500 px-4 py-2"
-        style={{ paddingTop: insets.top }}
-      >
-        <WifiOff size={16} color="#fff" />
-        <MyText className="text-sm font-medium text-white">
-          Pas de connexion internet
-        </MyText>
-      </View>
+      <ConnectivityPill
+        top={top}
+        color="red"
+        Icon={WifiOff}
+        text="Pas de connexion"
+      />
     );
   }
 
   return (
-    <View
-      className="absolute left-0 right-0 top-0 z-50 flex-row items-center justify-center gap-2 bg-yellow-500 px-4 py-2"
-      style={{ paddingTop: insets.top }}
-    >
-      <AlertCircle size={16} color="#fff" />
-      <MyText className="text-sm font-medium text-white">
-        Serveur indisponible
-      </MyText>
-    </View>
+    <ConnectivityPill
+      top={top}
+      color="yellow"
+      Icon={AlertCircle}
+      text="Serveur indisponible"
+    />
   );
 }
