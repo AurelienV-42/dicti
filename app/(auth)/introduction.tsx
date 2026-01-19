@@ -3,11 +3,31 @@ import ElevatedContainer from "@components/ElevatedContainer";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
+import { useAuth } from "@stores/auth.store";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { View } from "react-native";
+
+const DEV_EMAIL = "aurelienvpro@gmail.com";
+const DEV_PASSWORD = "12345678";
 
 const Introduction = (): React.ReactElement => {
   const router = useRouter();
+  const { signIn, signUp } = useAuth();
+  const [loading, setLoading] = useState<"signIn" | "signUp" | null>(null);
+
+  const handleDevAuth = async (mode: "signIn" | "signUp"): Promise<void> => {
+    setLoading(mode);
+    try {
+      const authFn = mode === "signIn" ? signIn : signUp;
+      await authFn(DEV_EMAIL, DEV_PASSWORD);
+      router.replace("/");
+    } catch (e) {
+      console.warn(`Dev ${mode} failed:`, e);
+    } finally {
+      setLoading(null);
+    }
+  };
 
   return (
     <ScreenTemplate>
@@ -38,6 +58,22 @@ const Introduction = (): React.ReactElement => {
             onPress={() => router.push("/(auth)/first-test")}
           />
         </View>
+        {__DEV__ && (
+          <View className="flex-row w-full justify-between mt-4 pt-4 border-t border-gray-200">
+            <MyButton
+              type="secondary"
+              txt="Dev SignIn"
+              onPress={() => handleDevAuth("signIn")}
+              isLoading={loading === "signIn"}
+            />
+            <MyButton
+              type="secondary"
+              txt="Dev SignUp"
+              onPress={() => handleDevAuth("signUp")}
+              isLoading={loading === "signUp"}
+            />
+          </View>
+        )}
       </ElevatedContainer>
     </ScreenTemplate>
   );

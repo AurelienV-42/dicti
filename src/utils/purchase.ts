@@ -11,7 +11,7 @@ const APIKeys = {
 let isConfigured = false;
 
 export const initializeRevenueCatApiKeys = (userId: string): void => {
-  Purchases.setLogLevel(__DEV__ ? LOG_LEVEL.DEBUG : LOG_LEVEL.INFO);
+  Purchases.setLogLevel(LOG_LEVEL.INFO); // __DEV__ ? LOG_LEVEL.DEBUG : 
   Purchases.configure({
     apiKey: Platform.OS === "android" ? APIKeys.google : APIKeys.apple,
     appUserID: userId,
