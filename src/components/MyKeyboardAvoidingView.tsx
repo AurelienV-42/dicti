@@ -15,22 +15,20 @@ interface MyKeyboardAvoidingViewProps extends ComponentProps<
 
 const MyKeyboardAvoidingView = (props: MyKeyboardAvoidingViewProps) => {
   const { children } = props;
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 140 : 0;
+  const keyboardVerticalOffset = Platform.OS === "ios" ? 0 : 0;
 
   return (
-    <View className={`flex-1 w-full`}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={keyboardVerticalOffset}
-        {...props}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View className={`flex-1`} style={props.style}>
-            {children}
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </View>
+    <KeyboardAvoidingView
+    className="flex-1 bg-white"
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View className={props.className}>
+          {children}
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

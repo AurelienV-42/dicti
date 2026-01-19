@@ -1,9 +1,9 @@
 import assets from "@assets/index";
-import { white } from "@config/colors";
 import MyImage from "@components/natives/MyImage";
+import { white } from "@config/colors";
+import useAnalytics from "@hooks/useAnalytics";
 import { useAuth } from "@stores/auth.store";
 import { useLifes } from "@stores/lifes.store";
-import useAnalytics from "@hooks/useAnalytics";
 import { initializeRevenueCatApiKeys, logInRevenueCat } from "@utils/purchase";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";

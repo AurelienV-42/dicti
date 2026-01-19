@@ -22,9 +22,7 @@ interface CartoonOpenProps {
 const CartoonOpen: React.FC<CartoonOpenProps> = ({ children }) => {
   const progress = useSharedValue(0);
 
-  const logProgress = (value: number) => {
-    console.log("Animation progress:", value);
-  };
+  const logProgress = (_value: number) => {};
 
   useEffect(() => {
     progress.value = withTiming(

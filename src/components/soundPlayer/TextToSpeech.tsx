@@ -57,10 +57,7 @@ const useTextToSpeech = (content: string, shouldStop: boolean) => {
   const { voiceGender, enhancedVoiceAlertShown, setEnhancedVoiceAlertShown } =
     useSettingsStore();
 
-  console.log("here");
-
   const play = useCallback(async () => {
-    console.log("TTS play() called");
     setIsPlaying(true);
 
     const voice = await findBestVoice(voiceGender);
@@ -72,8 +69,6 @@ const useTextToSpeech = (content: string, shouldStop: boolean) => {
         showEnhancedVoiceAlert(() => setEnhancedVoiceAlertShown());
       }
     }
-
-    console.log("TTS voice:", voice);
 
     Speech.speak(content, {
       language: "fr-FR",
@@ -154,8 +149,6 @@ interface TextToSpeechProps {
 const TextToSpeech = ({ content, shouldStop }: TextToSpeechProps) => {
   const { isPlaying, play, pause } = useTextToSpeech(content, shouldStop);
   const { voiceGender, setVoiceGender } = useSettingsStore();
-
-  console.log("TextToSpeech rendered, content:", content.slice(0, 50));
 
   return (
     <View>

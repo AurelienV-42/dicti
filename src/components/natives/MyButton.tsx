@@ -13,7 +13,7 @@ interface MyButtonProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isLoading?: boolean;
-  type?: "default" | "secondary";
+  type?: "default" | "secondary" | "light";
   className?: string;
 }
 
@@ -42,6 +42,10 @@ const MyButton = ({
     },
     secondary: {
       container: "border-2 border-blue-300",
+      text: "text-blue-300",
+    },
+    light: {
+      container: "border-2 border-white bg-white",
       text: "text-blue-300",
     },
   };
@@ -75,7 +79,7 @@ const MyButton = ({
         <View>
           <ActivityIndicator
             size={"small"}
-            color={type === "secondary" ? "white" : "black"}
+            color={type === "secondary" ? "#93c5fd" : "white"}
           />
         </View>
       )}

@@ -6,7 +6,9 @@ const assets = {
 
   // logo
   adaptiveIcon: require("./logo/adaptiveIcon.png"),
+  hello: require("./logo/hello.png"),
   icon: require("./logo/icon.png"),
+  inspector: require("./logo/inspector.png"),
   splash: require("./logo/splash.png"),
 
   // dictations/fr
