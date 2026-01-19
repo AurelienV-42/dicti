@@ -1,22 +1,24 @@
-export interface Account {
-  id: string;
-  email: string;
-  role?: string;
-  created_at?: string;
-}
+import { Tables, TablesInsert, Enums } from "@appTypes/supabase";
 
+// User types from Supabase
+export type User = Tables<"users">;
+export type UserInsert = TablesInsert<"users">;
+export type UserRole = Enums<"user_role">;
+
+// Grade - will be generated after table creation
 export interface Grade {
   id?: string;
   user_id: string;
   dictation_id: string;
   grade: number;
-  gradeOn20?: number;
+  grade_on_20?: number;
   created_at?: string;
   updated_at?: string;
 }
 
-export interface AccountResult {
-  account: Account | null;
+// Result types
+export interface UserResult {
+  user: User | null;
   error: Error | null;
 }
 
@@ -28,9 +30,4 @@ export interface GradeResult {
 export interface GradesResult {
   grades: Grade[] | null;
   error: Error | null;
-}
-
-export interface CreateAccountData {
-  id?: string;
-  email: string;
 }

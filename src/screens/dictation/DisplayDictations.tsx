@@ -17,7 +17,7 @@ const DisplayDictations = () => {
         const grade = result.grades?.find((r) => r.dictation_id === item.id);
         return {
           ...item,
-          grade: grade ? grade.gradeOn20 : undefined,
+          grade: grade ? grade.grade_on_20 : undefined,
         };
       });
 

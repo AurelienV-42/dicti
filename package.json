@@ -13,7 +13,8 @@
     "lint:fix": "eslint src app --ext .ts,.tsx --fix",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"app/**/*.{ts,tsx}\"",
-    "check": "npm run typecheck && npm run lint && npm test"
+    "check": "npm run typecheck && npm run lint && npm test",
+    "gen-types": "npx supabase gen types typescript --project-id jyepycipefsirbphlolu > src/types/supabase.ts"
   },
   "dependencies": {
     "@lodev09/react-native-true-sheet": "^3.7.3",

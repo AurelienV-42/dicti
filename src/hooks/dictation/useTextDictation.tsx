@@ -33,7 +33,7 @@ const useTextDictation = (
                 user_id: user.id,
                 dictation_id: dictationID,
                 grade: gradeOn20,
-                gradeOn20,
+                grade_on_20: gradeOn20,
               },
               result.grade?.id,
             );

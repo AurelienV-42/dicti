@@ -1,17 +1,17 @@
 import { DEFAULT_NB_LIFES } from "@config/gamification";
-import { createAccount, getAccountById } from "@queries/account.query";
-import { Account } from "@appTypes/database";
+import { getUserById } from "@queries/user.query";
+import { User } from "@appTypes/database";
 import { setAsyncStorage } from "@utils/asyncStorage";
 import { supabase } from "@utils/supabase";
 import { Session } from "@supabase/supabase-js";
 import { create } from "zustand";
 
 interface AuthState {
-  user: Account | null;
+  user: User | null;
   session: Session | null;
   isAdmin: boolean;
   loading: boolean;
-  setUser: (user: Account | null) => void;
+  setUser: (user: User | null) => void;
   setSession: (session: Session | null) => void;
   setLoading: (loading: boolean) => void;
   signUp: (email: string, password: string) => Promise<void>;
@@ -37,17 +37,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     await setAsyncStorage("lifes", DEFAULT_NB_LIFES.toString());
     set({ session: data?.session });
 
-    const account = { id: data.session?.user.id, email };
-    if (data) {
-      try {
-        const result = await createAccount(account);
-        set({
-          user: result.account,
-          isAdmin: result.account?.role === "admin",
-        });
-      } catch (err) {
-        console.warn("Error creating account:", err);
-      }
+    if (data.session?.user.id) {
+      const { user } = await getUserById(data.session.user.id);
+      set({ user, isAdmin: user?.role === "admin" });
     }
   },
 
@@ -64,8 +56,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       console.warn("Failed to get user session");
       return;
     }
-    const { account } = await getAccountById(data.session.user.id);
-    set({ user: account, isAdmin: account?.role === "admin" });
+    const { user } = await getUserById(data.session.user.id);
+    set({ user, isAdmin: user?.role === "admin" });
   },
 
   signOut: async () => {
@@ -90,8 +82,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (session) {
         set({ session });
         try {
-          const { account } = await getAccountById(session.user.id);
-          set({ user: account, isAdmin: account?.role === "admin" });
+          const { user } = await getUserById(session.user.id);
+          set({ user, isAdmin: user?.role === "admin" });
         } finally {
           set({ loading: false });
         }
@@ -109,8 +101,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         if (session) {
           try {
-            const { account } = await getAccountById(session.user.id);
-            set({ user: account, isAdmin: account?.role === "admin" });
+            const { user } = await getUserById(session.user.id);
+            set({ user, isAdmin: user?.role === "admin" });
           } finally {
             set({ loading: false });
           }
