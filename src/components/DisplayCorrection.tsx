@@ -1,12 +1,12 @@
-import { useLifes } from "@stores/lifes.store";
+import ModalToDisplayErrors from "@components/modals/ModalToDisplayErrors";
+import MyPressable from "@components/natives/MyPressable";
+import MyText from "@components/natives/MyText";
 import useErrorsFromAI from "@hooks/useErrorsFromAI";
+import { useLifes } from "@stores/lifes.store";
 import { CorrectionItem } from "@utils/dictationString";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Platform, ScrollView, View } from "react-native";
-import ModalToDisplayErrors from "@components/modals/ModalToDisplayErrors";
-import MyPressable from "@components/natives/MyPressable";
-import MyText from "@components/natives/MyText";
 
 const DisplayCorrection = ({
   correction,

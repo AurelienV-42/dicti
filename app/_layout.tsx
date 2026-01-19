@@ -15,8 +15,9 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Toaster } from "sonner-native";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -62,7 +63,7 @@ const RootLayoutContent = (): React.ReactElement | null => {
   if (!fontLoaded || !appIsReady) return null;
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <SafeAreaProvider>
         <ConnectivityBanners />
         <MyPostHogProvider>
@@ -78,8 +79,9 @@ const RootLayoutContent = (): React.ReactElement | null => {
           </Stack>
           <UpdateModal />
         </MyPostHogProvider>
+        <Toaster position="top-center" richColors />
       </SafeAreaProvider>
-    </View>
+    </GestureHandlerRootView>
   );
 };
 

@@ -8,12 +8,14 @@ import MyText from "@components/natives/MyText";
 import { MAX_LENGTH_PASSWORD } from "@config/inputs";
 import useKeyboardAnimation from "@hooks/useKeyboardAnimation";
 import { useAuth } from "@stores/auth.store";
-import { emailChecker, passwordChecker } from "@utils/validation";
 import { useMutation } from "@tanstack/react-query";
+import { getAuthErrorMessage } from "@utils/auth-errors";
+import { emailChecker, passwordChecker } from "@utils/validation";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Image, Keyboard, Pressable, TextInput, View } from "react-native";
 import Animated from "react-native-reanimated";
+import { toast } from "sonner-native";
 
 type AuthFormProps = {
   mode: "sign-in" | "sign-up";
@@ -62,8 +64,18 @@ const AuthForm = ({ mode }: AuthFormProps): React.ReactElement => {
       const authMethod = mode === "sign-in" ? auth?.signIn : auth?.signUp;
       return authMethod?.(cleanedEmail, cleanedPassword);
     },
-    onSuccess: () => router.replace("/"),
-    onError: (err: Error) => console.warn(mode, err),
+    onSuccess: () => {
+      console.log("here");
+      toast.success(
+        mode === "sign-in"
+          ? "Connexion réussie"
+          : "Votre compte a bien été créé",
+      );
+      router.replace("/");
+    },
+    onError: (err: Error) => {
+      toast.error(getAuthErrorMessage(err));
+    },
   });
 
   const complete = (): void => {

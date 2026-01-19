@@ -2,6 +2,7 @@ import { useGrade, useUpdateGrade } from "@api/grades.hook";
 import { useAuth } from "@stores/auth.store";
 import checkErrors, { CorrectionItem } from "@utils/dictationString";
 import { useState } from "react";
+import { toast } from "sonner-native";
 
 const useTextDictation = (
   dictationID: string,
@@ -40,8 +41,8 @@ const useTextDictation = (
             gradeId: gradeData?.grade?.id,
           },
           {
-            onError: (error) => {
-              console.warn("Failed to save grade:", error);
+            onError: () => {
+              toast.error("Erreur lors de la sauvegarde de votre note :(");
             },
           },
         );

@@ -53,7 +53,6 @@ const useErrorsFromAI = (
           setErrorsFromAI([result.data]);
         }
       })
-      .catch((error) => console.warn("Fetch Correction with AI Failed", error))
       .finally(() => {
         setIsLoading(false);
       });

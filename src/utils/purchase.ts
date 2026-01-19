@@ -1,7 +1,8 @@
 import { SubscriptionPackage } from "@appTypes/subscription";
 import getCurrencySymbolFromPrice from "@utils/getCurrencySymbolFromPrice";
-import { Alert, Platform } from "react-native";
+import { Platform } from "react-native";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
+import { toast } from "sonner-native";
 
 const APIKeys = {
   apple: process.env.EXPO_PUBLIC_REVENUE_CAT_IOS_KEY ?? "",
@@ -11,7 +12,7 @@ const APIKeys = {
 let isConfigured = false;
 
 export const initializeRevenueCatApiKeys = (userId: string): void => {
-  Purchases.setLogLevel(LOG_LEVEL.INFO); // __DEV__ ? LOG_LEVEL.DEBUG : 
+  Purchases.setLogLevel(LOG_LEVEL.INFO); // __DEV__ ? LOG_LEVEL.DEBUG :
   Purchases.configure({
     apiKey: Platform.OS === "android" ? APIKeys.google : APIKeys.apple,
     appUserID: userId,
@@ -77,8 +78,6 @@ export const getPackages = async (): Promise<SubscriptionPackage[]> => {
   }
 };
 
-const t = (key: string) => key;
-
 export const pay = async (
   selectedPackage: SubscriptionPackage | undefined,
   onSuccess: () => void,
@@ -87,31 +86,15 @@ export const pay = async (
   return Purchases.purchasePackage(selectedPackage)
     .then(({ customerInfo }) => {
       if (customerInfo.entitlements.all["Subscription"]?.isActive) {
-        Alert.alert(
-          "Bravo",
-          "Tu as souscrit à l'abonnement, tu peux maintenant profiter de toutes les fonctionnalités de l'application",
-          [
-            {
-              text: "OK",
-              onPress: onSuccess,
-            },
-          ],
-        );
+        toast.success("Abonnement activé !");
+        onSuccess();
       } else {
-        Alert.alert(
-          "Erreur",
-          "Une erreur est survenue lors de la souscription à l'abonnement, nous en sommes informer. Tu peux réessayer plus tard.",
-        );
+        toast.error("Erreur lors de l'abonnement");
       }
     })
     .catch((error: Error) => {
-      console.warn("ERROR", error);
       if (error.message.includes("cancel")) return;
-
-      Alert.alert(
-        t("account:payment.failure"),
-        t("account:payment.failureMessage"),
-      );
+      toast.error("Erreur de paiement");
     });
 };
 
@@ -126,6 +109,7 @@ export const getIsSubscribed = async (): Promise<boolean> => {
   } catch (error) {
     const err = error as Error & { code?: string };
     console.error("Error in getIsSubscribed:", err.message, err.code);
+    toast.error("Erreur de vérification d'abonnement");
     return false;
   }
 };

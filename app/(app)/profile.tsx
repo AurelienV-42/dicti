@@ -17,16 +17,22 @@ import {
 } from "lucide-react-native";
 import React from "react";
 import { Alert, Linking, ScrollView, View } from "react-native";
+import { toast } from "sonner-native";
 
 const Profile = (): React.ReactElement => {
   const router = useRouter();
   const { isAdmin, signOut } = useAuth();
 
   const signOutWithThen = (): void => {
-    signOut().then(() => {
-      AsyncStorage.clear();
-      router.replace("/");
-    });
+    signOut()
+      .then(() => {
+        AsyncStorage.clear();
+        toast.success("Déconnecté");
+        router.replace("/");
+      })
+      .catch(() => {
+        toast.error("Erreur lors de la déconnexion");
+      });
   };
 
   const list: {
@@ -77,19 +83,11 @@ const Profile = (): React.ReactElement => {
                   deleteAuthUser()
                     .then(() => {
                       AsyncStorage.clear();
-                      Alert.alert(
-                        "Compte supprimé",
-                        "Ton compte a bien été supprimé.",
-                        [
-                          {
-                            text: "OK",
-                            onPress: signOutWithThen,
-                          },
-                        ],
-                      );
+                      toast.success("Compte supprimé");
+                      signOutWithThen();
                     })
-                    .catch((error) => {
-                      Alert.alert("Erreur", error.message);
+                    .catch(() => {
+                      toast.error("Erreur lors de la suppression");
                     });
                 },
               },

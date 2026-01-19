@@ -10,28 +10,23 @@ const useGetSubscriptions = () => {
   useEffect(() => {
     let isMounted = true;
 
-    const fetchSubscriptions = async () => {
-      getPackages()
-        .then((packages) => {
-          if (!isMounted) return;
-          if (!packages || packages.length === 0) {
-            setError("Aucun abonnement disponible");
-            setLoading(false);
-            return;
-          }
-          setSubscriptions(packages);
-        })
-        .catch((error) => {
-          if (!isMounted) return;
-          console.warn(error);
-          setError(error.message);
-        })
-        .finally(() => {
-          if (isMounted) setLoading(false);
-        });
-    };
-
-    fetchSubscriptions();
+    getPackages()
+      .then((packages) => {
+        if (!isMounted) return;
+        if (!packages || packages.length === 0) {
+          setError("Aucun abonnement disponible");
+          setLoading(false);
+          return;
+        }
+        setSubscriptions(packages);
+      })
+      .catch((error) => {
+        if (!isMounted) return;
+        setError(error.message);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
 
     return () => {
       isMounted = false;
