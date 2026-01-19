@@ -123,7 +123,7 @@ export function ConnectivityBanners(): React.ReactNode {
 
   const top = insets.top + 8;
 
-  if (isConnected) {
+  if (!isConnected) {
     return (
       <ConnectivityPill
         top={top}

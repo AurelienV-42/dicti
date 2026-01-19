@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const colors = require("./config/colors");
-const twColors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -11,11 +10,8 @@ module.exports = {
   ],
   presets: [require("nativewind/preset")],
   theme: {
-    colors: {
-      ...twColors,
-      ...colors,
-    },
     extend: {
+      colors,
       fontFamily: {
         sans: ["JakartaMedium"],
         semibold: ["JakartaSemiBold"],
