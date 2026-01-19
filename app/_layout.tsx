@@ -1,23 +1,23 @@
-import "../global.css";
-import fonts from "@config/fonts";
-import * as Sentry from "@sentry/react-native";
-import { ErrorBoundary } from "@components/common/error-boundary";
 import { ConnectivityBanners } from "@components/common/connectivity-banners";
+import { ErrorBoundary } from "@components/common/error-boundary";
 import LoaderModal from "@components/modals/LoaderModal";
 import UpdateModal from "@components/modals/UpdateModal";
+import fonts from "@config/fonts";
 import MyPostHogProvider from "@context/MyPostHog";
 import useNotifications from "@hooks/useNotifications";
 import { queryClient } from "@lib/react-query";
+import * as Sentry from "@sentry/react-native";
 import { useAuthStore } from "@stores/auth.store";
 import { useLifesStore } from "@stores/lifes.store";
-import "@utils/sentry";
 import { QueryClientProvider } from "@tanstack/react-query";
+import "@utils/sentry";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
 

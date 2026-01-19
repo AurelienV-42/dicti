@@ -1,15 +1,16 @@
 import { ComponentProps, ReactNode } from "react";
 import { Text } from "react-native";
+import { twMerge } from "tailwind-merge";
 
 interface MyTextProps extends ComponentProps<typeof Text> {
   children: ReactNode;
 }
 
 const MyText = (props: MyTextProps) => {
-  const { style, children } = props;
+  const { children, className, ...rest } = props;
 
   return (
-    <Text {...props} className="text-base" style={style}>
+    <Text className={twMerge("font-sans text-base", className)} {...rest}>
       {children}
     </Text>
   );

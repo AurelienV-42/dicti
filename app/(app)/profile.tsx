@@ -1,18 +1,18 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
 import AppVersion from "@components/AppVersion";
 import ElevatedContainer from "@components/ElevatedContainer";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import HeaderTemplate from "@components/templates/HeaderTemplate";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
-import { useAuth } from "@stores/auth.store";
 import deleteAuthUser from "@queries/deleteAuthUser.query";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "@stores/auth.store";
+import { useRouter } from "expo-router";
 import {
   ArrowRight,
-  Mail,
   Banknote,
   LogOut,
+  Mail,
   Trash2,
 } from "lucide-react-native";
 import React from "react";

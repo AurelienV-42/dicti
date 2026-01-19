@@ -1,7 +1,7 @@
 import MyText from "@components/natives/MyText";
-import { supabase } from "@utils/supabase";
 import NetInfo from "@react-native-community/netinfo";
-import { WifiOff, AlertCircle } from "lucide-react-native";
+import { supabase } from "@utils/supabase";
+import { AlertCircle, WifiOff } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -46,7 +46,7 @@ export function ConnectivityBanners(): React.ReactNode {
   if (!isConnected) {
     return (
       <View
-        className="flex-row items-center justify-center gap-2 bg-red-500 px-4 py-2"
+        className="absolute left-0 right-0 top-0 z-50 flex-row items-center justify-center gap-2 bg-red-500 px-4 py-2"
         style={{ paddingTop: insets.top }}
       >
         <WifiOff size={16} color="#fff" />
@@ -59,7 +59,7 @@ export function ConnectivityBanners(): React.ReactNode {
 
   return (
     <View
-      className="flex-row items-center justify-center gap-2 bg-yellow-500 px-4 py-2"
+      className="absolute left-0 right-0 top-0 z-50 flex-row items-center justify-center gap-2 bg-yellow-500 px-4 py-2"
       style={{ paddingTop: insets.top }}
     >
       <AlertCircle size={16} color="#fff" />

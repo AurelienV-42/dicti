@@ -2,6 +2,7 @@ import MyText from "@components/natives/MyText";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 import MyPressable from "@components/natives/MyPressable";
+import { twMerge } from "tailwind-merge";
 
 interface MyButtonProps {
   onPress?: () => void;
@@ -13,7 +14,6 @@ interface MyButtonProps {
   rightIcon?: React.ReactNode;
   isLoading?: boolean;
   type?: "default" | "secondary";
-  style?: object;
   className?: string;
 }
 
@@ -26,7 +26,7 @@ const MyButton = ({
   leftIcon,
   rightIcon,
   isLoading = false,
-  style,
+  className,
 }: MyButtonProps): React.ReactElement => {
   const template: Record<
     string,
@@ -49,18 +49,24 @@ const MyButton = ({
   return (
     <MyPressable
       accessibilityLabel={txt}
-      className={`flex-row py-3.5 items-center justify-center px-5 rounded-2xl self-start
-      ${template[type].container}  ${
-        rightIcon && !isLoading && "justify-between"
-      } ${disabled && "opacity-50"}`}
-      style={style}
+      className={twMerge(
+        "flex-row py-3.5 items-center justify-center px-5 rounded-2xl self-start",
+        template[type].container,
+        rightIcon && !isLoading && "justify-between",
+        disabled && "opacity-50",
+        className,
+      )}
       onPress={onPress}
       disabled={disabled || isLoading}
     >
       {leftIcon && !isLoading && leftIcon}
       {txt && !isLoading && (
         <MyText
-          className={`text-lg font-semibold ${template[type].text} ${txtStyle}`}
+          className={twMerge(
+            "text-lg font-semibold",
+            template[type].text,
+            txtStyle,
+          )}
         >
           {txt}
         </MyText>

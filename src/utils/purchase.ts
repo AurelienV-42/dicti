@@ -1,12 +1,14 @@
 import { SubscriptionPackage } from "@appTypes/subscription";
+import getCurrencySymbolFromPrice from "@utils/getCurrencySymbolFromPrice";
 import { Alert, Platform } from "react-native";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
-import getCurrencySymbolFromPrice from "@utils/getCurrencySymbolFromPrice";
 
 const APIKeys = {
   apple: process.env.EXPO_PUBLIC_REVENUE_CAT_IOS_KEY ?? "",
   google: process.env.EXPO_PUBLIC_REVENUE_CAT_ANDROID_KEY ?? "",
 };
+
+let isConfigured = false;
 
 export const initializeRevenueCatApiKeys = (userId: string): void => {
   Purchases.setLogLevel(__DEV__ ? LOG_LEVEL.DEBUG : LOG_LEVEL.INFO);
@@ -14,6 +16,7 @@ export const initializeRevenueCatApiKeys = (userId: string): void => {
     apiKey: Platform.OS === "android" ? APIKeys.google : APIKeys.apple,
     appUserID: userId,
   });
+  isConfigured = true;
 };
 
 export const logInRevenueCat = async (
@@ -113,6 +116,10 @@ export const pay = async (
 };
 
 export const getIsSubscribed = async (): Promise<boolean> => {
+  if (!isConfigured) {
+    return false;
+  }
+
   try {
     const purchaserInfo = await Purchases.getCustomerInfo();
     return purchaserInfo.entitlements.all["Subscription"]?.isActive ?? false;

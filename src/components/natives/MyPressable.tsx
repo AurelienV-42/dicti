@@ -8,7 +8,7 @@ interface MyPressableProps extends ComponentProps<typeof Pressable> {
 }
 
 function MyPressable(props: MyPressableProps) {
-  const { disabled, disabledFull = false, ...otherProps } = props;
+  const { disabled, disabledFull = false, className, ...otherProps } = props;
 
   const [hovered, setHovered] = useState(false);
 
@@ -27,6 +27,7 @@ function MyPressable(props: MyPressableProps) {
       disabled={disabled || disabledFull || disabledNoMultipleClick}
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}
+      className={className}
       {...otherProps}
       onPress={(event: GestureResponderEvent) => {
         disableToAvoidMultipleClick();
