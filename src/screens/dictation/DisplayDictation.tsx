@@ -1,11 +1,11 @@
 import { Dictation } from "@config/dictations";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import { hapticImpact } from "@utils/haptics";
 import { DimensionValue, View } from "react-native";
 
-const Level = ({ level }: { level: number }) => {
+const Level = ({ level }: { level: number }): React.ReactElement => {
   let color = "";
 
   switch (level) {
@@ -33,15 +33,19 @@ const Level = ({ level }: { level: number }) => {
   );
 };
 
-const Grade = ({ grade }: { grade: number }) => {
+const Grade = ({ grade }: { grade: number }): React.ReactElement => {
   return <MyText className={`font-bold mr-2`}>{grade}/20</MyText>;
 };
 
-const DisplayDictation = ({ item }: { item: Dictation }) => {
-  const navigation = useNavigation();
+const DisplayDictation = ({
+  item,
+}: {
+  item: Dictation;
+}): React.ReactElement => {
+  const router = useRouter();
 
-  const goToDictation = () => {
-    navigation.navigate("Dictation", { dictationID: item.id });
+  const goToDictation = (): void => {
+    router.push(`/(app)/dictation/${item.id}`);
   };
 
   return (

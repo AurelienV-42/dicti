@@ -1,6 +1,6 @@
 import LogoVectorized from "@assets/vectorized/LogoVectorized";
 import { orange } from "@config/colors";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import Legals from "@components/Legals";
 import MyButton from "@components/natives/MyButton";
 import MyPressable from "@components/natives/MyPressable";
@@ -13,12 +13,11 @@ import useAnalytics from "@hooks/useAnalytics";
 import useGetSubscriptions from "@hooks/useGetSubscriptions";
 import { hapticImpact } from "@utils/haptics";
 import { pay } from "@utils/purchase";
-import resetTo from "@utils/resetTo";
-import { Brain, CaretLeft, LockOpen, X } from "phosphor-react-native";
+import { Brain, LockOpen, X } from "phosphor-react-native";
 import { useState } from "react";
 import { ActivityIndicator, ScrollView, View } from "react-native";
 
-const Advantages = () => {
+const Advantages = (): React.ReactElement => {
   const advantages = [
     {
       title: "Accès en illimité",
@@ -43,19 +42,22 @@ const Advantages = () => {
   );
 };
 
-const Subscription = ({ close }: { close?: () => void }) => {
-  const navigation = useNavigation();
+const SubscriptionModal = (): React.ReactElement => {
+  const router = useRouter();
   const { setIsLoading } = useIsLoading();
   const [selectedNbMonth, setSelectedNbMonth] = useState(12);
   const { capture } = useAnalytics();
   const { subscriptions, loading, error } = useGetSubscriptions();
 
-  const successSubscription = () => {
-    if (close) close();
-    else resetTo(navigation, "Home");
+  const close = (): void => {
+    router.back();
   };
 
-  const subscribe = () => {
+  const successSubscription = (): void => {
+    router.replace("/(app)/home");
+  };
+
+  const subscribe = (): void => {
     hapticImpact("heavy");
     capture("Subscription", { property: selectedNbMonth });
 
@@ -106,11 +108,8 @@ const Subscription = ({ close }: { close?: () => void }) => {
           alignItems: "center",
         }}
       >
-        <MyPressable
-          className={`absolute ${!close ? "left-4" : "right-4"}`}
-          onPress={() => (close ? close() : navigation.goBack())}
-        >
-          {!close ? <CaretLeft /> : <X />}
+        <MyPressable className="absolute right-4" onPress={close}>
+          <X />
         </MyPressable>
         <LogoVectorized className="mb-5" width={200} height={200} />
 
@@ -140,4 +139,4 @@ const Subscription = ({ close }: { close?: () => void }) => {
   );
 };
 
-export default Subscription;
+export default SubscriptionModal;

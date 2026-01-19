@@ -3,7 +3,7 @@ import { useAuth } from "@stores/auth.store";
 import { getGradesByUserId } from "@queries/grades.query";
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
-import DisplayDictation from "@pages/dictation/DisplayDictation";
+import DisplayDictation from "@screens/dictation/DisplayDictation";
 
 const DisplayDictations = () => {
   const [dictations, setDictations] = useState<Dictation[]>(rawDictations);

@@ -1,5 +1,5 @@
 import { dark, white } from "@config/colors";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import { ArrowLeft } from "phosphor-react-native";
 import MyPressable from "@components/natives/MyPressable";
 
@@ -8,12 +8,15 @@ interface BackButtonProps {
   theme?: "dark" | "white";
 }
 
-const BackButton = ({ padding = true, theme = "dark" }: BackButtonProps) => {
-  const navigation = useNavigation();
+const BackButton = ({
+  padding = true,
+  theme = "dark",
+}: BackButtonProps): React.ReactElement => {
+  const router = useRouter();
 
-  const onPress = () => {
-    if (navigation.canGoBack()) navigation.goBack();
-    else navigation.navigate("Introduction");
+  const onPress = (): void => {
+    if (router.canGoBack()) router.back();
+    else router.replace("/(auth)/introduction");
   };
 
   return (

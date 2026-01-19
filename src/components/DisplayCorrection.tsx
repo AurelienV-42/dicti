@@ -1,10 +1,10 @@
 import { useLifes } from "@stores/lifes.store";
 import useErrorsFromAI from "@hooks/useErrorsFromAI";
 import { CorrectionItem } from "@utils/dictationString";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Platform, ScrollView, View } from "react-native";
 import ModalToDisplayErrors from "@components/modals/ModalToDisplayErrors";
-import SubscriptionModal from "@components/modals/SubscriptionModal";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 
@@ -14,8 +14,8 @@ const DisplayCorrection = ({
 }: {
   correction: CorrectionItem[];
   correctText: string;
-}) => {
-  const [isSubscriptionVisible, setIsSubscriptionVisible] = useState(false);
+}): React.ReactElement => {
+  const router = useRouter();
   const [indexModalVisible, setIndexModalVisible] = useState(-1);
   const { errorsFromAI, isLoading } = useErrorsFromAI(
     correction,
@@ -24,7 +24,7 @@ const DisplayCorrection = ({
   );
   const { decrementLife } = useLifes();
 
-  const showCorrection = (index: number) => {
+  const showCorrection = (index: number): void => {
     decrementLife().then((isSuccess: boolean) => {
       if (isSuccess) {
         setIndexModalVisible(index);
@@ -40,7 +40,7 @@ const DisplayCorrection = ({
           },
           {
             text: "S'abonner",
-            onPress: () => setIsSubscriptionVisible(true),
+            onPress: () => router.push("/subscription-modal"),
           },
         ],
       );
@@ -81,10 +81,6 @@ const DisplayCorrection = ({
           );
         })}
       </MyText>
-      <SubscriptionModal
-        isVisible={isSubscriptionVisible}
-        close={() => setIsSubscriptionVisible(false)}
-      />
     </ScrollView>
   );
 };

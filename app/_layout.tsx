@@ -1,6 +1,5 @@
-import "./global.css";
+import "../global.css";
 import fonts from "@config/fonts";
-import { NavigationContainer } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";
 import { ErrorBoundary } from "@components/common/error-boundary";
 import { ConnectivityBanners } from "@components/common/connectivity-banners";
@@ -9,13 +8,13 @@ import UpdateModal from "@components/modals/UpdateModal";
 import MyPostHogProvider from "@context/MyPostHog";
 import useNotifications from "@hooks/useNotifications";
 import { queryClient } from "@lib/react-query";
-import HomeStackNavigator from "@pages/navigation/HomeStackNavigator";
 import { useAuthStore } from "@stores/auth.store";
 import { useLifesStore } from "@stores/lifes.store";
 import "@utils/sentry";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { Stack } from "expo-router";
 import { IconContext } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
@@ -23,7 +22,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
 
-const AppContent = (): React.ReactElement | null => {
+const RootLayoutContent = (): React.ReactElement | null => {
   const [fontLoaded] = useFonts(fonts);
   const [appIsReady, setAppIsReady] = useState(false);
   const initAuth = useAuthStore((state) => state.initAuth);
@@ -72,12 +71,19 @@ const AppContent = (): React.ReactElement | null => {
             weight: "regular",
           }}
         >
-          <NavigationContainer>
-            <MyPostHogProvider>
-              <HomeStackNavigator />
-              <UpdateModal />
-            </MyPostHogProvider>
-          </NavigationContainer>
+          <MyPostHogProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="index" />
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="(app)" />
+              <Stack.Screen
+                name="subscription-modal"
+                options={{ presentation: "modal" }}
+              />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+            <UpdateModal />
+          </MyPostHogProvider>
           <LoaderModal />
         </IconContext.Provider>
       </SafeAreaProvider>
@@ -85,14 +91,14 @@ const AppContent = (): React.ReactElement | null => {
   );
 };
 
-const App = (): React.ReactElement => {
+const RootLayout = (): React.ReactElement => {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <AppContent />
+        <RootLayoutContent />
       </QueryClientProvider>
     </ErrorBoundary>
   );
 };
 
-export default Sentry.wrap(App);
+export default Sentry.wrap(RootLayout);

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import AppVersion from "@components/AppVersion";
 import ElevatedContainer from "@components/ElevatedContainer";
 import MyPressable from "@components/natives/MyPressable";
@@ -8,7 +8,6 @@ import HeaderTemplate from "@components/templates/HeaderTemplate";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
 import { useAuth } from "@stores/auth.store";
 import deleteAuthUser from "@queries/deleteAuthUser.query";
-import resetTo from "@utils/resetTo";
 import {
   ArrowRight,
   Envelope,
@@ -19,14 +18,14 @@ import {
 import React from "react";
 import { Alert, Linking, ScrollView, View } from "react-native";
 
-const Profile = () => {
-  const navigation = useNavigation();
+const Profile = (): React.ReactElement => {
+  const router = useRouter();
   const { isAdmin, signOut } = useAuth();
 
-  const signOutWithThen = () => {
+  const signOutWithThen = (): void => {
     signOut().then(() => {
       AsyncStorage.clear();
-      resetTo(navigation, "Loader");
+      router.replace("/");
     });
   };
 
@@ -38,11 +37,6 @@ const Profile = () => {
     }[];
   } = {
     general: [
-      // {
-      //   name: "Informations personnelles",
-      //   onPress: () => navigation.navigate("PersonalInformation"),
-      //   icon: User,
-      // },
       {
         name: "Contact",
         onPress: () => {
@@ -107,7 +101,7 @@ const Profile = () => {
     ],
     Légals: [
       {
-        name: "Conditions Générales d’Utilisation",
+        name: "Conditions Générales d'Utilisation",
         onPress: () =>
           Linking.openURL(
             "https://www.app-privacy-policy.com/live.php?token=6OzBGsMCtj9urGIPwSqNGyauvAU5cVlf",
@@ -127,7 +121,7 @@ const Profile = () => {
     list.general.push({
       name: "Abonnement",
       onPress: () => {
-        navigation.navigate("Subscription");
+        router.push("/subscription-modal");
       },
       icon: Money,
     });

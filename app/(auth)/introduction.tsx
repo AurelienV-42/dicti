@@ -1,13 +1,13 @@
 import LogoVectorized from "@assets/vectorized/LogoVectorized";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import ElevatedContainer from "@components/ElevatedContainer";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
 import { View } from "react-native";
 
-const Introduction = () => {
-  const navigation = useNavigation();
+const Introduction = (): React.ReactElement => {
+  const router = useRouter();
 
   return (
     <ScreenTemplate>
@@ -30,12 +30,12 @@ const Introduction = () => {
             type="secondary"
             className="border-0 px-0"
             txt={"J'ai déjà un compte"}
-            onPress={() => navigation.navigate("SignIn", { isSignIn: true })}
+            onPress={() => router.push("/(auth)/sign-in")}
           />
           <MyButton
             className="self-end"
             txt={"C'est parti !"}
-            onPress={() => navigation.navigate("FirstTest")}
+            onPress={() => router.push("/(auth)/first-test")}
           />
         </View>
       </ElevatedContainer>

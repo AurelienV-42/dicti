@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import DisplayCorrection from "@components/DisplayCorrection";
 import MyTextInput from "@components/inputs/MyTextInput";
 import MyButton from "@components/natives/MyButton";
@@ -30,9 +30,9 @@ const DictationTemplate = ({
   content,
   mp3File,
   onComplete,
-}: DictationTemplateProps) => {
+}: DictationTemplateProps): React.ReactElement => {
   useTracking();
-  const navigation = useNavigation();
+  const router = useRouter();
   const [isResultVisible, setIsResultVisible] = useState(false);
   const {
     state,
@@ -127,7 +127,7 @@ const DictationTemplate = ({
             onComplete();
             return;
           }
-          navigation.navigate("Loader");
+          router.replace("/");
         }}
       />
     </ScreenTemplate>

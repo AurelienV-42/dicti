@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import ElevatedContainer from "@components/ElevatedContainer";
 import DisplayLifes from "@components/gamification/DisplayLifes";
 import MyPressable from "@components/natives/MyPressable";
@@ -8,9 +8,9 @@ import { useAuth } from "@stores/auth.store";
 import { uppercaseFirstLetter } from "@utils/string";
 import { User } from "phosphor-react-native";
 import { View } from "react-native";
-import DisplayDictations from "@pages/dictation/DisplayDictations";
+import DisplayDictations from "@screens/dictation/DisplayDictations";
 
-const showNiceEmail = (email: string) => {
+const showNiceEmail = (email: string): string => {
   return email
     .split("@")[0]
     .split(".")
@@ -18,8 +18,8 @@ const showNiceEmail = (email: string) => {
     .join(" ");
 };
 
-const Home = () => {
-  const navigation = useNavigation();
+const Home = (): React.ReactElement => {
+  const router = useRouter();
   const { user } = useAuth();
 
   return (
@@ -34,7 +34,6 @@ const Home = () => {
               </MyText>
             )}
           </View>
-          {/* <BadgeLevel level={""} /> */}
         </View>
         <View className="flex-row items-center justify-center">
           <DisplayLifes />
@@ -42,7 +41,7 @@ const Home = () => {
           <MyPressable
             className="ml-2 bg-white shadow-md items-center justify-center rounded-full px-3 aspect-square"
             onPress={() => {
-              navigation.navigate("Profile");
+              router.push("/(app)/profile");
             }}
           >
             <User size={24} />

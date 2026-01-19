@@ -1,20 +1,19 @@
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import { getIsSubscribed } from "@utils/purchase";
-import resetTo from "@utils/resetTo";
 import { useEffect } from "react";
 import useAppState from "@hooks/useAppState";
 
-const useCheckSubscription = () => {
-  const navigation = useNavigation();
+const useCheckSubscription = (): void => {
+  const router = useRouter();
   const appState = useAppState();
 
   useEffect(() => {
     if (appState !== "active") return;
 
     getIsSubscribed().then((isSubscribed) => {
-      if (!isSubscribed) resetTo(navigation, "Loader");
+      if (!isSubscribed) router.replace("/");
     });
-  }, [appState, navigation]);
+  }, [appState, router]);
 };
 
 export default useCheckSubscription;

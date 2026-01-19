@@ -15,7 +15,7 @@ module.exports = function (api) {
             "@context": "./src/context/",
             "@hooks": "./src/hooks/",
             "@lib": "./src/lib/",
-            "@pages": "./src/pages/",
+            "@screens": "./src/screens/",
             "@queries": "./src/queries/",
             "@stores": "./src/stores/",
             "@appTypes": "./src/types/",

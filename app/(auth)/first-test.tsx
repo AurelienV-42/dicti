@@ -1,10 +1,10 @@
 import { ID_FIRST_TEST } from "@config/dictations";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import DictationTemplate from "@components/templates/DictationTemplate";
 import useDatabaseDictation from "@hooks/dictation/useDatabaseDictation";
 
-const FirstTest = () => {
-  const navigation = useNavigation();
+const FirstTest = (): React.ReactElement => {
+  const router = useRouter();
   const dictationID = ID_FIRST_TEST;
   const { dictation, mp3File } = useDatabaseDictation(dictationID);
 
@@ -14,7 +14,7 @@ const FirstTest = () => {
       title={dictation?.title}
       content={dictation?.content}
       mp3File={mp3File}
-      onComplete={() => navigation.navigate("SignUp", { isSignIn: false })}
+      onComplete={() => router.push("/(auth)/sign-up")}
     />
   );
 };

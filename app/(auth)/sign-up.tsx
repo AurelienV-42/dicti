@@ -1,33 +1,27 @@
 import { MAX_LENGTH_PASSWORD } from "@config/inputs";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import MyKeyboardAvoidingView from "@components/MyKeyboardAvoidingView";
 import EmailInput from "@components/inputs/EmailInput";
 import PasswordInput from "@components/inputs/PasswordInput";
 import MyButton from "@components/natives/MyButton";
-import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
 import HeaderTemplate from "@components/templates/HeaderTemplate";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
 import { useAuth } from "@stores/auth.store";
 import { useIsLoading } from "@stores/loading.store";
-import { RootStackParamList } from "@appTypes/navigation";
-import resetTo from "@utils/resetTo";
 import { emailChecker, passwordChecker } from "@utils/validation";
-import { ArrowRight } from "phosphor-react-native";
 import { useState } from "react";
 import { Keyboard, View } from "react-native";
 
-const SignInUp = () => {
-  const navigation = useNavigation();
-  const route = useRoute<RouteProp<RootStackParamList, "SignIn">>();
+const SignUp = (): React.ReactElement => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { setIsLoading } = useIsLoading();
-  const { isSignIn } = route.params;
   const auth = useAuth();
 
-  const complete = async () => {
+  const complete = async (): Promise<void> => {
     const cleanedEmail = email.trim();
     const resultEmail = emailChecker(cleanedEmail);
     const resultPassword = passwordChecker(password);
@@ -42,38 +36,16 @@ const SignInUp = () => {
     setIsLoading(true);
     Keyboard.dismiss();
 
-    if (isSignIn) {
-      auth
-        ?.signIn(cleanedEmail, password)
-        .then(() => resetTo(navigation, "Loader"))
-        .catch((err: Error) => console.warn("Sign In", err))
-        .finally(() => setIsLoading(false));
-      return;
-    }
     auth
       ?.signUp(cleanedEmail, password)
-      .then(() => resetTo(navigation, "Loader"))
+      .then(() => router.replace("/"))
       .catch((err: Error) => console.warn("Sign Up", err))
       .finally(() => setIsLoading(false));
   };
 
   return (
     <ScreenTemplate edges={["top", "bottom"]} padding className="pb-4">
-      <HeaderTemplate
-        rightComponent={
-          isSignIn && (
-            <MyPressable
-              className="flex-row items-center"
-              onPress={() => navigation.navigate("FirstTest")}
-            >
-              <MyText className="text-base text-dark mr-2">
-                {"Pas de compte"}
-              </MyText>
-              <ArrowRight />
-            </MyPressable>
-          )
-        }
-      />
+      <HeaderTemplate />
       <MyKeyboardAvoidingView className="justify-between flex-1">
         <>
           <View />
@@ -105,7 +77,7 @@ const SignInUp = () => {
           <View>
             <MyButton
               className="w-full"
-              txt={isSignIn ? "Se connecter" : "S'inscrire"}
+              txt={"S'inscrire"}
               onPress={complete}
               disabled={email.length < 2 || password.length < 2}
             />
@@ -116,4 +88,4 @@ const SignInUp = () => {
   );
 };
 
-export default SignInUp;
+export default SignUp;
