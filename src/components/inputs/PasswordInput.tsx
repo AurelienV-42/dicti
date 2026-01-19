@@ -1,4 +1,4 @@
-import { Eye, EyeClosed } from "phosphor-react-native";
+import { Eye, EyeOff } from "lucide-react-native";
 import { useState } from "react";
 import { TextInput, View } from "react-native";
 import MyPressable from "@components/natives/MyPressable";
@@ -9,7 +9,7 @@ interface TextInputTemplateProps extends React.ComponentProps<
 
 const PasswordInput = (props: TextInputTemplateProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const Icon = isPasswordVisible ? Eye : EyeClosed;
+  const Icon = isPasswordVisible ? Eye : EyeOff;
 
   return (
     <View

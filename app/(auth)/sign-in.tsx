@@ -11,7 +11,7 @@ import ScreenTemplate from "@components/templates/ScreenTemplate";
 import { useAuth } from "@stores/auth.store";
 import { useIsLoading } from "@stores/loading.store";
 import { emailChecker, passwordChecker } from "@utils/validation";
-import { ArrowRight } from "phosphor-react-native";
+import { ArrowRight } from "lucide-react-native";
 import { useState } from "react";
 import { Keyboard, View } from "react-native";
 

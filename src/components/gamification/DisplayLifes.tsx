@@ -1,7 +1,7 @@
 import { red } from "@config/colors";
 import { useAuth } from "@stores/auth.store";
 import { useLifes } from "@stores/lifes.store";
-import { Heart } from "phosphor-react-native";
+import { Heart } from "lucide-react-native";
 import { View } from "react-native";
 import MyPressable from "@components/natives/MyPressable";
 import MyText from "@components/natives/MyText";
@@ -37,7 +37,7 @@ const DisplayLifes = ({ variant = "normal" }: DisplayLifesProps) => {
       className={`flex-row items-center ${pressableStyle[variant]}`}
     >
       <View className="mr-1">
-        <Heart weight={"duotone"} color={red[300]} size={heartSize[variant]} />
+        <Heart fill={red[300]} color={red[300]} size={heartSize[variant]} />
       </View>
       <MyText className={`text-red-300 font-bold ${textStyle[variant]}`}>
         {lifes}

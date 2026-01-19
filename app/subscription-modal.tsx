@@ -13,7 +13,7 @@ import useAnalytics from "@hooks/useAnalytics";
 import useGetSubscriptions from "@hooks/useGetSubscriptions";
 import { hapticImpact } from "@utils/haptics";
 import { pay } from "@utils/purchase";
-import { Brain, LockOpen, X } from "phosphor-react-native";
+import { Brain, LockOpen, X } from "lucide-react-native";
 import { useState } from "react";
 import { ActivityIndicator, ScrollView, View } from "react-native";
 

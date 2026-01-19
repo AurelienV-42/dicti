@@ -1,4 +1,4 @@
-import { ArrowRight } from "phosphor-react-native";
+import { ArrowRight } from "lucide-react-native";
 import { ActivityIndicator, View } from "react-native";
 import DisplayLifes from "@components/gamification/DisplayLifes";
 import MyButton from "@components/natives/MyButton";

@@ -10,11 +10,11 @@ import { useAuth } from "@stores/auth.store";
 import deleteAuthUser from "@queries/deleteAuthUser.query";
 import {
   ArrowRight,
-  Envelope,
-  Money,
-  SignOut,
-  Trash,
-} from "phosphor-react-native";
+  Mail,
+  Banknote,
+  LogOut,
+  Trash2,
+} from "lucide-react-native";
 import React from "react";
 import { Alert, Linking, ScrollView, View } from "react-native";
 
@@ -42,7 +42,7 @@ const Profile = (): React.ReactElement => {
         onPress: () => {
           Linking.openURL("mailto:aurelienvpro@gmail.com");
         },
-        icon: Envelope,
+        icon: Mail,
       },
       {
         name: "Se déconnecter",
@@ -58,7 +58,7 @@ const Profile = (): React.ReactElement => {
             },
           ]);
         },
-        icon: SignOut,
+        icon: LogOut,
       },
       {
         name: "Supprimer mon compte",
@@ -96,7 +96,7 @@ const Profile = (): React.ReactElement => {
             ],
           );
         },
-        icon: Trash,
+        icon: Trash2,
       },
     ],
     Légals: [
@@ -123,7 +123,7 @@ const Profile = (): React.ReactElement => {
       onPress: () => {
         router.push("/subscription-modal");
       },
-      icon: Money,
+      icon: Banknote,
     });
   }
 

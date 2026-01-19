@@ -1,7 +1,7 @@
 import MyText from "@components/natives/MyText";
 import { supabase } from "@utils/supabase";
 import NetInfo from "@react-native-community/netinfo";
-import { WifiSlash, WarningCircle } from "phosphor-react-native";
+import { WifiOff, AlertCircle } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -49,7 +49,7 @@ export function ConnectivityBanners(): React.ReactNode {
         className="flex-row items-center justify-center gap-2 bg-red-500 px-4 py-2"
         style={{ paddingTop: insets.top }}
       >
-        <WifiSlash size={16} color="#fff" />
+        <WifiOff size={16} color="#fff" />
         <MyText className="text-sm font-medium text-white">
           Pas de connexion internet
         </MyText>
@@ -62,7 +62,7 @@ export function ConnectivityBanners(): React.ReactNode {
       className="flex-row items-center justify-center gap-2 bg-yellow-500 px-4 py-2"
       style={{ paddingTop: insets.top }}
     >
-      <WarningCircle size={16} color="#fff" />
+      <AlertCircle size={16} color="#fff" />
       <MyText className="text-sm font-medium text-white">
         Serveur indisponible
       </MyText>

@@ -6,7 +6,7 @@ import MyText from "@components/natives/MyText";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
 import { useAuth } from "@stores/auth.store";
 import { uppercaseFirstLetter } from "@utils/string";
-import { User } from "phosphor-react-native";
+import { User } from "lucide-react-native";
 import { View } from "react-native";
 import DisplayDictations from "@screens/dictation/DisplayDictations";
 

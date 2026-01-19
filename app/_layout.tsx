@@ -15,7 +15,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router";
-import { IconContext } from "phosphor-react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -64,28 +63,20 @@ const RootLayoutContent = (): React.ReactElement | null => {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <SafeAreaProvider>
         <ConnectivityBanners />
-        <IconContext.Provider
-          value={{
-            color: "black",
-            size: 24,
-            weight: "regular",
-          }}
-        >
-          <MyPostHogProvider>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="index" />
-              <Stack.Screen name="(auth)" />
-              <Stack.Screen name="(app)" />
-              <Stack.Screen
-                name="subscription-modal"
-                options={{ presentation: "modal" }}
-              />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-            <UpdateModal />
-          </MyPostHogProvider>
-          <LoaderModal />
-        </IconContext.Provider>
+        <MyPostHogProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(app)" />
+            <Stack.Screen
+              name="subscription-modal"
+              options={{ presentation: "modal" }}
+            />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <UpdateModal />
+        </MyPostHogProvider>
+        <LoaderModal />
       </SafeAreaProvider>
     </View>
   );

@@ -1,6 +1,6 @@
 import { dark } from "@config/colors";
 import { hapticImpact } from "@utils/haptics";
-import { Pause, Play } from "phosphor-react-native";
+import { Pause, Play } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -31,9 +31,9 @@ const AnimatedButton = ({
     >
       <View className="" />
       {animate ? (
-        <Pause size={32} weight="fill" color={dark} />
+        <Pause size={32} fill={dark} color={dark} />
       ) : (
-        <Play size={32} weight="fill" color={dark} />
+        <Play size={32} fill={dark} color={dark} />
       )}
       {/* <Animated.View
         className="bg-orange items-center justify-center"

@@ -1,6 +1,6 @@
 import { dark, white } from "@config/colors";
 import { useRouter } from "expo-router";
-import { ArrowLeft } from "phosphor-react-native";
+import { ArrowLeft } from "lucide-react-native";
 import MyPressable from "@components/natives/MyPressable";
 
 interface BackButtonProps {
