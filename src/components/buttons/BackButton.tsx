@@ -20,7 +20,11 @@ const BackButton = ({
   };
 
   return (
-    <MyPressable onPress={onPress} className={`${padding && "p-2"}`}>
+    <MyPressable
+      accessibilityLabel="Retour"
+      onPress={onPress}
+      className={`${padding && "p-2"}`}
+    >
       <ArrowLeft color={theme === "dark" ? dark : white} />
     </MyPressable>
   );

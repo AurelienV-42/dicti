@@ -39,7 +39,7 @@ const CartoonOpen: React.FC<CartoonOpenProps> = ({ children }) => {
         }
       },
     );
-  }, []);
+  }, [progress]);
 
   const circleRadius = useDerivedValue(() => {
     return progress.value * (CIRCLE_SIZE / 2);

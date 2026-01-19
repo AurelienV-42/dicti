@@ -58,7 +58,7 @@ const DisplayCorrection = ({
           const isError = !!item.errors;
 
           return (
-            <View className="self-start" key={index}>
+            <View className="self-start" key={`${item.correctWord}-${index}`}>
               {indexModalVisible === index && (
                 <ModalToDisplayErrors
                   goodWord={item.correctWord}
@@ -69,6 +69,11 @@ const DisplayCorrection = ({
                 />
               )}
               <MyPressable
+                accessibilityLabel={
+                  isError
+                    ? `${item.correctWord}, erreur, appuyez pour voir la correction`
+                    : item.correctWord
+                }
                 className={`z-0 rounded-full mr-1 mb-2 ${Platform.OS === "ios" && isError && "px-2 py-0.5 bg-red-200"}`}
                 onPress={() => showCorrection(index)}
                 disabled={!isError}

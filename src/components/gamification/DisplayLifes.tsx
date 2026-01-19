@@ -29,6 +29,9 @@ const DisplayLifes = ({ variant = "normal" }: DisplayLifesProps) => {
 
   return (
     <Container
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={`${lifes} vies restantes`}
       disabled={!isAdmin}
       onPress={() => resetLifes(isAdmin)}
       className={`flex-row items-center ${pressableStyle[variant]}`}

@@ -48,6 +48,7 @@ const MyButton = ({
 
   return (
     <MyPressable
+      accessibilityLabel={txt}
       className={`flex-row py-3.5 items-center justify-center px-5 rounded-2xl self-start
       ${template[type].container}  ${
         rightIcon && !isLoading && "justify-between"

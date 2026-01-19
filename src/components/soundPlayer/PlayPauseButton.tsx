@@ -16,6 +16,9 @@ const AnimatedButton = ({
 
   return (
     <Pressable
+      accessible
+      accessibilityRole="button"
+      accessibilityLabel={animate ? "Pause" : "Lecture"}
       className=""
       onPress={onPress}
       onPressIn={() => (pressed.value = true)}

@@ -8,9 +8,12 @@ const useGetSubscriptions = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchSubscriptions = async () => {
       getPackages()
         .then((packages) => {
+          if (!isMounted) return;
           if (!packages || packages.length === 0) {
             setError("Aucun abonnement disponible");
             setLoading(false);
@@ -19,15 +22,20 @@ const useGetSubscriptions = () => {
           setSubscriptions(packages);
         })
         .catch((error) => {
+          if (!isMounted) return;
           console.warn(error);
           setError(error.message);
         })
         .finally(() => {
-          setLoading(false);
+          if (isMounted) setLoading(false);
         });
     };
 
     fetchSubscriptions();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return { subscriptions, loading, error };

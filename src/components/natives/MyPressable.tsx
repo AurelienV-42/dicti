@@ -22,6 +22,8 @@ function MyPressable(props: MyPressableProps) {
 
   return (
     <Pressable
+      accessible
+      accessibilityRole="button"
       disabled={disabled || disabledFull || disabledNoMultipleClick}
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}

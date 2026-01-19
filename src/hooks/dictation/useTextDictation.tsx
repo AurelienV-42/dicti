@@ -25,18 +25,23 @@ const useTextDictation = (
       const gradeOn20 = Math.round(
         (20 * (correction.length - nbError)) / correction.length,
       );
-      if (user)
-        getGradeByUserId(user.id, dictationID).then((result) => {
-          updateGrade(
-            {
-              user_id: user.id,
-              dictation_id: dictationID,
-              grade: gradeOn20,
-              gradeOn20,
-            },
-            result.grade?.id,
-          );
-        });
+      if (user) {
+        getGradeByUserId(user.id, dictationID)
+          .then((result) => {
+            return updateGrade(
+              {
+                user_id: user.id,
+                dictation_id: dictationID,
+                grade: gradeOn20,
+                gradeOn20,
+              },
+              result.grade?.id,
+            );
+          })
+          .catch((error) => {
+            console.warn("Failed to save grade:", error);
+          });
+      }
 
       setGrade(gradeOn20.toString());
       setIsResultVisible(true);

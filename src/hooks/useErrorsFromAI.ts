@@ -57,7 +57,7 @@ const useErrorsFromAI = (
       .finally(() => {
         setIsLoading(false);
       });
-  }, [correctText, correction, indexModalVisible]);
+  }, [correctText, correction, indexModalVisible, userID]);
 
   return { errorsFromAI, isLoading, maxReached: false };
 };
