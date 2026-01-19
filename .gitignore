@@ -51,3 +51,5 @@ android/
 
 *.app
 *.tar.gz
+
+coverage
