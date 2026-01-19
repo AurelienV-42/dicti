@@ -1,3 +1,4 @@
+import "./global.css";
 import fonts from "@config/fonts";
 import { NavigationContainer } from "@react-navigation/native";
 import * as Sentry from "@sentry/react-native";

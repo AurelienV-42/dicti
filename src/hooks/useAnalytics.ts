@@ -4,7 +4,7 @@ const useAnalytics = () => {
   const posthog = usePostHog();
 
   const identify = (userID: string, email?: string) => {
-    posthog.identify(userID, { email });
+    posthog.identify(userID, email ? { email } : undefined);
   };
 
   const capture = (

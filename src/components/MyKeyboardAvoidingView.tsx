@@ -7,8 +7,9 @@ import {
   View,
 } from "react-native";
 
-interface MyKeyboardAvoidingViewProps
-  extends ComponentProps<typeof KeyboardAvoidingView> {
+interface MyKeyboardAvoidingViewProps extends ComponentProps<
+  typeof KeyboardAvoidingView
+> {
   children: ReactNode;
 }
 

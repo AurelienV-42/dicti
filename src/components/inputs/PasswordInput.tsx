@@ -3,8 +3,9 @@ import { useState } from "react";
 import { TextInput, View } from "react-native";
 import MyPressable from "../natives/MyPressable";
 
-interface TextInputTemplateProps
-  extends React.ComponentProps<typeof TextInput> {}
+interface TextInputTemplateProps extends React.ComponentProps<
+  typeof TextInput
+> {}
 
 const PasswordInput = (props: TextInputTemplateProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);

@@ -1,8 +1,9 @@
 import { MAX_LENGTH_EMAIL } from "@config/inputs";
 import { TextInput, View } from "react-native";
 
-interface TextInputTemplateProps
-  extends React.ComponentProps<typeof TextInput> {}
+interface TextInputTemplateProps extends React.ComponentProps<
+  typeof TextInput
+> {}
 
 const EmailInput = (props: TextInputTemplateProps) => {
   return (
