@@ -1,7 +1,6 @@
 import { dark, white } from "@config/colors";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft } from "phosphor-react-native";
-import React from "react";
 import MyPressable from "@components/natives/MyPressable";
 
 interface BackButtonProps {

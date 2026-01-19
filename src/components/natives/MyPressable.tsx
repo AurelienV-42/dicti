@@ -1,5 +1,5 @@
 import sleep from "@utils/sleep";
-import React, { ComponentProps, useState } from "react";
+import { ComponentProps, useState } from "react";
 import { GestureResponderEvent, Pressable } from "react-native";
 
 interface MyPressableProps extends ComponentProps<typeof Pressable> {

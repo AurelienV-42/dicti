@@ -1,7 +1,7 @@
 import { useLifes } from "@stores/lifes.store";
 import useErrorsFromAI from "@hooks/useErrorsFromAI";
 import { CorrectionItem } from "@utils/dictationString";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Alert, Platform, ScrollView, View } from "react-native";
 import ModalToDisplayErrors from "@components/modals/ModalToDisplayErrors";
 import SubscriptionModal from "@components/modals/SubscriptionModal";

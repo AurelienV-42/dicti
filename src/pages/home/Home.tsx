@@ -7,7 +7,6 @@ import ScreenTemplate from "@components/templates/ScreenTemplate";
 import { useAuth } from "@stores/auth.store";
 import { uppercaseFirstLetter } from "@utils/string";
 import { User } from "phosphor-react-native";
-import React from "react";
 import { View } from "react-native";
 import DisplayDictations from "@pages/dictation/DisplayDictations";
 

@@ -14,7 +14,7 @@ import { RootStackParamList } from "@appTypes/navigation";
 import resetTo from "@utils/resetTo";
 import { emailChecker, passwordChecker } from "@utils/validation";
 import { ArrowRight } from "phosphor-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Keyboard, View } from "react-native";
 
 const SignInUp = () => {

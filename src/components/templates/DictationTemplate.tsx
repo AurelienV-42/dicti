@@ -8,7 +8,7 @@ import ScreenTemplate from "@components/templates/ScreenTemplate";
 import useTextDictation from "@hooks/dictation/useTextDictation";
 import useTracking from "@hooks/useTracking";
 import { hapticImpact } from "@utils/haptics";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 import BasicModal from "@components/modals/BasicModal";
 import MyText from "@components/natives/MyText";

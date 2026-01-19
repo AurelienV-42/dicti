@@ -4,7 +4,6 @@ import ElevatedContainer from "@components/ElevatedContainer";
 import MyButton from "@components/natives/MyButton";
 import MyText from "@components/natives/MyText";
 import ScreenTemplate from "@components/templates/ScreenTemplate";
-import React from "react";
 import { View } from "react-native";
 
 const Introduction = () => {

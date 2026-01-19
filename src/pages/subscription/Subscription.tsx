@@ -15,7 +15,7 @@ import { hapticImpact } from "@utils/haptics";
 import { pay } from "@utils/purchase";
 import resetTo from "@utils/resetTo";
 import { Brain, CaretLeft, LockOpen, X } from "phosphor-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { ActivityIndicator, ScrollView, View } from "react-native";
 
 const Advantages = () => {

@@ -4,6 +4,7 @@
     "jsx": "react-native",
     "jsxImportSource": "nativewind",
     "strict": true,
+    "noUnusedLocals": true,
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],

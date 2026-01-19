@@ -4,7 +4,6 @@ import Home from "@pages/home/Home";
 import Introduction from "@pages/introduction/Introduction";
 import FirstTest from "@pages/introduction/firstTest/FirstTest";
 import { RootStackParamList } from "@appTypes/navigation";
-import React from "react";
 import Dictation from "@pages/dictation/Dictation";
 import Profile from "@pages/profile/Profile";
 import Subscription from "@pages/subscription/Subscription";
