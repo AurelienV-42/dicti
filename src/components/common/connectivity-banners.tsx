@@ -17,8 +17,8 @@ const EXPANDED_WIDTH = 164;
 const ANIMATION_DURATION = 300;
 
 const COLORS = {
-  red: "rgba(239, 68, 68, 0.8)",
-  yellow: "rgba(234, 179, 8, 0.8)",
+  red: "rgba(239, 68, 68, 1)",
+  yellow: "rgba(234, 179, 8, 1)",
 } as const;
 
 interface ConnectivityPillProps {
